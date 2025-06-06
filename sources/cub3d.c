@@ -1,11 +1,8 @@
-
 #include "headers/cub3d.h"
 
-int	init_mlx(t_mlx_data *data, int argc, char *cub)
+int	init_mlx(t_mlx_data *data, int argc)
 {
 	if (argc != 2)
-		return (1);
-	if (!ft_strnstr(cub, ".cub", ft_strlen(cub)))
 		return (1);
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
@@ -24,6 +21,12 @@ int	main(int argc, char **argv)
 {
 	t_mlx_data	data;
 
-	init_mlx(&data, argc, argv[1]);
-	return (0);
+	if (init_mlx(&data, argc))
+		return (1);
+	if (map_parsing(argv, argc) == -1)
+	{
+		free(data.mlx);
+		free(data.win);
+		return (1);
+	}
 }

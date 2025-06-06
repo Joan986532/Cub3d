@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_ismaj.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jnauroy <marvin@d42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 17:21:10 by jnauroy           #+#    #+#             */
-/*   Updated: 2024/10/25 11:14:55 by jnauroy          ###   ########.fr       */
+/*   Created: 2025/06/06 10:47:52 by jnauroy           #+#    #+#             */
+/*   Updated: 2025/06/06 10:47:52 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_ismaj(int c)
 {
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	return (NULL);
+	return (c >= 65 && c <= 90)
 }

@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 18:12:43 by jnauroy           #+#    #+#             */
-/*   Updated: 2024/10/14 18:40:03 by jnauroy          ###   ########.fr       */
+/*   Created: 2024/11/15 14:41:19 by jnauroy           #+#    #+#             */
+/*   Updated: 2024/11/15 18:52:15 by jnauroy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	int		j;
-	size_t	len;
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-	len = ft_strlen(s2) + ft_strlen(s1);
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	len = 0;
-	while (s1 && s1[len])
-	{
-		str[len] = s1[len];
-		len++;
-	}
-	j = 0;
-	while (s2 && s2[j])
-	{
-		str[len++] = s2[j];
-		j++;
-	}
-	str[len] = '\0';
-	return (str);
-}
+# include "headers/cub3d.h"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+char	*get_next_line(int fd);
+char	*ft_write_right(char *buffer);
+char	*ft_write_left(char *string);
+int		ft_free(char *buffer, char *temp, char *string, char *sentence);
+char	*ft_read_buffer(int fd, char *buffer, char *string);
+
+#endif
