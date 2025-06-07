@@ -20,10 +20,14 @@ int	init_mlx(t_mlx_data *data, int argc)
 int	main(int argc, char **argv)
 {
 	t_mlx_data	data;
+	t_datamap 	map;
+	t_global	global;
 
+	map.global = &global;
+	global.error = 0;
 	if (init_mlx(&data, argc))
 		return (1);
-	if (map_parsing(argv, argc) == -1)
+	if (map_parsing(argv, argc, &map) == -1)
 	{
 		free(data.mlx);
 		free(data.win);

@@ -43,9 +43,8 @@ typedef struct s_datamap
 	char		*south_t;
 	char		*east_t;
 	char		*west_t;
-	char		*floor_c;
-	char		*ceiling_c;
-	char		*sky_c;
+	int			floor;
+	int			ceiling;
 	t_global	*global;
 }			t_datamap;	
 
@@ -55,7 +54,9 @@ typedef struct s_mlx_data
 	void	*mlx;
 }			t_mlx_data;
 
-int	map_parsing(char **argv, int argc);
+/*	PARSING	*/
+int	map_parsing(char **argv, int argc, t_datamap *map);
 int	parsing_error(int code, t_global *global);
+int	iscolor(char *str, t_datamap *map);
 
 #endif

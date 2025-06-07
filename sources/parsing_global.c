@@ -1,39 +1,5 @@
 #include "headers/cub3d.h"
 
-//map
-int	map_parser(char *str, t_datamap *map)
-{
-	int	i;
-
-	i = 0;
-}
-
-//identifier
-int	iscolor(char *str, t_datamap *map)
-{
-	int				i;
-	unsigned char	nb;
-
-	i = 0;
-	nb = 0;
-	while (str[i])
-	{
-		while (ft_isdigit(str[i]))
-		{
-			if (nb > UCHAR_MAX / 10)
-				return (parsing_error(LIMITCOLOR, map->global));
-			nb *= 10;
-			if (nb > UCHAR_MAX + (str[i] - 48))
-				return (parsing_error(LIMITCOLOR, map->global));
-			nb += str[i] - 48;
-			i++;
-		}
-		if (str[i] != ',')
-			return (parsing_error(SYNTAX, map->global));
-		i++;
-	}
-}
-
 //identifier
 int	map_identifier(char *str, t_datamap *map)
 {
@@ -46,8 +12,8 @@ int	map_identifier(char *str, t_datamap *map)
 			i++;
 		if (i == 1)
 			iscolor(str, map);
-		else if (i == 2)
-			istexture(str, map);
+		// else if (i == 2)
+			// istexture(str, map);
 		else
 		{
 			return (parsing_error(SYNTAX, map->global));
@@ -76,7 +42,7 @@ int	parser_line(int fd, t_datamap *map)
 			if (map_identifier(&str[i], map) == -1)
 				break ;
 		if (ft_isbin(str[i]))
-			if (map_parser(&str[i], map) == -1)
+			// if (map_parser(&str[i], map) == -1)
 				break ;
 		if (str[i] != '\n' && str[i] != '\0')
 			break ;

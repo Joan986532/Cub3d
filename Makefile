@@ -9,7 +9,8 @@ LIBFT = $(LIBFT_PATH)/libft.a
 MINILIBX = $(MINILIBX_PATH)/libmlx_Linux.a
 
 SOURCES = $(SRC_DIR)/cub3d.c \
-		  $(SRC_DIR)/parsing.c \
+		  $(SRC_DIR)/parsing_global.c \
+		  $(SRC_DIR)/parsing_color.c \
 		  $(SRC_DIR)/errors.c \
 		  $(GNL_DIR)/get_next_line.c \
 
@@ -28,10 +29,6 @@ $(NAME): $(OBJECTS)
 	@make -C $(LIBFT_PATH)
 	@make -C $(MINILIBX_PATH) -j
 	cc $(CFLAGS) $(INCLUDE) $(OBJECTS) $(MINILIBX) $(LIBFT) -o $(NAME)
-
-$(OBJ_PATH)%.o: %.c
-	@mkdir -p $(dir $@)
-	@cc $(CFLAGS) $(INCS) -c $< -o $@;
 
 clean:
 	$(MAKE) -C $(MINILIBX_PATH) clean
