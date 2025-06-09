@@ -24,9 +24,9 @@ int	rgb_to_color(unsigned char r, unsigned char g, unsigned char b)
 	return (color);
 }
 
-int	convert_color(char *str, int *i, t_datamap *map)
+unsigned char	convert_color(char *str, int *i, t_datamap *map)
 {
-	int	nb;
+	unsigned char	nb;
 
 	nb = 0;
 	while (str[*i] && ft_isdigit(str[*i]))
@@ -34,14 +34,28 @@ int	convert_color(char *str, int *i, t_datamap *map)
 		if (nb > UCHAR_MAX / 10)
 			return (parsing_error(LIMITCOLOR, map->global));
 		nb *= 10;
-		if (nb > UCHAR_MAX + (str[*i] - 48))
+		if (nb > UCHAR_MAX - (str[*i] - 48))
 			return (parsing_error(LIMITCOLOR, map->global));
 		nb += str[*i] - 48;
 		(*i)++;
 	}
 	if (str[*i] == ',')
-		i++;
+		(*i)++;
 	return (nb);
+}
+
+int	iscolor_valid(char *str, t_datamap *map)
+{
+	int	i;
+
+	i = 0;
+	if (map->global->error == -1)
+		return (-1);
+	while (str[i] == ' ')
+		i++;
+	if (str[i] != '\n' && str[i] != '\0')
+		return (parsing_error(SYNTAX, map->global));
+	return (0);
 }
 
 //identifier
@@ -53,15 +67,21 @@ int	iscolor(char *str, t_datamap *map)
 	int				i;
 	int				nb;
 
-	i = 0;
+	i = 1;
 	nb = 0;
-	while (!ft_isdigit(str[i]))
+	while (str[i] && str[i] == ' ')
 		i++;
+	if (i == 1)
+		return (parsing_error(SYNTAX, map->global));
 	r = convert_color(str, &i, map);
+	if (!ft_isdigit(str[i]))
+		return (parsing_error(SYNTAX, map->global));
 	g = convert_color(str, &i, map);
+	if (!ft_isdigit(str[i]))
+		return (parsing_error(SYNTAX, map->global));
 	b = convert_color(str, &i, map);
-	if (r < 0 || g < 0 || b < 0)
-		return (parsing_error(LIMITCOLOR, map->global));
+	if (iscolor_valid(&str[i], map) == -1)
+		return (-1);
 	nb = rgb_to_color(r, g, b);
 	choose_color_surface(nb, str[0], map);
 	return (0);

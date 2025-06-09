@@ -12,12 +12,14 @@
 # include "get_next_line/get_next_line.h"
 # include <math.h>
 
-# define S_LIMITCOLOR "color limit is 255\n"
-# define S_NOWHITESPACE "need at least one white space\n"
-# define S_SYNTAX "maximum two caps letter for identifier\n"
-# define S_EXTENSION "map extension is .cub\n"
-# define S_OPEN "map open failed\n"
-# define S_WRONGARGS "need arg map.cub\n"
+# define S_LIMITCOLOR "Color limit is 255\n"
+# define S_NOWHITESPACE "Need at least one white space\n"
+# define S_SYNTAX "Syntax error in map\n"
+# define S_EXTENSION "Need .cub extension\n"
+# define S_OPEN "Map open failed\n"
+# define S_WRONGARGS "Need map argument\n"
+# define S_ACCESS "Can't access texture\n"
+# define S_MALLOC "malloc fail\n"
 
 # define WIDTH	1920
 # define HEIGHT	1080
@@ -29,7 +31,9 @@ typedef enum s_error
 	SYNTAX,
 	EXTENSION,
 	OPEN,
-	WRONGARGS
+	WRONGARGS,
+	ACCESS,
+	MALLOC
 }	t_error;
 
 typedef struct s_global
@@ -55,8 +59,11 @@ typedef struct s_mlx_data
 }			t_mlx_data;
 
 /*	PARSING	*/
-int	map_parsing(char **argv, int argc, t_datamap *map);
-int	parsing_error(int code, t_global *global);
-int	iscolor(char *str, t_datamap *map);
+int		map_parsing(char **argv, int argc, t_datamap *map);
+int		parsing_error(int code, t_global *global);
+int		iscolor(char *str, t_datamap *map);
+int		istexture(char *str, t_datamap *map);
+void	clear_gnl(char *str, int fd);
+void	clear_textures(t_datamap *map);
 
 #endif

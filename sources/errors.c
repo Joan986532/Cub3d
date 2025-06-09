@@ -15,5 +15,9 @@ int	parsing_error(int code, t_global *global)
 		ft_putstr_fd(S_OPEN, 2);
 	if (code == WRONGARGS)
 		ft_putstr_fd(S_WRONGARGS, 2);
+	if (code == ACCESS)
+		ft_putstr_fd(S_ACCESS, 2);
+	if (code == MALLOC)
+		ft_putstr_fd(S_MALLOC, 2);
 	return (-1);
 }

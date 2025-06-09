@@ -6,21 +6,16 @@ int	map_identifier(char *str, t_datamap *map)
 	int	i;
 
 	i = 0;
-	while (str[i])
-	{
-		while (ft_ismaj(str[i]))
-			i++;
-		if (i == 1)
-			iscolor(str, map);
-		// else if (i == 2)
-			// istexture(str, map);
-		else
-		{
-			return (parsing_error(SYNTAX, map->global));
-		}
-		if (map->global->error == -1)
-			return (-1);
-	}
+	while (ft_ismaj(str[i]))
+		i++;
+	if (i == 1)
+		iscolor(str, map);
+	else if (i == 2)
+		istexture(str, map);
+	else
+		return (parsing_error(SYNTAX, map->global));
+	if (map->global->error == -1)
+		return (-1);
 	return (0);
 }
 
@@ -30,9 +25,9 @@ int	parser_line(int fd, t_datamap *map)
 	char	*str;
 	int		i;
 
-	i = 0;
 	while (1)
 	{
+		i = 0;
 		str = get_next_line(fd);
 		if (!str)
 			break ;
@@ -41,14 +36,13 @@ int	parser_line(int fd, t_datamap *map)
 		if (ft_ismaj(str[i]))
 			if (map_identifier(&str[i], map) == -1)
 				break ;
-		if (ft_isbin(str[i]))
+		// if (ft_isbin(str[i]))
 			// if (map_parser(&str[i], map) == -1)
-				break ;
-		if (str[i] != '\n' && str[i] != '\0')
-			break ;
+				// break ;
 		free(str);
 	}
-	free(str);
+	clear_gnl(str, fd);
+	close(fd);
 	if (map->global->error == -1)
 		return (-1);
 	return (0);
