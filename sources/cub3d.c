@@ -21,8 +21,8 @@ void	init_struct(t_datamap *map, t_global *global)
 	map->south_t = NULL;
 	map->east_t = NULL;
 	map->west_t = NULL;
-	map->floor = 0;
-	map->ceiling = 0;
+	map->floor = -1;
+	map->ceiling = -1;
 	map->global = global;
 	global->error = 0;
 }

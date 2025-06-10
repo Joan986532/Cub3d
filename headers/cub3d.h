@@ -13,6 +13,7 @@
 # include <math.h>
 
 # define S_LIMITCOLOR "Color limit is 255\n"
+# define S_WRONGCOLOR "Color is uninitialized\n"
 # define S_NOWHITESPACE "Need at least one white space\n"
 # define S_SYNTAX "Syntax error in map\n"
 # define S_EXTENSION "Need .cub extension\n"
@@ -20,6 +21,7 @@
 # define S_WRONGARGS "Need map argument\n"
 # define S_ACCESS "Can't access texture\n"
 # define S_MALLOC "malloc fail\n"
+# define S_WRONGTEXTURE "Texture is uninitialized\n"
 
 # define WIDTH	1920
 # define HEIGHT	1080
@@ -27,13 +29,15 @@
 typedef enum s_error
 {
 	LIMITCOLOR,
+	WRONGCOLOR,
 	NOWHITESPACE,
 	SYNTAX,
 	EXTENSION,
 	OPEN,
 	WRONGARGS,
 	ACCESS,
-	MALLOC
+	MALLOC,
+	WRONGTEXTURE
 }	t_error;
 
 typedef struct s_global

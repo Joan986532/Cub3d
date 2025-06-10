@@ -19,13 +19,6 @@ int	map_identifier(char *str, t_datamap *map)
 	return (0);
 }
 
-// int	wrong_syntax(char *str, t_datamap *map)
-// {
-	// int	i;
-// 
-	// i = 0;
-// }
-
 int	id_or_map(char *str, t_datamap *map)
 {
 	int	i;
@@ -42,9 +35,7 @@ int	id_or_map(char *str, t_datamap *map)
 		// break ;
 //	}
 	else if (str[i] != '\n' && str[i] != '\0')
-	{
-			return (parsing_error(SYNTAX, map->global));
-	}
+		return (parsing_error(SYNTAX, map->global));
 	return (0);
 }
 
@@ -76,6 +67,22 @@ int	parser_line(int fd, t_datamap *map)
 	return (0);
 }
 
+int	verify_struct(t_datamap *map)
+{
+	if (map->ceiling == -1 || map->floor == -1)
+	{
+		clear_textures(map);
+		return (parsing_error(WRONGCOLOR, map->global));
+	}
+	if (map->north_t == NULL || map->south_t == NULL
+		|| map->east_t == NULL || map->west_t == NULL)
+	{
+		clear_textures(map);
+		return (parsing_error(WRONGTEXTURE, map->global));
+	}
+	return (0);
+}
+
 int	map_parsing(char **argv, int argc, t_datamap *map)
 {
 	int	fd;
@@ -88,6 +95,8 @@ int	map_parsing(char **argv, int argc, t_datamap *map)
 	if (fd == -1)
 		return (parsing_error(OPEN, map->global));
 	if (parser_line(fd, map) == -1)
+		return (-1);
+	if (verify_struct(map) == -1)
 		return (-1);
 	return (0);
 }
