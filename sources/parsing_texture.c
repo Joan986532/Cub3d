@@ -36,29 +36,31 @@ int	remove_backn(char *str, t_datamap *map)
 	i = 0;
 	while (str[i] != ' ' && str[i] != '\n' && str[i] != '\0')
 		i++;
-	while (str[i] == ' ')
+	if (str[i] != '\0')
 	{
 		str[i] = '\0';
 		i++;
 	}
-	if (str[i] == '\n')
-		str[i] = '\0';
-	else if (str[i] != '\0')
+	while (str[i] != '\0' && str[i] != '\n')
 	{
-		return (parsing_error(SYNTAX, map->global));
+		if (str[i] != ' ')
+			return (parsing_error(SYNTAX, map->global));
+		i++;
 	}
 	return (0);
 }
 
 int	istexture_valid(char *str, t_datamap *map)
 {
-	if (remove_backn(&str[i + 2], map) == -1)
-		return (-1);
-	if (access(&str[i + 2], O_RDONLY) == -1)
+	if (str[0] == '.' && str[1] == '/' && str[2] != '/')
 	{
-		clear_textures(map);
-		return (parsing_error(ACCESS, map->global));
+		if (remove_backn(str, map) == -1)
+			return (-1);
+		if (access(str, O_RDONLY) == -1)
+			return (parsing_error(ACCESS, map->global));
 	}
+	else
+		return (parsing_error(SYNTAX, map->global));
 	return (0);
 }
 
@@ -69,18 +71,15 @@ int	istexture(char *str, t_datamap *map)
 
 	i = 2;
 	tmp = NULL;
-	while (str[i] && str[i] == ' ')
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 	if (i == 2)
 		return (parsing_error(SYNTAX, map->global));
 	if (str[i] != '.' && str[i + 1] != '/')
 		return (parsing_error(SYNTAX, map->global));
-	if (istexture_valid(&str[i + 2], map) == -1)
+	if (istexture_valid(&str[i], map) == -1)
 		return (-1);
 	if (choose_texture_surface(str[0], str[1], &str[i + 2], map) == -1)
-	{
-		clear_textures(map);
 		return (-1);
-	}
 	return (0);
 }

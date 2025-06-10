@@ -19,6 +19,35 @@ int	map_identifier(char *str, t_datamap *map)
 	return (0);
 }
 
+// int	wrong_syntax(char *str, t_datamap *map)
+// {
+	// int	i;
+// 
+	// i = 0;
+// }
+
+int	id_or_map(char *str, t_datamap *map)
+{
+	int	i;
+
+	i = 0;
+	if (ft_ismaj(str[i]))
+	{
+		if (map_identifier(&str[i], map) == -1)
+			return (-1);
+	}
+	// if (ft_isbin(str[i]))
+//	{
+		// if (map_parser(&str[i], map) == -1)
+		// break ;
+//	}
+	else if (str[i] != '\n' && str[i] != '\0')
+	{
+			return (parsing_error(SYNTAX, map->global));
+	}
+	return (0);
+}
+
 //global
 int	parser_line(int fd, t_datamap *map)
 {
@@ -31,24 +60,23 @@ int	parser_line(int fd, t_datamap *map)
 		str = get_next_line(fd);
 		if (!str)
 			break ;
-		while (str[i] == ' ')
+		while (str[i] == ' ' || str[i] == '\t')
 			i++;
-		if (ft_ismaj(str[i]))
-			if (map_identifier(&str[i], map) == -1)
-				break ;
-		// if (ft_isbin(str[i]))
-			// if (map_parser(&str[i], map) == -1)
-				// break ;
+		if (id_or_map(&str[i], map) == -1)
+			break ;
 		free(str);
 	}
 	clear_gnl(str, fd);
 	close(fd);
 	if (map->global->error == -1)
+	{
+		clear_textures(map);
 		return (-1);
+	}
 	return (0);
 }
 
-int map_parsing(char **argv, int argc, t_datamap *map)
+int	map_parsing(char **argv, int argc, t_datamap *map)
 {
 	int	fd;
 

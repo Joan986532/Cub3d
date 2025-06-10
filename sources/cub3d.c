@@ -1,9 +1,7 @@
 #include "headers/cub3d.h"
 
-int	init_mlx(t_mlx_data *data, int argc)
+int	init_mlx(t_mlx_data *data)
 {
-	if (argc != 2)
-		return (1);
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		return (1);
@@ -35,17 +33,10 @@ int	main(int argc, char **argv)
 	t_datamap	map;
 	t_global	global;
 
-	if (init_mlx(&data, argc))
-		return (1);
+	(void)data;
 	init_struct(&map, &global);
 	if (map_parsing(argv, argc, &map) == -1)
-	{
-		mlx_destroy_window(data.mlx, data.win);
-		mlx_destroy_display(data.mlx);
-		free(data.mlx);
-		// free(data.win);
 		return (1);
-	}
 	printf("F: %d\n", map.floor);
 	printf("C: %d\n", map.ceiling);
 	printf("NO: %s\n", map.north_t);
@@ -56,7 +47,9 @@ int	main(int argc, char **argv)
 	free(map.south_t);
 	free(map.east_t);
 	free(map.west_t);
-	mlx_destroy_window(data.mlx, data.win);
-	mlx_destroy_display(data.mlx);
-	free(data.mlx);
+	// if (init_mlx(&data))
+		// return (1);
+	// mlx_destroy_window(data.mlx, data.win);
+	// mlx_destroy_display(data.mlx);
+	// free(data.mlx);
 }

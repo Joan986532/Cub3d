@@ -51,7 +51,7 @@ int	iscolor_valid(char *str, t_datamap *map)
 	i = 0;
 	if (map->global->error == -1)
 		return (-1);
-	while (str[i] == ' ')
+	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	if (str[i] != '\n' && str[i] != '\0')
 		return (parsing_error(SYNTAX, map->global));
@@ -69,7 +69,7 @@ int	iscolor(char *str, t_datamap *map)
 
 	i = 1;
 	nb = 0;
-	while (str[i] && str[i] == ' ')
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 	if (i == 1)
 		return (parsing_error(SYNTAX, map->global));
