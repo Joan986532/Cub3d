@@ -47,6 +47,9 @@ typedef struct s_global
 
 typedef struct s_datamap
 {
+	int			**map;
+	int			width;
+	int			height;
 	char		*north_t;
 	char		*south_t;
 	char		*east_t;
