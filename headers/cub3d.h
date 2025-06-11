@@ -69,6 +69,7 @@ typedef struct s_player
 typedef struct s_datamap
 {
 	char		**map;
+	int			map_height;
 	char		*north_t;
 	char		*south_t;
 	char		*east_t;
@@ -95,7 +96,7 @@ void	clear_textures(t_datamap *map);
 void	ft_strtrime(char *str);
 int		parse_map(char *str, t_datamap *map, int fd);
 void	free_arr(char **arr);
-int		is_valid_map(char **map);
+int		is_valid_map(char **map, int map_height);
 
 /*	MINIMAP	*/
 int	minimap(t_mlx_data *data, t_datamap *map);

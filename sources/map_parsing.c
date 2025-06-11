@@ -51,12 +51,20 @@ void fill_map(t_list *linked_map, t_datamap *map)
 {
     t_list  *current;
     int     i;
+    int     j;
 
     current = linked_map;
     i = 0;
     while (current)
     {
         map->map[i] = (char *)current->content;
+        j = 0;
+        while (map->map[i][j])
+        {
+            if (map->map[i][j] == ' ' || map->map[i][j] == '\t')
+                map->map[i][j] = '1';
+            j++;
+        }
         current = current->next;
         i++;
     }
@@ -68,6 +76,7 @@ int parse_map(char *str, t_datamap *map, int fd)
 {
     t_list  *linked_map;
     int     i;
+    int     size;
 
     str = ft_strdup(str);
     i = 0;
@@ -79,12 +88,14 @@ int parse_map(char *str, t_datamap *map, int fd)
     linked_map = get_linked_map(fd, str);
     if (!linked_map)
         return (-1);
-    map->map = (char **)malloc(sizeof(char *) * (ft_lstsize(linked_map) + 1));
+    size = ft_lstsize(linked_map);
+    map->map = (char **)malloc(sizeof(char *) * (size + 1));
     if (!map->map)
     {
         ft_lstclear(&linked_map, free);
         return (-1);
     }
+    map->map_height = size;
     fill_map(linked_map, map);
     return (0);
 }
