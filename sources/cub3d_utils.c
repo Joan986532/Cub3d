@@ -12,6 +12,21 @@ void	clear_gnl(char *str, int fd)
 	free (str);
 }
 
+void	free_arr(char **arr)
+{
+	int	i;
+
+	if (!arr)
+		return ;
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
 void	ft_strtrime(char *str)
 {
 	int	i;

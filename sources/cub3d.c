@@ -17,6 +17,8 @@ int	init_mlx(t_mlx_data *data)
 
 void	init_struct(t_datamap *map, t_global *global)
 {
+	map->map = NULL;
+	map->map_height = 0;
 	map->north_t = NULL;
 	map->south_t = NULL;
 	map->east_t = NULL;
@@ -33,20 +35,19 @@ int	main(int argc, char **argv)
 	t_datamap	map;
 	t_global	global;
 
-	(void)argc;
-	(void)argv;
 	init_struct(&map, &global);
-	// if (parsing(argv, argc, &map) == -1)
-		// return (1);
-	// free(map.north_t);
-	// free(map.south_t);
-	// free(map.east_t);
-	// free(map.west_t);
+	if (parsing(argv, argc, &map) == -1)
+		return (1);
 	if (init_mlx(&data))
 		return (1);
 	minimap(&data, &map);
 	mlx_put_image_to_window(data.mlx, data.win, data.img.mlx_img, 0, 0);
 	mlx_loop(data.mlx);
+	free(map.north_t);
+	free(map.south_t);
+	free(map.east_t);
+	free(map.west_t);
+	free_arr(map.map);
 	mlx_destroy_window(data.mlx, data.win);
 	mlx_destroy_display(data.mlx);
 	free(data.mlx);
