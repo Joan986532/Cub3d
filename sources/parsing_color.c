@@ -1,4 +1,4 @@
-#include "headers/cub3d.h"
+#include "cub3d.h"
 
 int	choose_color_surface(int nb, char c, t_datamap *map)
 {

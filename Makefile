@@ -19,7 +19,7 @@ SOURCES = $(SRC_DIR)/cub3d.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 INCLUDE = -lm -lXext -lX11
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -I$(HEAD_DIR) -I$(LIBFT_PATH) -I$(GNL_DIR) -I$(MINILIBX_PATH)
 
 NAME = cub3D
 

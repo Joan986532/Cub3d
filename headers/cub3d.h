@@ -2,14 +2,14 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "libft/libft.h"
-# include "minilibx-linux/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <limits.h>
-# include "minilibx-linux/mlx_int.h"
-# include "get_next_line/get_next_line.h"
+# include "mlx_int.h"
+# include "get_next_line.h"
 # include <math.h>
 
 # define S_LIMITCOLOR "Color limit is 255\n"

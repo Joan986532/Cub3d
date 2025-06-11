@@ -1,4 +1,4 @@
-#include "headers/cub3d.h"
+#include "cub3d.h"
 
 int	init_mlx(t_mlx_data *data)
 {

@@ -1,4 +1,4 @@
-#include "headers/cub3d.h"
+#include "cub3d.h"
 
 int	choose_texture_surface(char c1, char c2, char *str, t_datamap *map)
 {

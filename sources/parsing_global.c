@@ -1,4 +1,4 @@
-#include "headers/cub3d.h"
+#include "cub3d.h"
 
 //identifier
 int	map_identifier(char *str, t_datamap *map)

@@ -1,4 +1,4 @@
-#include "headers/cub3d.h"
+#include "cub3d.h"
 
 void	clear_gnl(char *str, int fd)
 {

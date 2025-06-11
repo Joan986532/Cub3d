@@ -6,14 +6,14 @@
 /*   By: jnauroy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 14:41:19 by jnauroy           #+#    #+#             */
-/*   Updated: 2024/11/15 18:52:15 by jnauroy          ###   ########.fr       */
+/*   Updated: 2025/06/11 11:28:30 by npapashv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include "headers/cub3d.h"
+# include "cub3d.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10

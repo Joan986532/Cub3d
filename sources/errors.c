@@ -1,4 +1,4 @@
-#include "headers/cub3d.h"
+#include "cub3d.h"
 
 int	parsing_error(int code, t_global *global)
 {
