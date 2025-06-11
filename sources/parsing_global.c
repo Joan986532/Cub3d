@@ -26,7 +26,7 @@ int	id_or_map(char *str, char *trimmed, t_datamap *map, int fd)
 		if (map_identifier(trimmed, map) == -1)
 			return (-1);
 	}
-	if (ft_isbin(trimmed[0]))
+	else if (ft_isbin(trimmed[0]))
 	{
 		if (parse_map(str, map, fd) == -1)
 			return (-1);
