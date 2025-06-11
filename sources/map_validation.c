@@ -35,7 +35,7 @@ static int  is_cell_valid(char **map, int i, int j, int *spawn_found)
         return (-1);
     if (is_spawn(map[i][j]))
         (*spawn_found)++;
-    if (map[i][j] == '1')
+    if (map[i][j] == '1' || map[i][j] == ' ')
         return (0);
     if (!is_well_surrounded(map, i, j))
         return (-1);
