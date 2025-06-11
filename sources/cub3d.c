@@ -38,13 +38,16 @@ int	main(int argc, char **argv)
 	init_struct(&map, &global);
 	if (parsing(argv, argc, &map) == -1)
 		return (1);
+	if (init_mlx(&data))
+		return (1);
+	minimap(&data, &map);
+	mlx_put_image_to_window(data.mlx, data.win, data.img.mlx_img, 0, 0);
+	mlx_loop(data.mlx);
 	free(map.north_t);
 	free(map.south_t);
 	free(map.east_t);
 	free(map.west_t);
 	free_arr(map.map);
-	if (init_mlx(&data))
-		return (1);
 	mlx_destroy_window(data.mlx, data.win);
 	mlx_destroy_display(data.mlx);
 	free(data.mlx);
