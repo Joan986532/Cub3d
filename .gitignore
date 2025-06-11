@@ -1,4 +1,5 @@
 
 compile_commands.json
+cub3D
 *.o
 *.a
