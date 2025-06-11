@@ -21,20 +21,17 @@ int	map_identifier(char *str, t_datamap *map)
 
 int	id_or_map(char *str, t_datamap *map)
 {
-	int	i;
-
-	i = 0;
-	if (ft_ismaj(str[i]))
+	if (ft_ismaj(str[0]))
 	{
-		if (map_identifier(&str[i], map) == -1)
+		if (map_identifier(str, map) == -1)
 			return (-1);
 	}
-	// if (ft_isbin(str[i]))
-//	{
-		// if (map_parser(&str[i], map) == -1)
-		// break ;
-//	}
-	else if (str[i] != '\n' && str[i] != '\0')
+	if (ft_isbin(str[0]))
+	{
+		if (parse_map(str, map) == -1)
+			return (-1);
+	}
+	else if (str[0] != '\n' && str[0] != '\0')
 		return (parsing_error(SYNTAX, map->global));
 	return (0);
 }
@@ -43,17 +40,14 @@ int	id_or_map(char *str, t_datamap *map)
 int	parser_line(int fd, t_datamap *map)
 {
 	char	*str;
-	int		i;
 
 	while (1)
 	{
-		i = 0;
 		str = get_next_line(fd);
 		if (!str)
 			break ;
-		while (str[i] == ' ' || str[i] == '\t')
-			i++;
-		if (id_or_map(&str[i], map) == -1)
+		ft_strtrime(str);
+		if (id_or_map(str, map) == -1)
 			break ;
 		free(str);
 	}

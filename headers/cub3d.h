@@ -84,5 +84,7 @@ int		iscolor(char *str, t_datamap *map);
 int		istexture(char *str, t_datamap *map);
 void	clear_gnl(char *str, int fd);
 void	clear_textures(t_datamap *map);
+void	ft_strtrime(char *str);
+int		parse_map(char *str, t_datamap *map);
 
 #endif

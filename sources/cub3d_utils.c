@@ -12,7 +12,7 @@ void	clear_gnl(char *str, int fd)
 	free (str);
 }
 
-void	ft_strtrim(char *str)
+void	ft_strtrime(char *str)
 {
 	int	i;
 	int	j;

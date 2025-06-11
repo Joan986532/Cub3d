@@ -13,6 +13,7 @@ SOURCES = $(SRC_DIR)/cub3d.c \
 		  $(SRC_DIR)/parsing_global.c \
 		  $(SRC_DIR)/parsing_texture.c \
 		  $(SRC_DIR)/parsing_color.c \
+		  $(SRC_DIR)/map_parsing.c \
 		  $(SRC_DIR)/errors.c \
 		  $(GNL_DIR)/get_next_line.c \
 
