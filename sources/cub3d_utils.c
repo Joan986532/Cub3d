@@ -12,6 +12,23 @@ void	clear_gnl(char *str, int fd)
 	free (str);
 }
 
+void	ft_strtrim(char *str)
+{
+	int	i;
+	int	j;
+
+	if (!str)
+		return ;
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	j = ft_strlen(str) - 1;
+	while (j > i && (str[j] == ' ' || str[j] == '\t'))
+		j--;
+	ft_memmove(str, str + i, j - i + 1);
+	str[j - i + 1] = '\0';
+}
+
 void	clear_textures(t_datamap *map)
 {
 	if (map->north_t)
