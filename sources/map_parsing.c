@@ -47,6 +47,10 @@ t_list  *get_linked_map(int fd, char *str)
     }
     return (root);
 }
+int is_valid_map(char **map)
+{
+	
+}
 
 int parse_map(char *str, t_datamap *map, int fd)
 {

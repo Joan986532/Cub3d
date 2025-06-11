@@ -95,6 +95,7 @@ void	clear_textures(t_datamap *map);
 void	ft_strtrime(char *str);
 int		parse_map(char *str, t_datamap *map, int fd);
 void	free_arr(char **arr);
+int		is_valid_map(char **map);
 
 /*	MINIMAP	*/
 int	minimap(t_mlx_data *data, t_datamap *map);

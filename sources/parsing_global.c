@@ -77,6 +77,11 @@ int	verify_struct(t_datamap *map)
 		clear_textures(map);
 		return (parsing_error(WRONGTEXTURE, map->global));
 	}
+	if (is_valid_map(map->map) == -1)
+	{
+		clear_textures(map);
+		return (parsing_error(SYNTAX, map->global));
+	}
 	return (0);
 }
 
