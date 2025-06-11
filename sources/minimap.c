@@ -29,34 +29,24 @@ int	init_image(t_mlx_data *data)
 int	minimap(t_mlx_data *data, t_datamap *map)
 {
 	(void)map;
-	int	tab[8][8] = {
-		{1, 1, 1, 1, 1, 1, 1, 1}, 
-		{1, 0, 0, 0, 0, 0, 0, 1}, 
-		{1, 0, 0, 0, 0, 1, 0, 1}, 
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 1, 0, 0, 0, 1}, 
-		{1, 0, 1, 0, 0, 0, 0, 1}, 
-		{1, 0, 0, 0, 0, 0, 0, 1}, 
-		{1, 1, 1, 1, 1, 1, 1, 1}, 
-		};
 	int	size;
-	int	x;
-	int	y;
+	size_t	x;
+	size_t	y;
 	int	j;
 	int	i;
 
 	x = 0;
 	y = 0;
 	i = 0;
-	size = 30;
+	size = 10;
 
 	init_image(data);
-	while (x < 8)
+	while (map->map[y])
 	{
-		y = 0;
-		while (y < 8)
+		x = 0;
+		while (x < ft_strlen(map->map[y]))
 		{
-			if (tab[y][x] == 1)
+			if (map->map[y][x] == '1')
 			{
 				j = 0;
 				while (j < size)
@@ -70,9 +60,9 @@ int	minimap(t_mlx_data *data, t_datamap *map)
 					j++;
 				}
 			}
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 	}
 	return (0);
 }
