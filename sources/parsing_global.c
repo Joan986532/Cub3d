@@ -89,7 +89,7 @@ int	parsing(char **argv, int argc, t_datamap *map)
 
 	if (argc != 2)
 		return (parsing_error(WRONGARGS, map->global));
-	if (!ft_strnstr(argv[1], ".cub", ft_strlen(argv[1])))
+	if (!ft_strnstr(argv[1], ".cub", ft_strlen(argv[1]))) //TODO attention .cub.txt par exemple
 		return (parsing_error(EXTENSION, map->global));
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
