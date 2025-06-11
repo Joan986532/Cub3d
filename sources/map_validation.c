@@ -14,40 +14,38 @@ static int is_whitlisted_char(char c)
     return (0);
 }
 
-static int is_border(int x, int y, int height, int width)
+static int is_well_surrounded(char **map, int i, int j)
 {
-    if (x == 0 || x == height - 1 || y == 0 || y == width - 1)
-        return (1);
+    if (i == 0 || j == 0 || j == (int)ft_strlen(map[i]) - 1 || !map[i + 1])
+        return (-1);
+    if (map[i][j - 1] == ' ' || map[i][j + 1] == ' ')
+        return (-1);
+    if (map[i + 1][j] == ' ' || map[i - 1][j] == ' ')
+        return (-1);
+    if (map[i - 1][j - 1] == ' ' || map[i - 1][j + 1] == ' ')
+        return (-1);
+    if (map[i + 1][j - 1] == ' ' || map[i + 1][j + 1] == ' ')
+        return (-1);
     return (0);
 }
 
-
-static int  is_valid_line(char *line, int i, int *spawn_found, int map_height)
+static int  is_cell_valid(char **map, int i, int j, int *spawn_found)
 {
-    int j;
-
-    j = 0;
-    while (line[j])
-    {
-        if (is_whitlisted_char(line[j]))
-        {
-            if (*spawn_found && is_spawn(line[j]))
-                return (-1);
-            if (is_spawn(line[j]))
-                *spawn_found = 1;
-            if (is_border(i, j, map_height, ft_strlen(line)) && line[j] != '1')
-                return (-1);
-        }
-        else
-            return (-1);
-        j++;
-    }
+    if (!is_whitlisted_char(map[i][j]))
+        return (-1);
+    if (is_spawn(map[i][j]))
+        (*spawn_found)++;
+    if (map[i][j] == '1')
+        return (0);
+    if (!is_well_surrounded(map, i, j))
+        return (-1);
     return (0);
 }
 
-int is_valid_map(char **map, int map_height)
+int is_valid_map(char **map)
 {
     int i;
+    int j;
     int spawn_found;
 
 	if (!map)
@@ -56,9 +54,16 @@ int is_valid_map(char **map, int map_height)
     i = 0;
     while (map[i])
     {
-        if (is_valid_line(map[i], i, &spawn_found, map_height) == -1)
-            return (-1);
+        j = 0;
+        while (map[i][j])
+        {
+            if (is_cell_valid(map, i, j, &spawn_found) == -1)
+                return (-1);
+            j++;
+        }
         i++;
     }
+    if (spawn_found != 1)
+		return (-1);
 	return (0);
 }
