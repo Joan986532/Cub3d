@@ -1,5 +1,7 @@
 
 compile_commands.json
 cub3D
+*.out
+test.c
 *.o
 *.a
