@@ -83,7 +83,7 @@ int	verify_struct(t_datamap *map)
 	return (0);
 }
 
-int	map_parsing(char **argv, int argc, t_datamap *map)
+int	parsing(char **argv, int argc, t_datamap *map)
 {
 	int	fd;
 

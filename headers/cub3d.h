@@ -78,7 +78,7 @@ typedef struct s_mlx_data
 }			t_mlx_data;
 
 /*	PARSING	*/
-int		map_parsing(char **argv, int argc, t_datamap *map);
+int		parsing(char **argv, int argc, t_datamap *map);
 int		parsing_error(int code, t_global *global);
 int		iscolor(char *str, t_datamap *map);
 int		istexture(char *str, t_datamap *map);
