@@ -45,6 +45,18 @@ typedef struct s_global
 	int	error;
 }		t_global;
 
+typedef struct s_vector2D
+{
+	float	x;
+	float	y;
+}		t_vector2D;
+
+typedef struct s_player
+{
+	t_vector2D	pos;
+	t_vector2D	fwd;
+}		t_player;
+
 typedef struct s_datamap
 {
 	int			**map;
