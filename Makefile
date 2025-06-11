@@ -29,8 +29,9 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	@make -C $(LIBFT_PATH)
-	@make -C $(MINILIBX_PATH) -j
-	cc $(CFLAGS) $(INCLUDE) $(OBJECTS) $(MINILIBX) $(LIBFT) -o $(NAME)
+	@make -C $(MINILIBX_PATH)
+	cc $(CFLAGS) $(OBJECTS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)
+
 
 clean:
 	$(MAKE) -C $(MINILIBX_PATH) clean
