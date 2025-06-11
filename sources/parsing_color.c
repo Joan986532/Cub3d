@@ -2,9 +2,9 @@
 
 int	choose_color_surface(int nb, char c, t_datamap *map)
 {
-	if (c == 'C')
+	if (c == 'C' && map->ceiling == -1)
 		map->ceiling = nb;
-	else if (c == 'F')
+	else if (c == 'F' && map->floor == -1)
 		map->floor = nb;
 	else
 	{

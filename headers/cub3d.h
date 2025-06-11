@@ -40,6 +40,15 @@ typedef enum s_error
 	WRONGTEXTURE
 }	t_error;
 
+typedef struct s_mlx_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}			t_mlx_img;
+
 typedef struct s_global
 {
 	int	error;
@@ -73,8 +82,9 @@ typedef struct s_datamap
 
 typedef struct s_mlx_data
 {
-	void	*win;
-	void	*mlx;
+	void		*win;
+	void		*mlx;
+	t_mlx_img	img;
 }			t_mlx_data;
 
 /*	PARSING	*/
@@ -84,5 +94,8 @@ int		iscolor(char *str, t_datamap *map);
 int		istexture(char *str, t_datamap *map);
 void	clear_gnl(char *str, int fd);
 void	clear_textures(t_datamap *map);
+
+/*	MINIMAP	*/
+int	minimap(t_mlx_data *data, t_datamap *map);
 
 #endif
