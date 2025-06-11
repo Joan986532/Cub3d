@@ -51,20 +51,12 @@ void fill_map(t_list *linked_map, t_datamap *map)
 {
     t_list  *current;
     int     i;
-    int     j;
 
     current = linked_map;
     i = 0;
     while (current)
     {
         map->map[i] = (char *)current->content;
-        j = 0;
-        while (map->map[i][j])
-        {
-            if (map->map[i][j] == ' ' || map->map[i][j] == '\t')
-                map->map[i][j] = '1';
-            j++;
-        }
         current = current->next;
         i++;
     }
