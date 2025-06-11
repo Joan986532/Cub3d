@@ -67,10 +67,8 @@ int	istexture_valid(char *str, t_datamap *map)
 int	istexture(char *str, t_datamap *map)
 {
 	int		i;
-	char	*tmp;
 
 	i = 2;
-	tmp = NULL;
 	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 	if (i == 2)
