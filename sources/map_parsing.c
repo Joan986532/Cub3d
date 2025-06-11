@@ -26,7 +26,6 @@ t_list  *get_linked_map(int fd, char *str)
     t_list  *current;
     t_list  *new;
 
-    str[ft_strlen(str) - 1] = '\0';
     root = ft_lstnew(str);
     if (!root)
         return (NULL);
@@ -47,18 +46,34 @@ t_list  *get_linked_map(int fd, char *str)
     }
     return (root);
 }
-int is_valid_map(char **map)
+
+void fill_map(t_list *linked_map, t_datamap *map)
 {
-	
+    t_list  *current;
+    int     i;
+
+    current = linked_map;
+    i = 0;
+    while (current)
+    {
+        map->map[i] = (char *)current->content;
+        current = current->next;
+        i++;
+    }
+    map->map[i] = NULL;
+    ft_lstclear(&linked_map, dummy_del);
 }
 
 int parse_map(char *str, t_datamap *map, int fd)
 {
     t_list  *linked_map;
-    t_list  *current;
     int     i;
 
     str = ft_strdup(str);
+    i = 0;
+    while (str[i] != '\n' && str[i] != '\0')
+        i++;
+    str[i] = '\0';
     if  (map->map)
         return (parsing_error(SYNTAX, map->global));
     linked_map = get_linked_map(fd, str);
@@ -70,15 +85,6 @@ int parse_map(char *str, t_datamap *map, int fd)
         ft_lstclear(&linked_map, free);
         return (-1);
     }
-    current = linked_map;
-    i = 0;
-    while (current)
-    {
-        map->map[i] = (char *)current->content;
-        current = current->next;
-        i++;
-    }
-    map->map[i] = NULL;
-    ft_lstclear(&linked_map, dummy_del);
+    fill_map(linked_map, map);
     return (0);
 }
