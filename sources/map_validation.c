@@ -7,16 +7,16 @@ static int is_spawn(char c)
     return (0);
 }
 
-static int is_whitlisted_char(char c)
+static int is_spaces(char c)
 {
-    if (is_spawn(c) || c == '0' || c == '1' || is_spaces(c))
+    if (c == ' ' || c == '\t')
         return (1);
     return (0);
 }
 
-static int is_spaces(char c)
+static int is_whitlisted_char(char c)
 {
-    if (c == ' ' || c == '\t')
+    if (is_spawn(c) || c == '0' || c == '1' || is_spaces(c))
         return (1);
     return (0);
 }
