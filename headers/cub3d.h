@@ -71,12 +71,19 @@ typedef struct s_vector2D
 	float	y;
 }		t_vector2D;
 
+typedef struct s_vector3D
+{
+	float	x;
+	float	y;
+	float	z;
+}		t_vector3D;
+
 typedef struct s_player
 {
-	t_vector2D	pos;
-	t_vector2D	fwd;
-	int			spawn_x;
-	int			spawn_y;
+	t_vector3D	pos;
+	t_vector3D	fwd;
+	t_vector3D	spawn;
+	t_vector3D	spawn_fwd;
 }		t_player;
 
 typedef struct s_datamap
@@ -119,6 +126,7 @@ void	ft_strtrime(char *str);
 int		parse_map(char *str, t_datamap *map, int fd);
 void	free_arr(char **arr);
 int		is_valid_map(char **map);
+int		is_spawn(char c);
 
 /*	ERROR	*/
 int		parsing_error(int code, t_global *global);
