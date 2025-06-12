@@ -45,10 +45,10 @@ typedef enum s_error
 
 typedef enum e_tile
 {
-	VOID = -1,
-	FLOOR,
-	WALL,
-}
+	VOID = ' ',
+	FLOOR = '0',
+	WALL = '1',
+}	t_tile;
 
 typedef struct s_mlx_img
 {

@@ -1,10 +1,5 @@
 #include "cub3d.h"
 
-void	dummy_del(void *content)
-{
-	(void)content;
-}
-
 char    *get_next_line_no_nl(int fd)
 {
     char    *str;
@@ -47,28 +42,74 @@ t_list  *get_linked_map(int fd, char *str)
     return (root);
 }
 
+void    fill_line(char *line, char *str, int line_size)
+{
+    int     i;
+
+    i = 0;
+    while (i < line_size)
+    {
+        if (*str)
+        {
+            line[i] = *str;
+            ++str;
+        }
+        else
+            line[i] = ' ';
+        ++i;
+    }
+    line[i] = '\0';
+}
+
 void fill_map(t_list *linked_map, t_datamap *map)
 {
     t_list  *current;
     int     i;
 
-    current = linked_map;
     i = 0;
+    current = linked_map;
     while (current)
     {
-        map->map[i] = (char *)current->content;
+        map->map[i] = malloc(sizeof(char *) * (map->map_width + 1));
+        if (!map->map[i])
+            break;
+        fill_line(map->map[i], (char *)current->content, map->map_width);
         current = current->next;
         i++;
     }
-    map->map[i] = NULL;
-    ft_lstclear(&linked_map, dummy_del);
+
+    if (current)
+    {
+        free_arr(map->map);
+        map->map = NULL;
+    }
+    ft_lstclear(&linked_map, free);
+}
+
+void    set_map_dimensions(t_list *linked_map, t_datamap *map)
+{
+    int current_width;
+    int width;
+    int height;
+
+    width = 0;
+    height = 0;
+    while (linked_map)
+    {
+        current_width = ft_strlen((char *)linked_map->content);
+        if (current_width > width)
+            width = current_width;
+        ++height;
+        linked_map = linked_map->next;
+    }
+    map->map_width = width;
+    map->map_height = height;
 }
 
 int parse_map(char *str, t_datamap *map, int fd)
 {
     t_list  *linked_map;
     int     i;
-    int     size;
 
     str = ft_strdup(str);
     i = 0;
@@ -80,14 +121,14 @@ int parse_map(char *str, t_datamap *map, int fd)
     linked_map = get_linked_map(fd, str);
     if (!linked_map)
         return (-1);
-    size = ft_lstsize(linked_map);
-    map->map = (char **)malloc(sizeof(char *) * (size + 1));
+    set_map_dimensions(linked_map, map);
+    map->map = (char **)malloc(sizeof(char *) * (map->map_height + 1));
     if (!map->map)
     {
         ft_lstclear(&linked_map, free);
         return (-1);
     }
-    map->map_height = size;
+    map->map[map->map_height] = NULL;
     fill_map(linked_map, map);
     return (0);
 }
