@@ -43,6 +43,13 @@ typedef enum s_error
 	IMAGE
 }	t_error;
 
+typedef enum e_tile
+{
+	VOID,
+	FLOOR,
+	WALL,
+}
+
 typedef struct s_mlx_img
 {
 	void	*mlx_img;
