@@ -20,6 +20,7 @@ void	init_struct(t_datamap *map, t_global *global,
 {
 	map->map = NULL;
 	map->map_height = 0;
+	map->map_width = 0;
 	map->north_t = NULL;
 	map->south_t = NULL;
 	map->east_t = NULL;
