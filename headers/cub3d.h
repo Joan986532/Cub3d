@@ -45,7 +45,7 @@ typedef enum s_error
 
 typedef enum e_tile
 {
-	VOID,
+	VOID = -1,
 	FLOOR,
 	WALL,
 }
