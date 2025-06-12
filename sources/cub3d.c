@@ -29,8 +29,10 @@ void	init_struct(t_datamap *map, t_global *global,
 	map->ceiling = -1;
 	map->global = global;
 	map->size = 50;
-	player->spawn_x = 16;
-	player->spawn_y = 2;
+	player->pos = (t_vector3D){0, 0, 0};
+	player->fwd = (t_vector3D){1, 0, 0};
+	player->spawn = (t_vector3D){0, 0, 0};
+	player->spawn_fwd = (t_vector3D){01, 0, 0};
 	global->error = 0;
 	global->player = player;
 	global->map = map;
