@@ -83,6 +83,7 @@ typedef struct s_datamap
 {
 	char		**map;
 	int			map_height;
+	int			map_width;
 	char		*north_t;
 	char		*south_t;
 	char		*east_t;
