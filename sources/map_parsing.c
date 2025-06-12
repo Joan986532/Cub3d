@@ -42,36 +42,39 @@ t_list  *get_linked_map(int fd, char *str)
     return (root);
 }
 
-void    set_spawn(t_player *player, char c)
+void    set_spawn(t_player *player, char c, int i, int j)
 {
+    player->spawn = (t_vector3D){j, i, 0};
+    player->pos = player->spawn;
     if (c == 'N')
-        player->fwd = (t_vector3D){0, -1, 0};
+        player->spawn_fwd = (t_vector3D){0, -1, 0};
     else if (c == 'S')
-        player->fwd = (t_vector3D){0, 1, 0};
+        player->spawn_fwd = (t_vector3D){0, 1, 0};
     else if (c == 'E')
-        player->fwd = (t_vector3D){1, 0, 0};
+        player->spawn_fwd = (t_vector3D){1, 0, 0};
     else if (c == 'W')
-        player->fwd = (t_vector3D){-1, 0, 0};
+        player->spawn_fwd = (t_vector3D){-1, 0, 0};
+    player->fwd = player->spawn_fwd;
 }
 
-void    fill_line(char *line, char *str, int line_size, t_datamap *map)
+void    fill_line(t_datamap *map, int i, char *str)
 {
-    int     i;
+    int     j;
 
-    i = 0;
-    while (i < line_size)
+    j = 0;
+    while (j < map->map_width)
     {
-        line[i] = ' ';
+        map->map[i][j] = ' ';
         if (is_spawn(*str))
-            set_spawn(map->global->player, *str);
+            set_spawn(map->global->player, *str, i, j);
         if (*str)
         {
-            line[i] = *str;
+            map->map[i][j] = *str;
             ++str;
         }
-        ++i;
+        ++j;
     }
-    line[i] = '\0';
+    map->map[i][j] = '\0';
 }
 
 void fill_map(t_list *linked_map, t_datamap *map)
@@ -86,7 +89,7 @@ void fill_map(t_list *linked_map, t_datamap *map)
         map->map[i] = malloc(sizeof(char *) * (map->map_width + 1));
         if (!map->map[i])
             break;
-        fill_line(map->map[i], (char *)current->content, map->map_width, map);
+        fill_line(map, i, (char *)current->content);
         current = current->next;
         i++;
     }
