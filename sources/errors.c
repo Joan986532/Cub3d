@@ -25,3 +25,11 @@ int	parsing_error(int code, t_global *global)
 		ft_putstr_fd(S_WRONGTEXTURE, 2);
 	return (-1);
 }
+
+int	minimap_error(int code, t_global *global)
+{
+	global->error = -1;
+	if (code == IMAGE)
+		ft_putstr_fd(S_IMAGE, 2);
+	return (-1);
+}

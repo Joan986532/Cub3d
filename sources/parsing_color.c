@@ -29,6 +29,8 @@ unsigned char	convert_color(char *str, int *i, t_datamap *map)
 	unsigned char	nb;
 
 	nb = 0;
+	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t'))
+		(*i)++;
 	while (str[*i] && ft_isdigit(str[*i]))
 	{
 		if (nb > UCHAR_MAX / 10)
@@ -74,10 +76,10 @@ int	iscolor(char *str, t_datamap *map)
 	if (i == 1)
 		return (parsing_error(SYNTAX, map->global));
 	r = convert_color(str, &i, map);
-	if (!ft_isdigit(str[i]))
+	if (!ft_isdigit(str[i]) && str[i] != ' ' && str[i] != '\t')
 		return (parsing_error(SYNTAX, map->global));
 	g = convert_color(str, &i, map);
-	if (!ft_isdigit(str[i]))
+	if (!ft_isdigit(str[i]) && str[i] != ' ' && str[i] != '\t')
 		return (parsing_error(SYNTAX, map->global));
 	b = convert_color(str, &i, map);
 	if (iscolor_valid(&str[i], map) == -1)

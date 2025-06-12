@@ -1,65 +1,44 @@
 #include "cub3d.h"
 
-void	my_pixel_put(t_mlx_img *img, int x, int y, int color)
+void	print_tile(t_global *global, int x, int y, int color)
 {
-	char	*dst;
-
-	if (x < WIDTH && x >= 0 && y < HEIGHT && y >= 0)
-	{
-		dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-		*(unsigned int *)dst = color;
-	}
-}
-
-int	init_image(t_mlx_data *data)
-{
-	data->img.mlx_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	if (data->img.mlx_img == NULL)
-	{
-		free(data->img.mlx_img);
-		free(data->mlx);
-		free(data->win);
-		return (1);
-	}
-	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
-			&data->img.line_len, &data->img.endian);
-	return (0);
-}
-
-int	minimap(t_mlx_data *data, t_datamap *map)
-{
-	(void)map;
-	int	size;
-	size_t	x;
-	size_t	y;
-	int	j;
 	int	i;
+	int	j;
+	int	size;
+
+	j = 0;
+	size = global->map->size;
+	while (j < size - 1)
+	{
+		i = 0;
+		while (i < size - 1)
+		{
+			my_pixel_put(&global->data->img, x * size + j,
+				y * size + i, color);
+			i++;
+		}
+		j++;
+	}
+}
+
+int	minimap(t_mlx_data *data, t_global *global)
+{
+	int		x;
+	int		y;
 
 	x = 0;
 	y = 0;
-	i = 0;
-	size = 10;
-
-	init_image(data);
-	while (map->map[y])
+	if (init_image(data, global) == -1)
+		return (-1);
+	while (global->map->map[y])
 	{
 		x = 0;
-		while (x < ft_strlen(map->map[y]))
+		while (x < (int)ft_strlen(global->map->map[y]))
 		{
-			if (map->map[y][x] == '1')
-			{
-				j = 0;
-				while (j < size)
-				{
-					i = 0;
-					while (i < size)
-					{
-						my_pixel_put(&data->img, x * size + j, y * size + i, 99999999);
-						i++;
-					}
-					j++;
-				}
-			}
+			if (global->map->map[y][x] == '1')
+				print_tile(global, x, y, 7237230);
+			else
+				print_tile(global, x, y, 16777215);
 			x++;
 		}
 		y++;

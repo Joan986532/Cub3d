@@ -10,13 +10,16 @@ MINILIBX = $(MINILIBX_PATH)/libmlx_Linux.a
 
 SOURCES = $(SRC_DIR)/cub3d.c \
 		  $(SRC_DIR)/cub3d_utils.c \
+		  $(SRC_DIR)/drawing.c \
+		  $(SRC_DIR)/errors.c \
+		  $(SRC_DIR)/image_utils.c \
+		  $(SRC_DIR)/map_parsing.c \
+		  $(SRC_DIR)/map_validation.c \
+		  $(SRC_DIR)/minimap.c \
+		  $(SRC_DIR)/parsing_color.c \
 		  $(SRC_DIR)/parsing_global.c \
 		  $(SRC_DIR)/parsing_texture.c \
-		  $(SRC_DIR)/parsing_color.c \
-		  $(SRC_DIR)/map_parsing.c \
-		  $(SRC_DIR)/minimap.c \
-		  $(SRC_DIR)/map_validation.c \
-		  $(SRC_DIR)/errors.c \
+		  $(SRC_DIR)/player.c \
 		  $(GNL_DIR)/get_next_line.c \
 
 OBJECTS = $(SOURCES:.c=.o)

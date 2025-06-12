@@ -1,4 +1,3 @@
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -22,9 +21,12 @@
 # define S_ACCESS "Can't access texture\n"
 # define S_MALLOC "malloc fail\n"
 # define S_WRONGTEXTURE "Texture is uninitialized\n"
+# define S_IMAGE "mlx new image fail\n"
 
 # define WIDTH	1920
 # define HEIGHT	1080
+
+typedef struct s_global	t_global;
 
 typedef enum s_error
 {
@@ -37,7 +39,8 @@ typedef enum s_error
 	WRONGARGS,
 	ACCESS,
 	MALLOC,
-	WRONGTEXTURE
+	WRONGTEXTURE,
+	IMAGE
 }	t_error;
 
 typedef struct s_mlx_img
@@ -49,10 +52,11 @@ typedef struct s_mlx_img
 	int		endian;
 }			t_mlx_img;
 
-typedef struct s_global
+typedef struct s_point
 {
-	int	error;
-}		t_global;
+	int	x;
+	int	y;
+}		t_point;
 
 typedef struct s_vector2D
 {
@@ -64,6 +68,8 @@ typedef struct s_player
 {
 	t_vector2D	pos;
 	t_vector2D	fwd;
+	int			spawn_x;
+	int			spawn_y;
 }		t_player;
 
 typedef struct s_datamap
@@ -76,6 +82,7 @@ typedef struct s_datamap
 	char		*west_t;
 	int			floor;
 	int			ceiling;
+	int			size;
 	t_global	*global;
 }			t_datamap;	
 
@@ -86,9 +93,16 @@ typedef struct s_mlx_data
 	t_mlx_img	img;
 }			t_mlx_data;
 
+typedef struct s_global
+{
+	int			error;
+	t_player	*player;
+	t_datamap	*map;
+	t_mlx_data	*data;
+}		t_global;
+
 /*	PARSING	*/
 int		parsing(char **argv, int argc, t_datamap *map);
-int		parsing_error(int code, t_global *global);
 int		iscolor(char *str, t_datamap *map);
 int		istexture(char *str, t_datamap *map);
 void	clear_gnl(char *str, int fd);
@@ -98,7 +112,16 @@ int		parse_map(char *str, t_datamap *map, int fd);
 void	free_arr(char **arr);
 int		is_valid_map(char **map);
 
+/*	ERROR	*/
+int		parsing_error(int code, t_global *global);
+int		minimap_error(int code, t_global *global);
+
 /*	MINIMAP	*/
-int	minimap(t_mlx_data *data, t_datamap *map);
+int		minimap(t_mlx_data *data, t_global *global);
+int		drawing(t_mlx_data *data, t_global *global);
+
+/*	IMAGE	*/
+void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
+int		init_image(t_mlx_data *data, t_global *global);
 
 #endif
