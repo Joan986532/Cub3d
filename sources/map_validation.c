@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static int is_spawn(char c)
+int is_spawn(char c)
 {
     if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
         return (1);
