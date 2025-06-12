@@ -42,20 +42,33 @@ t_list  *get_linked_map(int fd, char *str)
     return (root);
 }
 
-void    fill_line(char *line, char *str, int line_size)
+void    set_spawn(t_player *player, char c)
+{
+    if (c == 'N')
+        player->fwd = (t_vector3D){0, -1, 0};
+    else if (c == 'S')
+        player->fwd = (t_vector3D){0, 1, 0};
+    else if (c == 'E')
+        player->fwd = (t_vector3D){1, 0, 0};
+    else if (c == 'W')
+        player->fwd = (t_vector3D){-1, 0, 0};
+}
+
+void    fill_line(char *line, char *str, int line_size, t_datamap *map)
 {
     int     i;
 
     i = 0;
     while (i < line_size)
     {
+        line[i] = ' ';
+        if (is_spawn(*str))
+            set_spawn(map->global->player, *str);
         if (*str)
         {
             line[i] = *str;
             ++str;
         }
-        else
-            line[i] = ' ';
         ++i;
     }
     line[i] = '\0';
@@ -73,7 +86,7 @@ void fill_map(t_list *linked_map, t_datamap *map)
         map->map[i] = malloc(sizeof(char *) * (map->map_width + 1));
         if (!map->map[i])
             break;
-        fill_line(map->map[i], (char *)current->content, map->map_width);
+        fill_line(map->map[i], (char *)current->content, map->map_width, map);
         current = current->next;
         i++;
     }
