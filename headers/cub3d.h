@@ -61,8 +61,16 @@ typedef struct s_mlx_img
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	error;
+	int	error2;
 }		t_point;
 
 typedef struct s_vector2D
@@ -98,7 +106,8 @@ typedef struct s_datamap
 	int			floor;
 	int			ceiling;
 	int			size;
-	t_global	*global;
+	int			error;
+	t_player	*player;
 }			t_datamap;	
 
 typedef struct s_mlx_data
@@ -129,12 +138,12 @@ int		is_valid_map(char **map);
 int		is_spawn(char c);
 
 /*	ERROR	*/
-int		parsing_error(int code, t_global *global);
+int		parsing_error(int code, t_datamap *map);
 int		minimap_error(int code, t_global *global);
 
 /*	MINIMAP	*/
 int		minimap(t_mlx_data *data, t_global *global);
-int		drawing(t_mlx_data *data, t_global *global);
+int		drawing(t_mlx_data *data, t_player *player);
 
 /*	IMAGE	*/
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);

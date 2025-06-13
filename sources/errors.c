@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-int	parsing_error(int code, t_global *global)
+int	parsing_error(int code, t_datamap *map)
 {
-	global->error = -1;
+	map->error = -1;
 	if (code == LIMITCOLOR)
 		ft_putstr_fd(S_LIMITCOLOR, 2);
 	if (code == WRONGCOLOR)

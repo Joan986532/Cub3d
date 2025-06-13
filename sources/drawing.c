@@ -1,22 +1,67 @@
 #include "cub3d.h"
 
-int	drawing(t_mlx_data *data, t_global *global)
+void	ft_init_bresenham(t_point *point)
 {
-	int		photons;
-	int		x;
-	int		y;
+	point->dx = abs(point->x2 - point->x1);
+	point->dy = abs(point->y2 - point->y1) * (-1);
+	if (point->x1 < point->x2)
+		point->sx = 1;
+	else
+		point->sx = -1;
+	if (point->y1 < point->y2)
+		point->sy = 1;
+	else
+		point->sy = -1;
+	point->error = point->dx + point->dy;
+}
 
-	(void)global;
-	photons = 0;
-	x = 826;
-	y = 126;
-	while (photons < 500)
+void	bresenham(t_point *point, t_mlx_img *img)
+{
+	ft_init_bresenham(point);
+	while (1)
 	{
-		my_pixel_put(&data->img, x, y, 16711680);
-		x *= sin(M_PI / 6);
-		y *= cos(M_PI / 6);
-		photons++;
+		my_pixel_put(img, point->x1, point->y1, 0xFF00FF);
+		if (point->x1 == point->x2 && point->y1 == point->y2)
+			break ;
+		point->error2 = 2 * point->error;
+		if (point->error2 >= point->dy)
+		{
+			if (point->x1 == point->x2)
+				break ;
+			point->error += point->dy;
+			point->x1 += point->sx;
+		}
+		if (point->error2 <= point->dx)
+		{
+			if (point->y1 == point->y2)
+				break ;
+			point->error += point->dx;
+			point->y1 += point->sy;
+		}
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
+}
+
+int	drawing(t_mlx_data *data, t_player *player)
+{
+	(void)player;
+	t_vector2D 	vector;
+	t_point		point;
+	int			i;
+	double		angle;
+
+	i = 0;
+	angle = 0;
+	while (i < 91)
+	{
+		angle = i * M_PI / 180;
+		point.x1 = 800;
+		point.y1 = 150;
+		vector.x = cosf(angle);
+		vector.y = sinf(angle);
+		point.x2 = point.x1 + vector.x * 1000;
+		point.y2 = point.y1 + vector.y * 1000;
+		bresenham(&point, &data->img);
+		i++;
+	}
 	return (0);
 }

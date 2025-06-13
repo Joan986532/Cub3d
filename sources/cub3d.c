@@ -27,8 +27,9 @@ void	init_struct(t_datamap *map, t_global *global,
 	map->west_t = NULL;
 	map->floor = -1;
 	map->ceiling = -1;
-	map->global = global;
 	map->size = 50;
+	map->error = 0;
+	map->player = player;
 	player->pos = (t_vector3D){0, 0, 0};
 	player->fwd = (t_vector3D){1, 0, 0};
 	player->spawn = (t_vector3D){0, 0, 0};
@@ -51,8 +52,10 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_mlx(&data))
 		return (1);
-	minimap(&data, &global);
-	drawing(&data, &global);
+	if (minimap(&data, &global) == -1)
+		return (-1);
+	drawing(&data, &player);
+	mlx_put_image_to_window(data.mlx, data.win, data.img.mlx_img, 0, 0);
 	mlx_loop(data.mlx);
 	free(map.north_t);
 	free(map.south_t);
