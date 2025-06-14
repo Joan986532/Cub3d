@@ -143,10 +143,14 @@ int		minimap_error(int code, t_global *global);
 
 /*	MINIMAP	*/
 int		minimap(t_mlx_data *data, t_global *global);
-int		drawing(t_mlx_data *data, t_player *player);
+int		drawing(t_global *global);
 
 /*	IMAGE	*/
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
 int		init_image(t_mlx_data *data, t_global *global);
+
+/*	CONTROLS	*/
+int		key_press(int keysym, t_global *global);
+int		close_window(void *data);
 
 #endif

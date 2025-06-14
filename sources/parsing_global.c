@@ -82,6 +82,8 @@ int	verify_struct(t_datamap *map)
 		clear_textures(map);
 		return (parsing_error(SYNTAX, map));
 	}
+	map->player->pos.x = map->player->spawn.x * map->size + map->size / 2;
+	map->player->pos.y = map->player->spawn.y * map->size + map->size / 2;
 	return (0);
 }
 

@@ -9,6 +9,7 @@ LIBFT = $(LIBFT_PATH)/libft.a
 MINILIBX = $(MINILIBX_PATH)/libmlx_Linux.a
 
 SOURCES = $(SRC_DIR)/cub3d.c \
+		  $(SRC_DIR)/controls.c \
 		  $(SRC_DIR)/cub3d_utils.c \
 		  $(SRC_DIR)/drawing.c \
 		  $(SRC_DIR)/errors.c \

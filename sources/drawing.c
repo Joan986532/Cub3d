@@ -41,9 +41,11 @@ void	bresenham(t_point *point, t_mlx_img *img)
 	}
 }
 
-int	drawing(t_mlx_data *data, t_player *player)
+/**
+ * coucou c'est moi
+ **/ // TODO
+int	drawing(t_global *global)
 {
-	(void)player;
 	t_vector2D 	vector;
 	t_point		point;
 	int			i;
@@ -51,16 +53,16 @@ int	drawing(t_mlx_data *data, t_player *player)
 
 	i = 0;
 	angle = 0;
-	while (i < 91)
+	while (i < 46)
 	{
-		angle = i * M_PI / 180;
-		point.x1 = 800;
-		point.y1 = 150;
+		point.x1 = global->player->pos.x;
+		point.y1 = global->player->pos.y;
 		vector.x = cosf(angle);
 		vector.y = sinf(angle);
-		point.x2 = point.x1 + vector.x * 1000;
-		point.y2 = point.y1 + vector.y * 1000;
-		bresenham(&point, &data->img);
+		point.x2 = point.x1 + vector.x * 750;
+		point.y2 = point.y1 + vector.y * 750;
+		bresenham(&point, &global->data->img);
+		angle += M_PI / 90;
 		i++;
 	}
 	return (0);
