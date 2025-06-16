@@ -20,7 +20,13 @@ int		close_window(void *data)
 int	key_press(int keysym, t_global *global)
 {
 	if (keysym == XK_w)
-		global->player->pos.x += 1;
+		global->player->pos.y -= 2;
+	if (keysym == XK_s)
+		global->player->pos.y += 2;
+	if (keysym == XK_a)
+		global->player->pos.x -= 2;
+	if (keysym == XK_d)
+		global->player->pos.x += 2;
 	if (keysym == XK_Escape)
 		close_window(global);
 	return (0);

@@ -11,17 +11,14 @@ void	my_pixel_put(t_mlx_img *img, int x, int y, int color)
 	}
 }
 
-int	init_image(t_mlx_data *data, t_global *global)
+int	init_image(t_mlx_img *img, void *mlx)
 {
-	data->img.mlx_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	if (data->img.mlx_img == NULL)
+	img->mlx_img = mlx_new_image(mlx, 1920, 1080);
+	if (img->mlx_img == NULL)
 	{
-		free(data->img.mlx_img);
-		free(data->mlx);
-		free(data->win);
-		return (minimap_error(IMAGE, global));
+		return (img_error(IMAGE, img));
 	}
-	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
-			&data->img.line_len, &data->img.endian);
+	img->addr = mlx_get_data_addr(img->mlx_img,
+			&img->bpp, &img->line_len, &img->endian);
 	return (0);
 }

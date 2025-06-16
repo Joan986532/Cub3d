@@ -26,9 +26,9 @@ int	parsing_error(int code, t_datamap *map)
 	return (-1);
 }
 
-int	minimap_error(int code, t_global *global)
+int	img_error(int code, t_mlx_img *img)
 {
-	global->error = -1;
+	img->error = -1;
 	if (code == IMAGE)
 		ft_putstr_fd(S_IMAGE, 2);
 	return (-1);

@@ -8,10 +8,10 @@ void	print_tile(t_global *global, int x, int y, int color)
 
 	j = 0;
 	size = global->map->size;
-	while (j < size - 1)
+	while (j < size)
 	{
 		i = 0;
-		while (i < size - 1)
+		while (i < size)
 		{
 			my_pixel_put(&global->data->img, x * size + j,
 				y * size + i, color);
@@ -28,8 +28,9 @@ int	minimap(t_mlx_data *data, t_global *global)
 
 	x = 0;
 	y = 0;
-	if (init_image(data, global) == -1)
-		return (-1);
+	(void)data;
+	// if (init_image(data, global) == -1)
+		// return (-1);
 	while (global->map->map[y])
 	{
 		x = 0;

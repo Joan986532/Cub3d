@@ -57,6 +57,7 @@ typedef struct s_mlx_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		error;
 }			t_mlx_img;
 
 typedef struct s_point
@@ -139,7 +140,7 @@ int		is_spawn(char c);
 
 /*	ERROR	*/
 int		parsing_error(int code, t_datamap *map);
-int		minimap_error(int code, t_global *global);
+int		img_error(int code, t_mlx_img *img);
 
 /*	MINIMAP	*/
 int		minimap(t_mlx_data *data, t_global *global);
@@ -147,7 +148,7 @@ int		drawing(t_global *global);
 
 /*	IMAGE	*/
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
-int		init_image(t_mlx_data *data, t_global *global);
+int		init_image(t_mlx_img *img, void *mlx);
 
 /*	CONTROLS	*/
 int		key_press(int keysym, t_global *global);
