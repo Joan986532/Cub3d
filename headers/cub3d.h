@@ -93,6 +93,8 @@ typedef struct s_player
 	t_vector3D	fwd;
 	t_vector3D	spawn;
 	t_vector3D	spawn_fwd;
+	t_vector3D	plane;
+	float		angle;
 }		t_player;
 
 typedef struct s_datamap
@@ -149,9 +151,13 @@ int		drawing(t_global *global);
 /*	IMAGE	*/
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
 int		init_image(t_mlx_img *img, void *mlx);
+void	bresenham(t_point *point, t_mlx_img *img);
 
 /*	CONTROLS	*/
 int		key_press(int keysym, t_global *global);
 int		close_window(void *data);
+
+/*	PLAYER	*/
+void	pov_player(t_mlx_data *data, t_player *player);
 
 #endif

@@ -47,14 +47,27 @@ void	set_spawn(t_player *player, char c, int i, int j)
 	player->spawn = (t_vector3D){j, i, 0};
 	player->pos = player->spawn;
 	if (c == 'N')
+	{
 		player->spawn_fwd = (t_vector3D){0, -1, 0};
+		player->plane = (t_vector3D){1, 0, 0};
+	}
 	else if (c == 'S')
+	{
 		player->spawn_fwd = (t_vector3D){0, 1, 0};
+		player->plane = (t_vector3D){-1, 0, 0};
+	}
 	else if (c == 'E')
+	{
 		player->spawn_fwd = (t_vector3D){1, 0, 0};
+		player->plane = (t_vector3D){0, 1, 0};
+	}
 	else if (c == 'W')
-	player->spawn_fwd = (t_vector3D){-1, 0, 0};
+	{
+		player->spawn_fwd = (t_vector3D){-1, 0, 0};
+		player->plane = (t_vector3D){0, -1, 0};
+	}
 	player->fwd = player->spawn_fwd;
+	player->angle = M_PI / 6;
 }
 
 void	fill_line(t_datamap *map, int i, char *str)

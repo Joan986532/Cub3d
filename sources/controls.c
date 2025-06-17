@@ -17,16 +17,44 @@ int		close_window(void *data)
 	exit(1);
 }
 
+void	rotate_antitrigo(t_player *player)
+{
+	float	x;
+
+	x = player->fwd.x;
+	player->fwd.x = player->fwd.x * cosf(player->angle)
+		- player->fwd.y * sinf(player->angle);
+	player->fwd.y = x * sinf(player->angle)
+		+ player->fwd.y * cosf(player->angle);
+}
+
+void	rotate_trigo(t_player *player)
+{
+	float	x;
+
+	x = player->fwd.x;
+	player->fwd.x = player->fwd.x * cosf(-player->angle)
+		- player->fwd.y * sinf(-player->angle);
+	player->fwd.y = x * sinf(-player->angle)
+		+ player->fwd.y * cosf(-player->angle);
+}
+
 int	key_press(int keysym, t_global *global)
 {
 	if (keysym == XK_w)
-		global->player->pos.y -= 2;
+	{
+		global->player->pos.x += global->player->fwd.x * 5;
+		global->player->pos.y += global->player->fwd.y * 5;
+	}
 	if (keysym == XK_s)
-		global->player->pos.y += 2;
+	{
+		global->player->pos.x -= global->player->fwd.x * 5;
+		global->player->pos.y -= global->player->fwd.y * 5;
+	}
 	if (keysym == XK_a)
-		global->player->pos.x -= 2;
+		rotate_trigo(global->player);
 	if (keysym == XK_d)
-		global->player->pos.x += 2;
+		rotate_antitrigo(global->player);
 	if (keysym == XK_Escape)
 		close_window(global);
 	return (0);

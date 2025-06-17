@@ -49,7 +49,7 @@ int	render_frame(void *info)
 	data = global->data;
 	if (minimap(data, global) == -1)
 		return (-1);
-	drawing(global);
+	pov_player(global->data, global->player);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
 	return (0);
 }
