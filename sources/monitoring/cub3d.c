@@ -45,6 +45,7 @@ int	render_frame(void *info)
 	t_global	*global;
 	t_mlx_data	*data;
 
+	printf("render_frame\n");
 	global = info;
 	data = global->data;
 	if (minimap(data, global) == -1)
