@@ -54,9 +54,8 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_image(&data.view, data.mlx) == -1)
 		return (1);
-	mlx_key_hook(data.win, key_press, &global)
-	if (mlx_loop_hook(data.mlx, render_frame, &global))
-		return (1);
+	mlx_key_hook(data.win, key_press, &global);
+	mlx_loop_hook(data.mlx, render_frame, &global);
 	mlx_hook(data.win, 17, 0, close_window, &global);
 	mlx_loop(data.mlx);
 }
