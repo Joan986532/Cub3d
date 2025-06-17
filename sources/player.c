@@ -8,5 +8,5 @@ void	pov_player(t_mlx_data *data, t_player *player)
 	point.y1 = player->pos.y;
 	point.x2 = point.x1 + player->fwd.x * 100;
 	point.y2 = point.y1 + player->fwd.y * 100;
-	bresenham(&point, &data->img);
+	bresenham(&point, &data->view);
 }

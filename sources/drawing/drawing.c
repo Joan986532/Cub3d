@@ -58,7 +58,7 @@ int	drawing(t_global *global)
 		vector.y = sinf(angle);
 		point.x2 = point.x1 + vector.x * 750;
 		point.y2 = point.y1 + vector.y * 750;
-		bresenham(&point, &global->data->img);
+		bresenham(&point, &global->data->view);
 		angle += 2 * M_PI / 1080;
 		i++;
 	}

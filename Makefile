@@ -21,7 +21,12 @@ SOURCES = $(SRC_DIR)/monitoring/cub3d.c \
 		  $(SRC_DIR)/parsing/parsing_global.c \
 		  $(SRC_DIR)/parsing/parsing_texture.c \
 		  $(SRC_DIR)/player.c \
+		  $(SRC_DIR)/render/render_frame.c \
+		  $(SRC_DIR)/drawing/draw_minimap.c \
+		  $(SRC_DIR)/drawing/draw_overlay.c \
+		  $(SRC_DIR)/drawing/draw_view.c \
 		  $(GNL_DIR)/get_next_line.c \
+
 
 OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(filter $(SRC_DIR)/%,$(SOURCES))) \
 		$(patsubst $(GNL_DIR)/%.c,$(OBJ_DIR)/%.o,$(filter $(GNL_DIR)/%,$(SOURCES)))

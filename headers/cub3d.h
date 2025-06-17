@@ -94,6 +94,8 @@ typedef struct s_player
 	t_vector3D	spawn;
 	t_vector3D	spawn_fwd;
 	t_vector3D	plane;
+	int			minimap_width;
+	int			minimap_height;
 	float		angle;
 }		t_player;
 
@@ -117,7 +119,7 @@ typedef struct s_mlx_data
 {
 	void		*win;
 	void		*mlx;
-	t_mlx_img	img;
+	t_mlx_img	view;
 	t_mlx_img	minimap;
 	t_mlx_img	overlay;
 }			t_mlx_data;
@@ -141,6 +143,14 @@ int		parse_map(char *str, t_datamap *map, int fd);
 void	free_arr(char **arr);
 int		is_valid_map(char **map);
 int		is_spawn(char c);
+
+/*	RENDER	*/
+int		render_frame(void *info);
+
+/*	DRAWING	*/
+int		draw_minimap(t_mlx_data *data, t_global *global, int width, int height);
+int		draw_view(t_mlx_data *data, t_global *global);
+int		draw_overlay(t_mlx_data *data, t_global *global);
 
 /*	ERROR	*/
 int		parsing_error(int code, t_datamap *map);

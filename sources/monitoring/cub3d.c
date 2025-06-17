@@ -40,21 +40,6 @@ void	init_struct(t_datamap *map, t_global *global,
 	global->data = data;
 }
 
-int	render_frame(void *info)
-{
-	t_global	*global;
-	t_mlx_data	*data;
-
-	printf("render_frame\n");
-	global = info;
-	data = global->data;
-	if (minimap(data, global) == -1)
-		return (-1);
-	pov_player(global->data, global->player);
-	mlx_put_image_to_window(data->mlx, data->win, data->img.mlx_img, 0, 0);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_mlx_data	data;
@@ -67,7 +52,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_mlx(&data))
 		return (1);
-	if (init_image(&data.img, data.mlx) == -1)
+	if (init_image(&data.view, data.mlx) == -1)
 		return (1);
 	if (mlx_key_hook(data.win, key_press, &global))
 		return (1);
