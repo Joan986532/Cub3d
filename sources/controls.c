@@ -11,8 +11,6 @@ int		close_window(void *data)
 	free(global->map->west_t);
 	free_arr(global->map->map);
 	mlx_destroy_image(global->data->mlx, global->data->view.mlx_img);
-	mlx_destroy_image(global->data->mlx, global->data->minimap.mlx_img);
-	mlx_destroy_image(global->data->mlx, global->data->overlay.mlx_img);
 	mlx_destroy_window(global->data->mlx, global->data->win);
 	mlx_destroy_display(global->data->mlx);
 	free(global->data->mlx);

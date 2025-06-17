@@ -120,8 +120,6 @@ typedef struct s_mlx_data
 	void		*win;
 	void		*mlx;
 	t_mlx_img	view;
-	t_mlx_img	minimap;
-	t_mlx_img	overlay;
 }			t_mlx_data;
 
 typedef struct s_global
@@ -148,7 +146,7 @@ int		is_spawn(char c);
 int		render_frame(void *info);
 
 /*	DRAWING	*/
-int		draw_minimap(t_mlx_data *data, t_global *global, int width, int height);
+int		draw_minimap(t_mlx_data *data, t_global *global);
 int		draw_view(t_mlx_data *data, t_global *global);
 int		draw_overlay(t_mlx_data *data, t_global *global);
 

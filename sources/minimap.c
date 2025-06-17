@@ -13,7 +13,7 @@ void	print_tile(t_global *global, int x, int y, int color)
 		i = 0;
 		while (i < size)
 		{
-			my_pixel_put(&global->data->minimap, x * size + j,
+			my_pixel_put(&global->data->view, x * size + j,
 				y * size + i, color);
 			i++;
 		}
