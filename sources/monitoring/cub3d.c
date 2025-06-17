@@ -9,7 +9,6 @@ int	init_mlx(t_mlx_data *data)
 	if (data->win == NULL)
 	{
 		free(data->mlx);
-		free(data->win);
 		return (1);
 	}
 	return (0);
