@@ -1,9 +1,9 @@
-
 SRC_DIR = sources
 GNL_DIR = get_next_line
 HEAD_DIR = headers
 LIBFT_PATH = libft
 MINILIBX_PATH = minilibx-linux
+OBJ_DIR = objects
 
 LIBFT = $(LIBFT_PATH)/libft.a
 MINILIBX = $(MINILIBX_PATH)/libmlx_Linux.a
@@ -24,6 +24,7 @@ SOURCES = $(SRC_DIR)/cub3d.c \
 		  $(GNL_DIR)/get_next_line.c \
 
 OBJECTS = $(SOURCES:.c=.o)
+OBJECTS := $(patsubst %.o,$(OBJ_DIR)/%.o,$(notdir $(OBJECTS)))
 
 INCLUDE = -lm -lXext -lX11
 CFLAGS = -g -Wall -Wextra -Werror -I$(HEAD_DIR) -I$(LIBFT_PATH) -I$(GNL_DIR) -I$(MINILIBX_PATH)
@@ -39,15 +40,24 @@ $(NAME): $(OBJECTS)
 	@make -C $(MINILIBX_PATH)
 	cc $(CFLAGS) $(OBJECTS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)
 
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(GNL_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
 clean:
 	$(MAKE) -C $(MINILIBX_PATH) clean
 	$(MAKE) -C $(LIBFT_PATH) clean
-	@rm -rf $(OBJ_PATH)
-	rm -f $(OBJECTS)
+	@rm -rf $(OBJ_DIR)
+
 fclean: clean
 	$(MAKE) -C $(LIBFT_PATH) fclean
 	rm -f $(NAME)
+
 re: fclean all
 
 .PHONY: clean fclean re all

@@ -118,6 +118,8 @@ typedef struct s_mlx_data
 	void		*win;
 	void		*mlx;
 	t_mlx_img	img;
+	t_mlx_img	minimap;
+	t_mlx_img	overlay;
 }			t_mlx_data;
 
 typedef struct s_global
