@@ -5,4 +5,5 @@ cub3D
 test.c
 *.o
 *.a
+*.swp
 test.cub
