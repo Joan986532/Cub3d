@@ -149,6 +149,7 @@ int		render_frame(void *info);
 int		draw_minimap(t_mlx_data *data, t_global *global);
 int		draw_view(t_mlx_data *data, t_global *global);
 int		draw_overlay(t_mlx_data *data, t_global *global);
+int		draw_sprite(t_mlx_data *data, t_global *global);
 
 /*	ERROR	*/
 int		parsing_error(int code, t_datamap *map);

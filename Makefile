@@ -25,6 +25,7 @@ SOURCES = $(SRC_DIR)/monitoring/cub3d.c \
 		  $(SRC_DIR)/drawing/draw_minimap.c \
 		  $(SRC_DIR)/drawing/draw_overlay.c \
 		  $(SRC_DIR)/drawing/draw_view.c \
+		  $(SRC_DIR)/drawing/draw_sprite.c \
 		  $(GNL_DIR)/get_next_line.c \
 
 
