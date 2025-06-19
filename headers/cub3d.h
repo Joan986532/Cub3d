@@ -87,6 +87,28 @@ typedef struct s_vector3D
 	float	z;
 }		t_vector3D;
 
+typedef struct s_rat
+{
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	int	mapX;
+	int	mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int	stepX;
+	int	stepY;
+	int	hit;
+	int	side;
+	int	lineHeight;
+	int	drawStart;
+	int	drawEnd;
+	int	color;
+}		t_rat;
+
 typedef struct s_player
 {
 	t_vector3D	pos;

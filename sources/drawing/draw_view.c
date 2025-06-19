@@ -29,139 +29,130 @@ void draw_stripe(int x, int y0, int y1, int color, t_mlx_data *data, t_global *g
 
 int		draw_view(t_mlx_data *data, t_global *global)
 {
+    t_rat ray;
+    
     for(int x = 0; x < WIDTH; x++)
     {
         //calculate ray position and direction
-        double cameraX = 2 * x / (double)WIDTH - 1; //x-coordinate in camera space
-        double rayDirX = global->player->fwd.x + global->player->plane.x * cameraX;
-        double rayDirY = global->player->fwd.y + global->player->plane.y * cameraX;
+        ray.cameraX = 2 * x / (double)WIDTH - 1; //x-coordinate in camera space
+        ray.rayDirX = global->player->fwd.x + global->player->plane.x * ray.cameraX;
+        ray.rayDirY = global->player->fwd.y + global->player->plane.y * ray.cameraX;
         
         //which box of the map we're in
-        int mapX = (int)global->player->pos.x;
-        int mapY = (int)global->player->pos.y;
-
-        //length of ray from current position to next x or y-side
-        double sideDistX;
-        double sideDistY;
+        ray.mapX = (int)global->player->pos.x;
+        ray.mapY = (int)global->player->pos.y;
 
         //length of ray from one x or y-side to next x or y-side
-        double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-        double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-        double perpWallDist;
+        ray.deltaDistX = (ray.rayDirX == 0) ? 1e30 : fabs(1 / ray.rayDirX);
+        ray.deltaDistY = (ray.rayDirY == 0) ? 1e30 : fabs(1 / ray.rayDirY);
 
-        //what direction to step in x or y-direction (either +1 or -1)
-        int stepX;
-        int stepY;
-
-        int hit = 0; //was there a wall hit?
-        int side; //was a NS or a EW wall hit?
+        ray.hit = 0; //was there a wall hit?
         
         //calculate step and initial sideDist
-        if (rayDirX < 0)
+        if (ray.rayDirX < 0)
         {
-            stepX = -1;
-            sideDistX = (global->player->pos.x - mapX) * deltaDistX;
+            ray.stepX = -1;
+            ray.sideDistX = (global->player->pos.x - ray.mapX) * ray.deltaDistX;
         }
         else
         {
-            stepX = 1;
-            sideDistX = (mapX + 1.0 - global->player->pos.x) * deltaDistX;
+            ray.stepX = 1;
+            ray.sideDistX = (ray.mapX + 1.0 - global->player->pos.x) * ray.deltaDistX;
         }
-        if (rayDirY < 0)
+        if (ray.rayDirY < 0)
         {
-            stepY = -1;
-            sideDistY = (global->player->pos.y - mapY) * deltaDistY;
+            ray.stepY = -1;
+            ray.sideDistY = (global->player->pos.y - ray.mapY) * ray.deltaDistY;
         }
         else
         {
-            stepY = 1;
-            sideDistY = (mapY + 1.0 - global->player->pos.y) * deltaDistY;
+            ray.stepY = 1;
+            ray.sideDistY = (ray.mapY + 1.0 - global->player->pos.y) * ray.deltaDistY;
         }
         
         //perform DDA
-        while (hit == 0)
+        while (ray.hit == 0)
         {
             //jump to next map square, either in x-direction, or in y-direction
-            if (sideDistX < sideDistY)
+            if (ray.sideDistX < ray.sideDistY)
             {
-                sideDistX += deltaDistX;
-                mapX += stepX;
-                side = 0;
+                ray.sideDistX += ray.deltaDistX;
+                ray.mapX += ray.stepX;
+                ray.side = 0;
             }
             else
             {
-                sideDistY += deltaDistY;
-                mapY += stepY;
-                side = 1;
+                ray.sideDistY += ray.deltaDistY;
+                ray.mapY += ray.stepY;
+                ray.side = 1;
             }
             
             // Check bounds to prevent segfault
-            if (mapY < 0 || mapX < 0 || mapY >= global->map->map_height || mapX >= global->map->map_width)
+            if (ray.mapY < 0 || ray.mapX < 0 || ray.mapY >= global->map->map_height || ray.mapX >= global->map->map_width)
             {
-                hit = 1; // Hit boundary of map
+                ray.hit = 1; // Hit boundary of map
                 continue;
             }
             
             //Check if ray has hit a wall (anything that's not a floor '0')
-            if (global->map->map[mapY][mapX] == '1' || 
-                global->map->map[mapY][mapX] == '2' || 
-                global->map->map[mapY][mapX] == '3' || 
-                global->map->map[mapY][mapX] == '4')
+            if (global->map->map[ray.mapY][ray.mapX] == '1' || 
+                global->map->map[ray.mapY][ray.mapX] == '2' || 
+                global->map->map[ray.mapY][ray.mapX] == '3' || 
+                global->map->map[ray.mapY][ray.mapX] == '4')
             {
-                hit = 1;
+                ray.hit = 1;
             }
         } 
         
         //Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
-        if(side == 0) 
-            perpWallDist = (sideDistX - deltaDistX);
+        if(ray.side == 0) 
+            ray.perpWallDist = (ray.sideDistX - ray.deltaDistX);
         else          
-            perpWallDist = (sideDistY - deltaDistY);
+            ray.perpWallDist = (ray.sideDistY - ray.deltaDistY);
         
         // Prevent division by zero or negative values
-        if (perpWallDist <= 0.1)
-            perpWallDist = 0.1;
+        if (ray.perpWallDist <= 0.1)
+            ray.perpWallDist = 0.1;
             
         //Calculate height of line to draw on screen
-        int lineHeight = (int)(HEIGHT / perpWallDist);
+        ray.lineHeight = (int)(HEIGHT / ray.perpWallDist);
 
         //calculate lowest and highest pixel to fill in current stripe
-        int drawStart = -lineHeight / 2 + HEIGHT / 2;
-        if(drawStart < 0) drawStart = 0;
-        int drawEnd = lineHeight / 2 + HEIGHT / 2;
-        if(drawEnd >= HEIGHT) drawEnd = HEIGHT - 1;
+        ray.drawStart = -ray.lineHeight / 2 + HEIGHT / 2;
+        if(ray.drawStart < 0) ray.drawStart = 0;
+        ray.drawEnd = ray.lineHeight / 2 + HEIGHT / 2;
+        if(ray.drawEnd >= HEIGHT) ray.drawEnd = HEIGHT - 1;
         
         //choose wall color - corrected RGB values
-        int color;
         // Check bounds to prevent segfault
-        if (mapY >= 0 && mapX >= 0 && mapY < global->map->map_height && mapX < global->map->map_width)
+        if (ray.mapY >= 0 && ray.mapX >= 0 && ray.mapY < global->map->map_height && ray.mapX < global->map->map_width)
         {
-            switch(global->map->map[mapY][mapX])
+            switch(global->map->map[ray.mapY][ray.mapX])
             {
-            case '1':  color = 0xFF0000;  break; // Red (0xFF0000)
-            case '2':  color = 0x00FF00;  break; // Green (0x00FF00)
-            case '3':  color = 0x0000FF;  break; // Blue (0x0000FF)
-            case '4':  color = 0xFFFFFF;  break; // White (0xFFFFFF)
-            default: color = 0xFFFF00; break; // Yellow (0xFFFF00)
+            case '1':  ray.color = 0xFF0000;  break; // Red (0xFF0000)
+            case '2':  ray.color = 0x00FF00;  break; // Green (0x00FF00)
+            case '3':  ray.color = 0x0000FF;  break; // Blue (0x0000FF)
+            case '4':  ray.color = 0xFFFFFF;  break; // White (0xFFFFFF)
+            default: ray.color = 0xFFFF00; break; // Yellow (0xFFFF00)
             }
 
             //give x and y sides different brightness
-            if (side == 1) 
+            if (ray.side == 1) 
             {
                 // Divide each RGB component separately to maintain color hue
-                int r = ((color >> 16) & 0xFF) / 2;
-                int g = ((color >> 8) & 0xFF) / 2;
-                int b = (color & 0xFF) / 2;
-                color = (r << 16) | (g << 8) | b;
+                int r = ((ray.color >> 16) & 0xFF) / 2;
+                int g = ((ray.color >> 8) & 0xFF) / 2;
+                int b = (ray.color & 0xFF) / 2;
+                ray.color = (r << 16) | (g << 8) | b;
             }
         }
         else
         {
-            color = 0x000000; // Black for out of bounds
+            ray.color = 0x000000; // Black for out of bounds
         }
 
         //draw the pixels of the stripe as a vertical line
-        draw_stripe(x, drawStart, drawEnd, color, data, global);
+        draw_stripe(x, ray.drawStart, ray.drawEnd, ray.color, data, global);
     }
 	return (0);
 }
