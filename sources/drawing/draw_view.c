@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void verLine(int x, int y0, int y1, int color, t_mlx_data *data, t_global *global)
+void draw_stripe(int x, int y0, int y1, int color, t_mlx_data *data, t_global *global)
 {
     int i;
     int start;
@@ -161,7 +161,7 @@ int		draw_view(t_mlx_data *data, t_global *global)
         }
 
         //draw the pixels of the stripe as a vertical line
-        verLine(x, drawStart, drawEnd, color, data, global);
+        draw_stripe(x, drawStart, drawEnd, color, data, global);
     }
 	return (0);
 }
