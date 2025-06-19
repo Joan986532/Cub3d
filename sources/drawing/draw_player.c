@@ -36,13 +36,13 @@ void	choose_direction(t_player *player)
 {
 	if (player->forwd == 1)
 	{
-		player->pos.x += player->fwd.x * 5;
-		player->pos.y += player->fwd.y * 5;
+		player->pos.x += player->fwd.x * 0.1;
+		player->pos.y += player->fwd.y * 0.1;
 	}
 	if (player->bckwd == 1)
 	{
-		player->pos.x -= player->fwd.x * 5;
-		player->pos.y -= player->fwd.y * 5;
+		player->pos.x -= player->fwd.x * 0.1;
+		player->pos.y -= player->fwd.y * 0.1;
 	}
 	if (player->trnleft)
 		rotate_trigo(player);
