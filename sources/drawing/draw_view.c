@@ -1,33 +1,39 @@
 #include "cub3d.h"
 
-void verLine(int x, int y0, int y1, int color, t_mlx_data *data)
+void verLine(int x, int y0, int y1, int color, t_mlx_data *data, t_global *global)
 {
+    int i;
+    int start;
+    int end;
+
     if (x < 0 || x >= WIDTH || y0 > y1)
         return;
-    
-    int start = (y0 < 0) ? 0 : y0;
-    int end = (y1 >= HEIGHT) ? HEIGHT - 1 : y1;
-    
-    for(int y = start; y <= end; y++)
+    if (y0 < 0)
+        y0 = 0;
+    if (y1 >= HEIGHT)
+        y1 = HEIGHT - 1;
+    start = y0;
+    end = y1;
+    i = 0;
+    while (i < start)
     {
-        my_pixel_put(&data->view, x, y, color);
+        my_pixel_put(&data->view, x, i, global->map->ceiling);
+        i++;
+    }
+    while (i <= end)
+    {
+        my_pixel_put(&data->view, x, i, color);
+        i++;
+    }
+    while (i < HEIGHT)
+    {
+        my_pixel_put(&data->view, x, i, global->map->floor);
+        i++;
     }
 }
 
 int		draw_view(t_mlx_data *data, t_global *global)
 {
-    // Draw ceiling and floor first
-    for(int y = 0; y < HEIGHT / 2; y++)
-    {
-        for(int x = 0; x < WIDTH; x++)
-        {
-            // Draw ceiling
-            my_pixel_put(&data->view, x, y, global->map->ceiling);
-            // Draw floor
-            my_pixel_put(&data->view, x, HEIGHT - 1 - y, global->map->floor);
-        }
-    }
-    
     for(int x = 0; x < WIDTH; x++)
     {
         //calculate ray position and direction
@@ -160,7 +166,7 @@ int		draw_view(t_mlx_data *data, t_global *global)
         }
 
         //draw the pixels of the stripe as a vertical line
-        verLine(x, drawStart, drawEnd, color, data);
+        verLine(x, drawStart, drawEnd, color, data, global);
     }
 	return (0);
 }
