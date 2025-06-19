@@ -30,7 +30,10 @@ static int  is_cell_valid(char **map, int i, int j, int *spawn_found)
 	if (!is_whitlisted_char(map[i][j]))
 		return (-1);
 	if (is_spawn(map[i][j]))
+	{
 		(*spawn_found)++;
+		map[i][j] = '0';
+	}
 	if (map[i][j] == '1' || map[i][j] == ' ')
 		return (0);
 	if (is_well_surrounded(map, i, j) == -1)
