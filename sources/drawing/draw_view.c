@@ -15,19 +15,14 @@ void verLine(int x, int y0, int y1, int color, t_mlx_data *data, t_global *globa
     start = y0;
     end = y1;
     i = 0;
-    while (i < start)
-    {
-        my_pixel_put(&data->view, x, i, global->map->ceiling);
-        i++;
-    }
-    while (i <= end)
-    {
-        my_pixel_put(&data->view, x, i, color);
-        i++;
-    }
     while (i < HEIGHT)
     {
-        my_pixel_put(&data->view, x, i, global->map->floor);
+        if (i < start)
+            my_pixel_put(&data->view, x, i, global->map->ceiling);
+        else if (i <= end)
+            my_pixel_put(&data->view, x, i, color);
+        else
+            my_pixel_put(&data->view, x, i, global->map->floor);
         i++;
     }
 }
