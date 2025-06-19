@@ -97,6 +97,10 @@ typedef struct s_player
 	int			minimap_width;
 	int			minimap_height;
 	float		angle;
+	int			forwd;
+	int			bckwd;
+	int			trnleft;
+	int			trnright;
 }		t_player;
 
 typedef struct s_datamap
@@ -125,6 +129,7 @@ typedef struct s_mlx_data
 typedef struct s_global
 {
 	int			error;
+	int			press;
 	t_player	*player;
 	t_datamap	*map;
 	t_mlx_data	*data;
@@ -146,7 +151,7 @@ int		is_spawn(char c);
 int		render_frame(void *info);
 
 /*	DRAWING	*/
-int		draw_minimap(t_mlx_data *data, t_global *global);
+int		draw_minimap(t_global *global);
 int		draw_view(t_mlx_data *data, t_global *global);
 int		draw_overlay(t_mlx_data *data, t_global *global);
 int		draw_sprite(t_mlx_data *data, t_global *global);
@@ -166,6 +171,7 @@ void	bresenham(t_point *point, t_mlx_img *img);
 
 /*	CONTROLS	*/
 int		key_press(int keysym, t_global *global);
+int		key_release(int keysym, t_global *global);
 int		close_window(void *data);
 
 /*	PLAYER	*/

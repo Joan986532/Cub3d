@@ -67,7 +67,7 @@ void	set_spawn(t_player *player, char c, int i, int j)
 		player->plane = (t_vector3D){0, -1, 0};
 	}
 	player->fwd = player->spawn_fwd;
-	player->angle = M_PI / 6;
+	player->angle = M_PI / 36;
 }
 
 void	fill_line(t_datamap *map, int i, char *str)

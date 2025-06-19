@@ -35,10 +35,15 @@ void	init_struct(t_datamap *map, t_global *global,
 	player->spawn_fwd = (t_vector3D){01, 0, 0};
 	player->minimap_width = 100;
 	player->minimap_height = 100;
+	player->bckwd = 0;
+	player->forwd = 0;
+	player->trnleft = 0;
+	player->trnright = 0;
 	global->error = 0;
 	global->player = player;
 	global->map = map;
 	global->data = data;
+	global->press = 0;
 }
 
 int	main(int argc, char **argv)
@@ -55,8 +60,9 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_image(&data.view, data.mlx) == -1)
 		return (1);
-	mlx_key_hook(data.win, key_press, &global);
+	mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &global);
+	mlx_hook(data.win, KeyRelease, KeyReleaseMask, &key_release, &global);
+	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &close_window, &global);
 	mlx_loop_hook(data.mlx, render_frame, &global);
-	mlx_hook(data.win, 17, 0, close_window, &global);
 	mlx_loop(data.mlx);
 }

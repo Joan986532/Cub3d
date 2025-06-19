@@ -40,27 +40,3 @@ void	bresenham(t_point *point, t_mlx_img *img)
 		}
 	}
 }
-
-int	drawing(t_global *global)
-{
-	t_vector2D 	vector;
-	t_point		point;
-	int			i;
-	double		angle;
-
-	i = 0;
-	angle = 0;
-	while (i < 1080)
-	{
-		point.x1 = global->player->pos.x;
-		point.y1 = global->player->pos.y;
-		vector.x = cosf(angle);
-		vector.y = sinf(angle);
-		point.x2 = point.x1 + vector.x * 750;
-		point.y2 = point.y1 + vector.y * 750;
-		bresenham(&point, &global->data->view);
-		angle += 2 * M_PI / 1080;
-		i++;
-	}
-	return (0);
-}
