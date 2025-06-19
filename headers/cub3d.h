@@ -94,6 +94,7 @@ typedef struct s_player
 	t_vector3D	spawn;
 	t_vector3D	spawn_fwd;
 	t_vector3D	plane;
+	int			max_render_distance;
 	int			minimap_width;
 	int			minimap_height;
 	float		angle;

@@ -35,6 +35,7 @@ void	init_struct(t_datamap *map, t_global *global,
 	player->spawn_fwd = (t_vector3D){01, 0, 0};
 	player->minimap_width = 100;
 	player->minimap_height = 100;
+	player->max_render_distance = 100;
 	player->bckwd = 0;
 	player->forwd = 0;
 	player->trnleft = 0;
