@@ -12,7 +12,7 @@ int	get_texture_color(t_texture *texture, int x, int y)
 	return (color);
 }
 
-static int	init_texture(t_texture *texture, void *mlx, char *path)
+static int	init_txt(t_texture *texture, void *mlx, char *path)
 {
 	int	width;
 	int	height;
@@ -31,17 +31,26 @@ static int	init_texture(t_texture *texture, void *mlx, char *path)
 
 int	load_textures(t_global *global)
 {
+	char	*n_path;
+	char	*s_path;
+	char	*e_path;
+	char	*w_path;
+
+	n_path = global->map->north_t;
+	s_path = global->map->south_t;
+	e_path = global->map->east_t;
+	w_path = global->map->west_t;
 	global->north_texture = malloc(sizeof(t_texture));
 	global->south_texture = malloc(sizeof(t_texture));
 	global->east_texture = malloc(sizeof(t_texture));
 	global->west_texture = malloc(sizeof(t_texture));
-	if (!global->north_texture || !global->south_texture || 
-		!global->east_texture || !global->west_texture)
+	if (!global->north_texture || !global->south_texture
+		|| !global->east_texture || !global->west_texture)
 		return (-1);
-	if (init_texture(global->north_texture, global->data->mlx, global->map->north_t) < 0 ||
-		init_texture(global->south_texture, global->data->mlx, global->map->south_t) < 0 ||
-		init_texture(global->east_texture, global->data->mlx, global->map->east_t) < 0 ||
-		init_texture(global->west_texture, global->data->mlx, global->map->west_t) < 0)
+	if (init_txt(global->north_texture, global->data->mlx, n_path)
+		|| init_txt(global->south_texture, global->data->mlx, s_path)
+		|| init_txt(global->east_texture, global->data->mlx, e_path)
+		|| init_txt(global->west_texture, global->data->mlx, w_path))
 		return (-1);
 	return (0);
 }

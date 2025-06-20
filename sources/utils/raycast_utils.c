@@ -46,31 +46,34 @@ void	calculate_step(t_rat *ray, t_player *player)
 	}
 }
 
+int	is_out_of_map_bound(t_rat *ray, t_global *global, int limit)
+{
+	return (ray->mapX < -limit || ray->mapX >= global->map->map_width + limit
+		|| ray->mapY < -limit || ray->mapY >= global->map->map_height + limit);
+}
+
 void	perform_dda(t_rat *ray, t_global *global)
 {
 	while (ray->hit == 0)
 	{
+		ray->side = ray->sideDistX >= ray->sideDistY;
 		if (ray->sideDistX < ray->sideDistY)
 		{
 			ray->sideDistX += ray->deltaDistX;
 			ray->mapX += ray->stepX;
-			ray->side = 0;
 		}
 		else
 		{
 			ray->sideDistY += ray->deltaDistY;
 			ray->mapY += ray->stepY;
-			ray->side = 1;
 		}
-		if (ray->mapX < -100 || ray->mapX > global->map->map_width + 100 ||
-			ray->mapY < -100 || ray->mapY > global->map->map_height + 100)
+		if (is_out_of_map_bound(ray, global, 100))
 		{
 			ray->hit = 1;
-			break;
+			break ;
 		}
-		if (ray->mapY < 0 || ray->mapX < 0 || ray->mapY >= global->map->map_height
-			|| ray->mapX >= global->map->map_width)
-			continue;
+		if (is_out_of_map_bound(ray, global, 0))
+			continue ;
 		if (global->map->map[ray->mapY][ray->mapX] == '1')
 			ray->hit = 1;
 	}
