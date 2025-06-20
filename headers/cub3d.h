@@ -149,6 +149,8 @@ typedef struct s_player
 	float		angle;
 	int			forwd;
 	int			bckwd;
+	int			left;
+	int			right;
 	int			trnleft;
 	int			trnright;
 }		t_player;
@@ -238,6 +240,9 @@ int		get_texture_color(t_texture *texture, int x, int y);
 /*	CONTROLS	*/
 int		key_press(int keysym, t_global *global);
 int		key_release(int keysym, t_global *global);
+int		mouse_moove(int x, int y, t_global *global);
+void	rotate_antitrigo(t_player *player, int x);
+void	rotate_trigo(t_player *player, int x);
 int		close_window(void *data);
 
 /*	PLAYER	*/

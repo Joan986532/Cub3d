@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	rotate_antitrigo(t_player *player)
+void	rotate_antitrigo(t_player *player, int factor)
 {
 	float	x;
 
@@ -16,7 +16,7 @@ void	rotate_antitrigo(t_player *player)
 		+ player->plane.y * cosf(player->angle);
 }
 
-void	rotate_trigo(t_player *player)
+void	rotate_trigo(t_player *player, int factor)
 {
 	float	x;
 
@@ -44,10 +44,16 @@ void	choose_direction(t_player *player)
 		player->pos.x -= player->fwd.x * 0.08;
 		player->pos.y -= player->fwd.y * 0.08;
 	}
-	if (player->trnleft)
-		rotate_trigo(player);
-	if (player->trnright)
-		rotate_antitrigo(player);
+	if (player->left)
+	{
+		player->pos.x -= player->plane.x * 0.1;
+		player->pos.y -= player->plane.y * 0.1;
+	}
+	if (player->right)
+	{
+		player->pos.x += player->plane.x * 0.1;
+		player->pos.y += player->plane.y * 0.1;
+	}
 }
 
 void	pov_player(t_mlx_data *data, t_player *player)

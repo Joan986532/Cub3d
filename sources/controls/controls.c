@@ -26,9 +26,9 @@ int	key_release(int keysym, t_global *global)
 	if (keysym == XK_s)
 		global->player->bckwd = 0;
 	if (keysym == XK_a)
-		global->player->trnleft = 0;
+		global->player->left = 0;
 	if (keysym == XK_d)
-		global->player->trnright = 0;
+		global->player->right = 0;
 	return (0);
 }
 
@@ -39,10 +39,23 @@ int	key_press(int keysym, t_global *global)
 	if (keysym == XK_s)
 		global->player->bckwd = 1;
 	if (keysym == XK_a)
-		global->player->trnleft = 1;
+		global->player->left = 1;
 	if (keysym == XK_d)
-		global->player->trnright = 1;
+		global->player->right = 1;
 	if (keysym == XK_Escape)
 		close_window(global);
+	return (0);
+}
+
+int	mouse_moove(int x, int y, t_global *global)
+{
+	static int	old_x;
+	(void)y;
+	mlx_mouse_move(global->data->mlx, global->data->win, WIDTH / 2, HEIGHT / 2);
+	if (old_x > x)
+		rotate_trigo(global->player, x);
+	else if (old_x < x)
+		rotate_antitrigo(global->player, x);
+	old_x = x;
 	return (0);
 }
