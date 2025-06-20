@@ -219,6 +219,12 @@ void	calculate_wall_height(t_rat *ray);
 void	set_wall_color(t_rat *ray, t_global *global);
 void	perform_dda(t_rat *ray, t_global *global);
 
+/*	STRIPE	*/
+void	calculate_texture_params(t_stripe *stripe, double *tex_pos, double *step);
+int		get_shaded_color(int color, int side);
+void	set_ceiling_floor_colors(t_global *global, int *ceiling, int *floor);
+void	set_stripe(t_stripe *stripe, t_rat *ray, int x);
+
 /*	ERROR	*/
 int		parsing_error(int code, t_datamap *map);
 int		img_error(int code, t_mlx_img *img);
