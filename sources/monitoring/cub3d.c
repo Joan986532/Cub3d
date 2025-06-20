@@ -37,6 +37,8 @@ void	init_struct(t_datamap *map, t_global *global,
 	player->minimap_height = 100;
 	player->bckwd = 0;
 	player->forwd = 0;
+	player->left = 0;
+	player->right = 0;
 	player->trnleft = 0;
 	player->trnright = 0;
 	global->error = 0;
@@ -62,6 +64,7 @@ int	main(int argc, char **argv)
 		return (1);
 	mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &global);
 	mlx_hook(data.win, KeyRelease, KeyReleaseMask, &key_release, &global);
+	mlx_hook(data.win, MotionNotify, PointerMotionMask, &mouse_moove, &global);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &close_window, &global);
 	mlx_loop_hook(data.mlx, render_frame, &global);
 	mlx_loop(data.mlx);
