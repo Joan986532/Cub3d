@@ -44,7 +44,7 @@ t_list	*get_linked_map(int fd, char *str)
 
 void	set_spawn(t_player *player, char c, int i, int j)
 {
-	player->spawn = (t_vector3D){j, i, 0};
+	player->spawn = (t_vector3D){j + 0.5, i + 0.5, 0};
 	player->pos = player->spawn;
 	if (c == 'N')
 	{
