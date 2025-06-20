@@ -61,7 +61,6 @@ int	mouse_moove(int x, int y, t_global *global)
 		global->player->fwd.z = 90;
 	if (global->player->fwd.z < -90)
 		global->player->fwd.z = -90;
-	printf("fwd.z: %f\n", global->player->fwd.z);
 	if (old_x > x)
 		rotate_trigo(global->player, diff_x);
 	else if (old_x < x)

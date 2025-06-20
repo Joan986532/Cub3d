@@ -87,11 +87,24 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 	}
 }
 
+static void set_stripe(t_stripe *stripe, t_rat *ray, int x)
+{
+	stripe->x = x;
+	stripe->y0 = ray->drawStart;
+	stripe->y1 = ray->drawEnd;
+	stripe->color = ray->color;
+	stripe->texture = ray->texture;
+	stripe->tex_x = ray->tex_x;
+	stripe->wall_x = ray->wall_x;
+	stripe->side = ray->side;
+	stripe->perpWallDist = ray->perpWallDist;
+}
+
 int	draw_view(t_mlx_data *data, t_global *global)
 {
-	t_rat	ray;
+	t_rat		ray;
 	t_stripe	stripe;
-	int	x;
+	int			x;
 
 	x = 0;
 	while (x < WIDTH)
@@ -101,15 +114,7 @@ int	draw_view(t_mlx_data *data, t_global *global)
 		perform_dda(&ray, global);
 		calculate_wall_height(&ray);
 		set_wall_color(&ray, global);		
-		stripe.x = x;
-		stripe.y0 = ray.drawStart;
-		stripe.y1 = ray.drawEnd;
-		stripe.color = ray.color;
-		stripe.texture = ray.texture;
-		stripe.tex_x = ray.tex_x;
-		stripe.wall_x = ray.wall_x;
-		stripe.side = ray.side;
-		stripe.perpWallDist = ray.perpWallDist;
+		set_stripe(&stripe, &ray, x);
 		draw_stripe(stripe, data, global);
 		x++;
 	}
