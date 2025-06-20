@@ -50,6 +50,14 @@ typedef enum e_tile
 	WALL = '1',
 }	t_tile;
 
+typedef struct s_stripe
+{
+	int	x;
+	int	y0;
+	int	y1;
+	int	color;
+}		t_stripe;
+
 typedef struct s_mlx_img
 {
 	void	*mlx_img;
@@ -178,6 +186,13 @@ int		draw_minimap(t_global *global);
 int		draw_view(t_mlx_data *data, t_global *global);
 int		draw_overlay(t_mlx_data *data, t_global *global);
 int		draw_sprite(t_mlx_data *data, t_global *global);
+
+/*	RAYCAST	*/
+void	init_ray(t_rat *ray, int x, t_global *global);
+void	calculate_step(t_rat *ray, t_global *global);
+void	calculate_wall_height(t_rat *ray);
+void	set_wall_color(t_rat *ray, t_global *global);
+void	perform_dda(t_rat *ray, t_global *global);
 
 /*	ERROR	*/
 int		parsing_error(int code, t_datamap *map);
