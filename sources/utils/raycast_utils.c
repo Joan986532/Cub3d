@@ -20,10 +20,7 @@ void	init_ray(t_rat *ray, int x, t_global *global)
 	if (ray->mapY >= 0 && ray->mapX >= 0 && ray->mapY < global->map->map_height
 		&& ray->mapX < global->map->map_width)
 	{
-		if (global->map->map[ray->mapY][ray->mapX] == '1'
-			|| global->map->map[ray->mapY][ray->mapX] == '2'
-			|| global->map->map[ray->mapY][ray->mapX] == '3'
-			|| global->map->map[ray->mapY][ray->mapX] == '4')
+		if (global->map->map[ray->mapY][ray->mapX] == '1')
 		{
 			ray->hit = 1;
 			ray->side = -1;
@@ -97,14 +94,7 @@ void	set_wall_color(t_rat *ray, t_global *global)
 	else if (ray->mapY >= 0 && ray->mapX >= 0 && ray->mapY < global->map->map_height
 		&& ray->mapX < global->map->map_width)
 	{
-		switch (global->map->map[ray->mapY][ray->mapX])
-		{
-			case '1': ray->color = 0xFF0000; break;
-			case '2': ray->color = 0x00FF00; break;
-			case '3': ray->color = 0x0000FF; break;
-			case '4': ray->color = 0xFFFFFF; break;
-			default: ray->color = 0xFFFF00; break;
-		}
+		ray->color = 0xFFFF00;
 		if (ray->side == 1)
 		{
 			r = ((ray->color >> 16) & 0xFF) / 2;
@@ -142,10 +132,7 @@ void	perform_dda(t_rat *ray, t_global *global)
 		if (ray->mapY < 0 || ray->mapX < 0 || ray->mapY >= global->map->map_height
 			|| ray->mapX >= global->map->map_width)
 			continue;
-		if (global->map->map[ray->mapY][ray->mapX] == '1'
-			|| global->map->map[ray->mapY][ray->mapX] == '2'
-			|| global->map->map[ray->mapY][ray->mapX] == '3'
-			|| global->map->map[ray->mapY][ray->mapX] == '4')
+		if (global->map->map[ray->mapY][ray->mapX] == '1')
 			ray->hit = 1;
 	}
 }
