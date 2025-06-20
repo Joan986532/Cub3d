@@ -25,6 +25,24 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 	if (stripe.y1 >= HEIGHT)
 		stripe.y1 = HEIGHT - 1;
 
+	// Vérifier si la texture est valide
+	if (stripe.texture == NULL)
+	{
+		// Si pas de texture valide, dessiner en couleur unie
+		i = 0;
+		while (i < HEIGHT)
+		{
+			if (i < stripe.y0)
+				my_pixel_put(&data->view, stripe.x, i, ceiling);
+			else if (i >= stripe.y0 && i <= stripe.y1)
+				my_pixel_put(&data->view, stripe.x, i, stripe.color);
+			else
+				my_pixel_put(&data->view, stripe.x, i, floor);
+			i++;
+		}
+		return;
+	}
+
 	int virtual_height = (int)(HEIGHT / stripe.perpWallDist);
 	
 	double tex_pos = 0.0;
@@ -41,7 +59,7 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 		{
 			my_pixel_put(&data->view, stripe.x, i, ceiling);
 		}
-		else if (i >= stripe.y0 && i <= stripe.y1 && stripe.texture != NULL)
+		else if (i >= stripe.y0 && i <= stripe.y1)
 		{
 			// Calculer la coordonnée y de la texture
 			tex_y = (int)tex_pos & (tex_height - 1);
@@ -60,10 +78,6 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 			}
 			
 			my_pixel_put(&data->view, stripe.x, i, color);
-		}
-		else if (i >= stripe.y0 && i <= stripe.y1)
-		{
-			my_pixel_put(&data->view, stripe.x, i, stripe.color);
 		}
 		else
 		{
