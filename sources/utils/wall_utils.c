@@ -55,7 +55,7 @@ static void	calculate_texture_x(t_rat *ray, double wall_x)
 	ray->wall_x = wall_x;
 }
 
-void	set_wall_color(t_rat *ray, t_global *global)
+void	set_wall_texture(t_rat *ray, t_global *global)
 {
 	double	wall_x;
 
