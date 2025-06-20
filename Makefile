@@ -14,6 +14,7 @@ SOURCES = $(SRC_DIR)/monitoring/cub3d.c \
 		  $(SRC_DIR)/drawing/drawing.c \
 		  $(SRC_DIR)/utils/errors.c \
 		  $(SRC_DIR)/utils/image_utils.c \
+		  $(SRC_DIR)/utils/raycast_utils.c \
 		  $(SRC_DIR)/parsing/map_parsing.c \
 		  $(SRC_DIR)/parsing/map_validation.c \
 		  $(SRC_DIR)/parsing/parsing_color.c \
