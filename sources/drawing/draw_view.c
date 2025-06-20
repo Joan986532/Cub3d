@@ -5,6 +5,10 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 	int	i;
     int ceiling;
     int floor;
+    int tex_y;
+    int color;
+    double step;
+    double tex_pos;
 
     ceiling = global->map->ceiling;
     floor = global->map->floor;
@@ -21,11 +25,38 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 		stripe.y0 = 0;
 	if (stripe.y1 >= HEIGHT)
 		stripe.y1 = HEIGHT - 1;
+
+	// Calculer le pas pour parcourir la texture verticalement
+	step = 1.0 * stripe.texture->height / (stripe.y1 - stripe.y0 + 1);
+	// Position de départ dans la texture
+	tex_pos = 0;
+
 	i = 0;
 	while (i < HEIGHT)
 	{
 		if (i < stripe.y0)
 			my_pixel_put(&data->view, stripe.x, i, ceiling);
+		else if (i >= stripe.y0 && i <= stripe.y1 && stripe.texture != NULL)
+		{
+			// Calculer la coordonnée y de la texture
+			tex_y = (int)tex_pos & (stripe.texture->height - 1);
+			tex_pos += step;
+			
+			// Récupérer la couleur du pixel dans la texture
+			color = get_texture_color(stripe.texture, stripe.tex_x, tex_y);
+			
+			// Assombrir les murs selon le côté (comme dans la version originale)
+			if (global->map->map[(int)global->player->pos.y][(int)global->player->pos.x] != ' ' && 
+				stripe.side == 1)
+			{
+				int r = ((color >> 16) & 0xFF) / 2;
+				int g = ((color >> 8) & 0xFF) / 2;
+				int b = (color & 0xFF) / 2;
+				color = (r << 16) | (g << 8) | b;
+			}
+			
+			my_pixel_put(&data->view, stripe.x, i, color);
+		}
 		else if (i >= stripe.y0 && i <= stripe.y1)
 			my_pixel_put(&data->view, stripe.x, i, stripe.color);
 		else
@@ -52,6 +83,10 @@ int	draw_view(t_mlx_data *data, t_global *global)
 		stripe.y0 = ray.drawStart;
 		stripe.y1 = ray.drawEnd;
 		stripe.color = ray.color;
+		stripe.texture = ray.texture;
+		stripe.tex_x = ray.tex_x;
+		stripe.wall_x = ray.wall_x;
+		stripe.side = ray.side;
 		draw_stripe(stripe, data, global);
 		x++;
 	}

@@ -50,12 +50,27 @@ typedef enum e_tile
 	WALL = '1',
 }	t_tile;
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}		t_texture;
+
 typedef struct s_stripe
 {
 	int	x;
 	int	y0;
 	int	y1;
 	int	color;
+	int	tex_x;
+	double	wall_x;
+	int	side;
+	t_texture	*texture;
 }		t_stripe;
 
 typedef struct s_mlx_img
@@ -115,6 +130,9 @@ typedef struct s_rat
 	int	drawStart;
 	int	drawEnd;
 	int	color;
+	double	wall_x;
+	int	tex_x;
+	t_texture	*texture;
 }		t_rat;
 
 typedef struct s_player
@@ -164,6 +182,10 @@ typedef struct s_global
 	t_player	*player;
 	t_datamap	*map;
 	t_mlx_data	*data;
+	t_texture	*north_texture;
+	t_texture	*south_texture;
+	t_texture	*east_texture;
+	t_texture	*west_texture;
 }		t_global;
 
 /*	PARSING	*/
@@ -206,6 +228,11 @@ int		drawing(t_global *global);
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
 int		init_image(t_mlx_img *img, void *mlx);
 void	bresenham(t_point *point, t_mlx_img *img);
+
+/*	TEXTURE	*/
+int		load_textures(t_global *global);
+void	free_textures(t_global *global);
+int		get_texture_color(t_texture *texture, int x, int y);
 
 /*	CONTROLS	*/
 int		key_press(int keysym, t_global *global);

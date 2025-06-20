@@ -76,35 +76,56 @@ void	calculate_wall_height(t_rat *ray)
 
 void	set_wall_color(t_rat *ray, t_global *global)
 {
-	int	r;
-	int	g;
-	int	b;
+	double	wall_x;
 
 	if (ray->side == -1)
 	{
-		if (ray->rayDirX > 0 && ray->rayDirY > 0)
-			ray->color = 0x808080;
-		else if (ray->rayDirX > 0 && ray->rayDirY <= 0)
-			ray->color = 0x707070;
-		else if (ray->rayDirX <= 0 && ray->rayDirY > 0)
-			ray->color = 0x909090;
-		else
-			ray->color = 0x606060;
+		// Cas où le joueur est dans un mur
+		ray->color = 0x808080;
+		ray->texture = global->north_texture;
+		ray->tex_x = 0;
+		return;
 	}
 	else if (ray->mapY >= 0 && ray->mapX >= 0 && ray->mapY < global->map->map_height
 		&& ray->mapX < global->map->map_width)
 	{
-		ray->color = 0xFFFF00;
-		if (ray->side == 1)
+		// Calculer la coordonnée x exacte où le rayon a touché le mur
+		if (ray->side == 0)
+			wall_x = global->player->pos.y + ray->perpWallDist * ray->rayDirY;
+		else
+			wall_x = global->player->pos.x + ray->perpWallDist * ray->rayDirX;
+		wall_x -= floor(wall_x);
+		
+		// Déterminer quelle texture utiliser en fonction de la direction du rayon et du côté du mur
+		if (ray->side == 0)
 		{
-			r = ((ray->color >> 16) & 0xFF) / 2;
-			g = ((ray->color >> 8) & 0xFF) / 2;
-			b = (ray->color & 0xFF) / 2;
-			ray->color = (r << 16) | (g << 8) | b;
+			if (ray->stepX > 0)
+				ray->texture = global->east_texture;
+			else
+				ray->texture = global->west_texture;
 		}
+		else
+		{
+			if (ray->stepY > 0)
+				ray->texture = global->south_texture;
+			else
+				ray->texture = global->north_texture;
+		}
+		
+		// Calculer la coordonnée x de la texture
+		ray->tex_x = (int)(wall_x * ray->texture->width);
+		if ((ray->side == 0 && ray->rayDirX > 0) || (ray->side == 1 && ray->rayDirY < 0))
+			ray->tex_x = ray->texture->width - ray->tex_x - 1;
+		
+		// Garder la couleur pour la compatibilité avec le reste du code
+		ray->color = 0xFFFF00;
+		ray->wall_x = wall_x;
 	}
 	else
+	{
 		ray->color = 0x000000;
+		ray->texture = NULL;
+	}
 }
 
 void	perform_dda(t_rat *ray, t_global *global)
