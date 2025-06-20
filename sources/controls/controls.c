@@ -53,9 +53,9 @@ int	mouse_moove(int x, int y, t_global *global)
 	(void)y;
 	mlx_mouse_move(global->data->mlx, global->data->win, WIDTH / 2, HEIGHT / 2);
 	if (old_x > x)
-		rotate_trigo(global->player, x);
+		rotate_trigo(global->player);
 	else if (old_x < x)
-		rotate_antitrigo(global->player, x);
+		rotate_antitrigo(global->player);
 	old_x = x;
 	return (0);
 }
