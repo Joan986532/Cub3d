@@ -100,9 +100,15 @@ void	set_wall_color(t_rat *ray, t_global *global)
 	// Si le joueur est sur un mur (side = -1)
 	if (ray->side == -1)
 	{
-		// Couleur spéciale pour indiquer que le joueur est sur un mur
-		// On utilise un rouge foncé pour montrer qu'on est à l'intérieur d'un mur
-		ray->color = 0x800000; // Rouge foncé
+		// Couleur grise différente selon le côté touché
+		if (ray->rayDirX > 0 && ray->rayDirY > 0)
+			ray->color = 0x808080; // Gris pour le coin supérieur droit
+		else if (ray->rayDirX > 0 && ray->rayDirY <= 0)
+			ray->color = 0x707070; // Gris plus foncé pour le coin inférieur droit
+		else if (ray->rayDirX <= 0 && ray->rayDirY > 0)
+			ray->color = 0x909090; // Gris plus clair pour le coin supérieur gauche
+		else
+			ray->color = 0x606060; // Gris très foncé pour le coin inférieur gauche
 	}
 	// Si on est à l'intérieur de la carte
 	else if (ray->mapY >= 0 && ray->mapX >= 0 && ray->mapY < global->map->map_height
