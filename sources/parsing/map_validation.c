@@ -1,20 +1,20 @@
 #include "cub3d.h"
 
-int is_spawn(char c)
+int	is_spawn(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (1);
 	return (0);
 }
 
-static int is_whitlisted_char(char c)
+static int	is_whitlisted_char(char c)
 {
 	if (is_spawn(c) || c == '0' || c == '1' || c == ' ')
 		return (1);
 	return (0);
 }
 
-static int is_well_surrounded(char **map, int i, int j)
+static int	is_well_surrounded(char **map, int i, int j)
 {
 	if (i == 0 || j == 0 || j == (int)ft_strlen(map[i]) - 1 || !map[i + 1])
 		return (-1);
@@ -25,7 +25,7 @@ static int is_well_surrounded(char **map, int i, int j)
 	return (0);
 }
 
-static int  is_cell_valid(char **map, int i, int j, int *spawn_found)
+static int	is_cell_valid(char **map, int i, int j, int *spawn_found)
 {
 	if (!is_whitlisted_char(map[i][j]))
 		return (-1);
@@ -41,11 +41,11 @@ static int  is_cell_valid(char **map, int i, int j, int *spawn_found)
 	return (0);
 }
 
-int is_valid_map(char **map)
+int	is_valid_map(char **map)
 {
-	int i;
-	int j;
-	int spawn_found;
+	int	i;
+	int	j;
+	int	spawn_found;
 
 	if (!map)
 		return (-1);

@@ -65,7 +65,6 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 		stripe.y0 = 0;
 	if (stripe.y1 >= HEIGHT)
 		stripe.y1 = HEIGHT - 1;
-
 	if (stripe.texture == NULL)
 		draw_untextured_stripe(stripe, data, ceiling, floor);
 	else
@@ -85,7 +84,7 @@ int	draw_view(t_mlx_data *data, t_global *global)
 		calculate_step(&ray, global->player);
 		perform_dda(&ray, global);
 		calculate_wall_height(&ray);
-		set_wall_color(&ray, global);		
+		set_wall_color(&ray, global);
 		set_stripe(&stripe, &ray, x);
 		draw_stripe(stripe, data, global);
 		x++;

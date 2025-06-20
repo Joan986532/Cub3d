@@ -204,6 +204,9 @@ int		is_valid_map(char **map);
 int		is_spawn(char c);
 int		parsing_extension(char *str, t_datamap *map);
 int		verify_struct(t_datamap *map);
+char	*get_next_line_no_nl(int fd);
+void	set_spawn(t_player *player, char c, int i, int j);
+void	set_map_dimensions(t_list *linked_map, t_datamap *map);
 
 /*	RENDER	*/
 int		render_frame(void *info);

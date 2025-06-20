@@ -34,6 +34,7 @@ int	id_or_map(char *str, char *trimmed, t_datamap *map, int fd)
 		return (parsing_error(SYNTAX, map));
 	return (0);
 }
+
 int	parser_line(int fd, t_datamap *map)
 {
 	char	*str;
