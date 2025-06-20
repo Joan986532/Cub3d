@@ -8,7 +8,9 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 
     ceiling = global->map->ceiling;
     floor = global->map->floor;
-    if(global->player->pos.x < 0 || global->player->pos.x >= global->map->map_width || global->player->pos.y < 0 || global->player->pos.y >= global->map->map_height)
+    if(global->player->pos.x < 0 || global->player->pos.x >= global->map->map_width
+        || global->player->pos.y < 0 || global->player->pos.y >= global->map->map_height
+        || global->map->map[(int)global->player->pos.y][(int)global->player->pos.x] == ' ')
     {
         ceiling = 0x000000;
         floor = 0x000000;
