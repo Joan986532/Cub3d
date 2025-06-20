@@ -104,9 +104,18 @@ void	perform_dda(t_rat *ray, t_global *global)
 			ray->mapY += ray->stepY;
 			ray->side = 1;
 		}
+		// Définir une limite maximale pour éviter une boucle infinie
+		if (ray->mapX < -100 || ray->mapX > global->map->map_width + 100 ||
+			ray->mapY < -100 || ray->mapY > global->map->map_height + 100)
+		{
+			ray->hit = 1;
+			break;
+		}
+		// Si on est hors de la carte, on continue sans marquer de hit
 		if (ray->mapY < 0 || ray->mapX < 0 || ray->mapY >= global->map->map_height
 			|| ray->mapX >= global->map->map_width)
-			continue ;
+			continue;
+		// Si on touche un mur, on marque un hit
 		if (global->map->map[ray->mapY][ray->mapX] == '1'
 			|| global->map->map[ray->mapY][ray->mapX] == '2'
 			|| global->map->map[ray->mapY][ray->mapX] == '3'
