@@ -5,67 +5,73 @@ void	init_ray(t_rat *ray, int x, t_global *global)
 	t_player	*player;
 
 	player = global->player;
-	ray->cameraX = 2 * x / (double)WIDTH - 1;
-	ray->rayDirX = player->fwd.x + player->plane.x * ray->cameraX;
-	ray->rayDirY = player->fwd.y + player->plane.y * ray->cameraX;
-	ray->mapX = (int)player->pos.x;
-	ray->mapY = (int)player->pos.y;
-	if (ray->rayDirX != 0)
-		ray->deltaDistX = fabs(1 / ray->rayDirX);
+	ray->camera_x = 2 * x / (double)WIDTH - 1;
+	ray->ray_dir_x = player->fwd.x + player->plane.x * ray->camera_x;
+	ray->ray_dir_y = player->fwd.y + player->plane.y * ray->camera_x;
+	ray->map_x = (int)player->pos.x;
+	ray->map_y = (int)player->pos.y;
+	if (ray->ray_dir_x != 0)
+		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 	else
-		ray->deltaDistX = 1e30;
-	if (ray->rayDirY != 0)
-		ray->deltaDistY = fabs(1 / ray->rayDirY);
+		ray->delta_dist_x = 1e30;
+	if (ray->ray_dir_y != 0)
+		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 	else
-		ray->deltaDistY = 1e30;
+		ray->delta_dist_y = 1e30;
 	ray->hit = 0;
 	ray->side = 0;
 }
 
 void	calculate_step(t_rat *ray, t_player *player)
 {
-	if (ray->rayDirX < 0)
+	if (ray->ray_dir_x < 0)
 	{
-		ray->stepX = -1;
-		ray->sideDistX = (player->pos.x - ray->mapX) * ray->deltaDistX;
+		ray->step_x = -1;
+		ray->side_dist_x = (player->pos.x - ray->map_x)
+			* ray->delta_dist_x;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1.0 - player->pos.x) * ray->deltaDistX;
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->map_x + 1.0 - player->pos.x)
+			* ray->delta_dist_x;
 	}
-	if (ray->rayDirY < 0)
+	if (ray->ray_dir_y < 0)
 	{
-		ray->stepY = -1;
-		ray->sideDistY = (player->pos.y - ray->mapY) * ray->deltaDistY;
+		ray->step_y = -1;
+		ray->side_dist_y = (player->pos.y - ray->map_y)
+			* ray->delta_dist_y;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideDistY = (ray->mapY + 1.0 - player->pos.y) * ray->deltaDistY;
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->map_y + 1.0 - player->pos.y)
+			* ray->delta_dist_y;
 	}
 }
 
 int	is_out_of_map_bound(t_rat *ray, t_global *global, int limit)
 {
-	return (ray->mapX < -limit || ray->mapX >= global->map->map_width + limit
-		|| ray->mapY < -limit || ray->mapY >= global->map->map_height + limit);
+	return (ray->map_x < -limit
+		|| ray->map_x >= global->map->map_width + limit
+		|| ray->map_y < -limit
+		|| ray->map_y >= global->map->map_height + limit);
 }
 
 void	perform_dda(t_rat *ray, t_global *global)
 {
 	while (ray->hit == 0)
 	{
-		ray->side = ray->sideDistX >= ray->sideDistY;
-		if (ray->sideDistX < ray->sideDistY)
+		ray->side = ray->side_dist_x >= ray->side_dist_y;
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			ray->sideDistX += ray->deltaDistX;
-			ray->mapX += ray->stepX;
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
 		}
 		else
 		{
-			ray->sideDistY += ray->deltaDistY;
-			ray->mapY += ray->stepY;
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
 		}
 		if (is_out_of_map_bound(ray, global, 100))
 		{
@@ -74,7 +80,7 @@ void	perform_dda(t_rat *ray, t_global *global)
 		}
 		if (is_out_of_map_bound(ray, global, 0))
 			continue ;
-		if (global->map->map[ray->mapY][ray->mapX] == '1')
+		if (global->map->map[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}
 }

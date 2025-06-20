@@ -5,7 +5,7 @@ void	calculate_texture_params(t_stripe *stripe,
 {
 	int	virtual_height;
 
-	virtual_height = (int)(HEIGHT / stripe->perpWallDist);
+	virtual_height = (int)(HEIGHT / stripe->perp_wall_dist);
 	if (virtual_height > HEIGHT)
 		*tex_pos = (virtual_height - HEIGHT) / 2.0 / virtual_height
 			* stripe->texture->height;
@@ -51,12 +51,12 @@ void	set_ceiling_floor_colors(t_global *global, int *ceiling, int *floor)
 void	set_stripe(t_stripe *stripe, t_rat *ray, int x)
 {
 	stripe->x = x;
-	stripe->y0 = ray->drawStart;
-	stripe->y1 = ray->drawEnd;
+	stripe->y0 = ray->draw_start;
+	stripe->y1 = ray->draw_end;
 	stripe->color = ray->color;
 	stripe->texture = ray->texture;
 	stripe->tex_x = ray->tex_x;
 	stripe->wall_x = ray->wall_x;
 	stripe->side = ray->side;
-	stripe->perpWallDist = ray->perpWallDist;
+	stripe->perp_wall_dist = ray->perp_wall_dist;
 }
