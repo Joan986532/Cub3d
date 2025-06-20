@@ -1,35 +1,35 @@
 #include "cub3d.h"
 
-void	rotate_antitrigo(t_player *player)
+void	rotate_antitrigo(t_player *player, float angle)
 {
 	float	x;
 
 	x = player->fwd.x;
-	player->fwd.x = player->fwd.x * cosf(player->angle)
-		- player->fwd.y * sinf(player->angle);
-	player->fwd.y = x * sinf(player->angle)
-		+ player->fwd.y * cosf(player->angle);
+	player->fwd.x = player->fwd.x * cosf(angle)
+		- player->fwd.y * sinf(angle);
+	player->fwd.y = x * sinf(angle)
+		+ player->fwd.y * cosf(angle);
 	x = player->plane.x;
-	player->plane.x = player->plane.x * cosf(player->angle)
-		- player->plane.y * sinf(player->angle);
-	player->plane.y = x * sinf(player->angle)
-		+ player->plane.y * cosf(player->angle);
+	player->plane.x = player->plane.x * cosf(angle)
+		- player->plane.y * sinf(angle);
+	player->plane.y = x * sinf(angle)
+		+ player->plane.y * cosf(angle);
 }
 
-void	rotate_trigo(t_player *player)
+void	rotate_trigo(t_player *player, float angle)
 {
 	float	x;
 
 	x = player->fwd.x;
-	player->fwd.x = player->fwd.x * cosf(-player->angle)
-		- player->fwd.y * sinf(-player->angle);
-	player->fwd.y = x * sinf(-player->angle)
-		+ player->fwd.y * cosf(-player->angle);
+	player->fwd.x = player->fwd.x * cosf(-angle)
+		- player->fwd.y * sinf(-angle);
+	player->fwd.y = x * sinf(-angle)
+		+ player->fwd.y * cosf(-angle);
 	x = player->plane.x;
-	player->plane.x = player->plane.x * cosf(-player->angle)
-		- player->plane.y * sinf(-player->angle);
-	player->plane.y = x * sinf(-player->angle)
-		+ player->plane.y * cosf(-player->angle);
+	player->plane.x = player->plane.x * cosf(-angle)
+		- player->plane.y * sinf(-angle);
+	player->plane.y = x * sinf(-angle)
+		+ player->plane.y * cosf(-angle);
 }
 
 void	choose_direction(t_player *player)

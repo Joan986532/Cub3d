@@ -49,12 +49,23 @@ int	key_press(int keysym, t_global *global)
 int	mouse_moove(int x, int y, t_global *global)
 {
 	static int	old_x;
-	(void)y;
-	mlx_mouse_move(global->data->mlx, global->data->win, WIDTH / 2, HEIGHT / 2);
+	float		diff_x;
+	float		diff_y;
+
+	diff_x = fabs((float)(WIDTH / 2) - (float)x);
+	diff_x *= M_PI / 5000;
+	diff_y = (float)(HEIGHT / 2) - (float)y;
+	global->player->fwd.z += diff_y * 180 / HEIGHT;
+	if (global->player->fwd.z > 90)
+		global->player->fwd.z = 90;
+	if (global->player->fwd.z < -90)
+		global->player->fwd.z = -90;
+	printf("fwd.z: %f\n", global->player->fwd.z);
 	if (old_x > x)
-		rotate_trigo(global->player);
+		rotate_trigo(global->player, diff_x);
 	else if (old_x < x)
-		rotate_antitrigo(global->player);
+		rotate_antitrigo(global->player, diff_x);
+	mlx_mouse_move(global->data->mlx, global->data->win, WIDTH / 2, HEIGHT / 2);
 	old_x = x;
 	return (0);
 }

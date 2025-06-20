@@ -32,7 +32,7 @@ void	init_struct(t_datamap *map, t_global *global,
 	player->pos = (t_vector3D){0, 0, 0};
 	player->fwd = (t_vector3D){1, 0, 0};
 	player->spawn = (t_vector3D){0, 0, 0};
-	player->spawn_fwd = (t_vector3D){01, 0, 0};
+	player->spawn_fwd = (t_vector3D){1, 0, 0};
 	player->minimap_width = 100;
 	player->minimap_height = 100;
 	player->max_render_distance = 100;
