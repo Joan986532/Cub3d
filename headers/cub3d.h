@@ -71,6 +71,7 @@ typedef struct s_stripe
 	double	wall_x;
 	int	side;
 	t_texture	*texture;
+	double	perpWallDist;
 }		t_stripe;
 
 typedef struct s_mlx_img

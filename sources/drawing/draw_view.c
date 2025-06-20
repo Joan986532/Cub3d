@@ -7,8 +7,7 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
     int floor;
     int tex_y;
     int color;
-    double step;
-    double tex_pos;
+    int tex_height;
 
     ceiling = global->map->ceiling;
     floor = global->map->floor;
@@ -26,28 +25,33 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 	if (stripe.y1 >= HEIGHT)
 		stripe.y1 = HEIGHT - 1;
 
-	// Calculer le pas pour parcourir la texture verticalement
-	step = 1.0 * stripe.texture->height / (stripe.y1 - stripe.y0 + 1);
-	// Position de départ dans la texture
-	tex_pos = 0;
+	int virtual_height = (int)(HEIGHT / stripe.perpWallDist);
+	
+	double tex_pos = 0.0;
+	if (virtual_height > HEIGHT)
+		tex_pos = (virtual_height - HEIGHT) / 2.0 / virtual_height * stripe.texture->height;
+	double step = (double)stripe.texture->height / virtual_height;
+	
+	tex_height = stripe.texture->height;
 
 	i = 0;
 	while (i < HEIGHT)
 	{
 		if (i < stripe.y0)
+		{
 			my_pixel_put(&data->view, stripe.x, i, ceiling);
+		}
 		else if (i >= stripe.y0 && i <= stripe.y1 && stripe.texture != NULL)
 		{
 			// Calculer la coordonnée y de la texture
-			tex_y = (int)tex_pos & (stripe.texture->height - 1);
+			tex_y = (int)tex_pos & (tex_height - 1);
 			tex_pos += step;
 			
 			// Récupérer la couleur du pixel dans la texture
 			color = get_texture_color(stripe.texture, stripe.tex_x, tex_y);
 			
-			// Assombrir les murs selon le côté (comme dans la version originale)
-			if (global->map->map[(int)global->player->pos.y][(int)global->player->pos.x] != ' ' && 
-				stripe.side == 1)
+			// Assombrir les murs selon le côté
+			if (stripe.side == 1)
 			{
 				int r = ((color >> 16) & 0xFF) / 2;
 				int g = ((color >> 8) & 0xFF) / 2;
@@ -58,9 +62,13 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 			my_pixel_put(&data->view, stripe.x, i, color);
 		}
 		else if (i >= stripe.y0 && i <= stripe.y1)
+		{
 			my_pixel_put(&data->view, stripe.x, i, stripe.color);
+		}
 		else
+		{
 			my_pixel_put(&data->view, stripe.x, i, floor);
+		}
 		i++;
 	}
 }
@@ -87,6 +95,7 @@ int	draw_view(t_mlx_data *data, t_global *global)
 		stripe.tex_x = ray.tex_x;
 		stripe.wall_x = ray.wall_x;
 		stripe.side = ray.side;
+		stripe.perpWallDist = ray.perpWallDist; // Ajout de la distance perpendiculaire
 		draw_stripe(stripe, data, global);
 		x++;
 	}

@@ -80,7 +80,6 @@ void	set_wall_color(t_rat *ray, t_global *global)
 
 	if (ray->side == -1)
 	{
-		// Cas où le joueur est dans un mur
 		ray->color = 0x808080;
 		ray->texture = global->north_texture;
 		ray->tex_x = 0;
@@ -89,20 +88,14 @@ void	set_wall_color(t_rat *ray, t_global *global)
 	else if (ray->mapY >= 0 && ray->mapX >= 0 && ray->mapY < global->map->map_height
 		&& ray->mapX < global->map->map_width)
 	{
-		// Calculer la coordonnée x exacte où le rayon a touché le mur
-		if (ray->side == 0)
-			wall_x = global->player->pos.y + ray->perpWallDist * ray->rayDirY;
-		else
-			wall_x = global->player->pos.x + ray->perpWallDist * ray->rayDirX;
-		wall_x -= floor(wall_x);
-		
-		// Déterminer quelle texture utiliser en fonction de la direction du rayon et du côté du mur
 		if (ray->side == 0)
 		{
 			if (ray->stepX > 0)
 				ray->texture = global->east_texture;
 			else
 				ray->texture = global->west_texture;
+			
+			wall_x = global->player->pos.y + ray->perpWallDist * ray->rayDirY;
 		}
 		else
 		{
@@ -110,14 +103,18 @@ void	set_wall_color(t_rat *ray, t_global *global)
 				ray->texture = global->south_texture;
 			else
 				ray->texture = global->north_texture;
+			
+			wall_x = global->player->pos.x + ray->perpWallDist * ray->rayDirX;
 		}
-		
-		// Calculer la coordonnée x de la texture
-		ray->tex_x = (int)(wall_x * ray->texture->width);
+		wall_x -= floor(wall_x);
+		int tex_width = ray->texture->width;
+		ray->tex_x = (int)(wall_x * tex_width);
 		if ((ray->side == 0 && ray->rayDirX > 0) || (ray->side == 1 && ray->rayDirY < 0))
-			ray->tex_x = ray->texture->width - ray->tex_x - 1;
-		
-		// Garder la couleur pour la compatibilité avec le reste du code
+			ray->tex_x = tex_width - ray->tex_x - 1;
+		if (ray->tex_x < 0)
+			ray->tex_x = 0;
+		if (ray->tex_x >= tex_width)
+			ray->tex_x = tex_width - 1;
 		ray->color = 0xFFFF00;
 		ray->wall_x = wall_x;
 	}
