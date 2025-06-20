@@ -82,7 +82,7 @@ int	draw_view(t_mlx_data *data, t_global *global)
 	while (x < WIDTH)
 	{
 		init_ray(&ray, x, global);
-		calculate_step(&ray, global);
+		calculate_step(&ray, global->player);
 		perform_dda(&ray, global);
 		calculate_wall_height(&ray);
 		set_wall_color(&ray, global);		
