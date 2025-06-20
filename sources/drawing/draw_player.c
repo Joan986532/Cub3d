@@ -44,10 +44,16 @@ void	choose_direction(t_player *player)
 		player->pos.x -= player->fwd.x * 0.1;
 		player->pos.y -= player->fwd.y * 0.1;
 	}
-	if (player->trnleft)
-		rotate_trigo(player);
-	if (player->trnright)
-		rotate_antitrigo(player);
+	if (player->left)
+	{
+		player->pos.x -= player->plane.x * 5;
+		player->pos.y -= player->plane.y * 5;
+	}
+	if (player->right)
+	{
+		player->pos.x += player->plane.x * 5;
+		player->pos.y += player->plane.y * 5;
+	}
 }
 
 void	pov_player(t_mlx_data *data, t_player *player)

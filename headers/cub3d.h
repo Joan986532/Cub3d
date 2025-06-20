@@ -100,6 +100,8 @@ typedef struct s_player
 	float		angle;
 	int			forwd;
 	int			bckwd;
+	int			left;
+	int			right;
 	int			trnleft;
 	int			trnright;
 }		t_player;
@@ -173,6 +175,9 @@ void	bresenham(t_point *point, t_mlx_img *img);
 /*	CONTROLS	*/
 int		key_press(int keysym, t_global *global);
 int		key_release(int keysym, t_global *global);
+int		mouse_moove(int x, int y, t_global *global);
+void	rotate_antitrigo(t_player *player);
+void	rotate_trigo(t_player *player);
 int		close_window(void *data);
 
 /*	PLAYER	*/
