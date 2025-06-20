@@ -17,15 +17,6 @@ void	init_ray(t_rat *ray, int x, t_global *global)
 		ray->deltaDistY = 1e30;
 	ray->hit = 0;
 	ray->side = 0;
-	if (ray->mapY >= 0 && ray->mapX >= 0 && ray->mapY < global->map->map_height
-		&& ray->mapX < global->map->map_width)
-	{
-		if (global->map->map[ray->mapY][ray->mapX] == '1')
-		{
-			ray->hit = 1;
-			ray->side = -1;
-		}
-	}
 }
 
 void	calculate_step(t_rat *ray, t_global *global)
@@ -54,17 +45,14 @@ void	calculate_step(t_rat *ray, t_global *global)
 
 void	calculate_wall_height(t_rat *ray)
 {
-	if (ray->hit == 1 && ray->side == -1)
-		ray->perpWallDist = 0.1;
+	if (ray->side == 0)
+		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
 	else
-	{
-		if (ray->side == 0)
-			ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
-		else
-			ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
-		if (ray->perpWallDist <= 0.1)
-			ray->perpWallDist = 0.1;
-	}
+		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
+	
+	if (ray->perpWallDist <= 0.1)
+		ray->perpWallDist = 0.1;
+	
 	ray->lineHeight = (int)(HEIGHT / ray->perpWallDist);
 	ray->drawStart = -ray->lineHeight / 2 + HEIGHT / 2;
 	if (ray->drawStart < 0)
@@ -78,14 +66,7 @@ void	set_wall_color(t_rat *ray, t_global *global)
 {
 	double	wall_x;
 
-	if (ray->side == -1)
-	{
-		ray->color = 0x808080;
-		ray->texture = global->north_texture;
-		ray->tex_x = 0;
-		return;
-	}
-	else if (ray->mapY >= 0 && ray->mapX >= 0 && ray->mapY < global->map->map_height
+	if (ray->mapY >= 0 && ray->mapX >= 0 && ray->mapY < global->map->map_height
 		&& ray->mapX < global->map->map_width)
 	{
 		if (ray->side == 0)
