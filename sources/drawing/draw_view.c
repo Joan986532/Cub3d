@@ -1,5 +1,16 @@
 #include "cub3d.h"
 
+static void	draw_wall_pixel(t_mlx_data *data, t_stripe *s, int y, double *pos)
+{
+	int	tex_y;
+	int	color;
+
+	tex_y = (int)*pos & (s->texture->height - 1);
+	color = get_texture_color(s->texture, s->tex_x, tex_y);
+	color = get_shaded_color(color, s->side);
+	my_pixel_put(&data->view, s->x, y, color);
+}
+
 static void	draw_untextured_stripe(t_stripe stripe, t_mlx_data *data,
 							int ceiling, int floor)
 {
@@ -19,33 +30,26 @@ static void	draw_untextured_stripe(t_stripe stripe, t_mlx_data *data,
 }
 
 static void	draw_textured_stripe(t_stripe stripe, t_mlx_data *data,
-							int ceiling, int floor)
+	int ceiling, int floor)
 {
-	int		i;
-	int		tex_y;
-	int		color;
-	int		tex_height;
+	int		y;
 	double	tex_pos;
 	double	step;
 
 	calculate_texture_params(&stripe, &tex_pos, &step);
-	tex_height = stripe.texture->height;
-	i = 0;
-	while (i < HEIGHT)
+	y = 0;
+	while (y < HEIGHT)
 	{
-		if (i < stripe.y0)
-			my_pixel_put(&data->view, stripe.x, i, ceiling);
-		else if (i >= stripe.y0 && i <= stripe.y1)
+		if (y < stripe.y0)
+			my_pixel_put(&data->view, stripe.x, y, ceiling);
+		else if (y >= stripe.y0 && y <= stripe.y1)
 		{
-			tex_y = (int)tex_pos & (tex_height - 1);
+			draw_wall_pixel(data, &stripe, y, &tex_pos);
 			tex_pos += step;
-			color = get_texture_color(stripe.texture, stripe.tex_x, tex_y);
-			color = get_shaded_color(color, stripe.side);
-			my_pixel_put(&data->view, stripe.x, i, color);
 		}
 		else
-			my_pixel_put(&data->view, stripe.x, i, floor);
-		i++;
+			my_pixel_put(&data->view, stripe.x, y, floor);
+		y++;
 	}
 }
 
