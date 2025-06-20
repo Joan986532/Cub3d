@@ -5,6 +5,7 @@ int	close_window(void *data)
 	t_global	*global;
 
 	global = data;
+	free_textures(global);
 	free(global->map->north_t);
 	free(global->map->south_t);
 	free(global->map->east_t);
