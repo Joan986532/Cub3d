@@ -63,15 +63,15 @@ typedef struct s_texture
 
 typedef struct s_stripe
 {
-	int	x;
-	int	y0;
-	int	y1;
-	int	color;
-	int	tex_x;
-	double	wall_x;
-	int	side;
+	int			x;
+	int			y0;
+	int			y1;
+	int			color;
+	int			tex_x;
+	double		wall_x;
+	int			side;
 	t_texture	*texture;
-	double	perpWallDist;
+	double		perp_wall_dist;
 }		t_stripe;
 
 typedef struct s_mlx_img
@@ -113,26 +113,26 @@ typedef struct s_vector3D
 
 typedef struct s_rat
 {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int	mapX;
-	int	mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	int	stepX;
-	int	stepY;
-	int	hit;
-	int	side;
-	int	lineHeight;
-	int	drawStart;
-	int	drawEnd;
-	int	color;
-	double	wall_x;
-	int	tex_x;
+	double		camera_x;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	int			color;
+	double		wall_x;
+	int			tex_x;
 	t_texture	*texture;
 }		t_rat;
 
@@ -217,8 +217,6 @@ int		draw_view(t_mlx_data *data, t_global *global);
 int		draw_overlay(t_mlx_data *data, t_global *global);
 int		draw_sprite(t_mlx_data *data, t_global *global);
 
-
-
 /*	RAYCAST	*/
 void	init_ray(t_rat *ray, int x, t_global *global);
 void	calculate_step(t_rat *ray, t_player *player);
@@ -227,7 +225,8 @@ void	set_wall_color(t_rat *ray, t_global *global);
 void	perform_dda(t_rat *ray, t_global *global);
 
 /*	STRIPE	*/
-void	calculate_texture_params(t_stripe *stripe, double *tex_pos, double *step);
+void	calculate_texture_params(t_stripe *stripe, double *tex_pos,
+			double *step);
 int		get_shaded_color(int color, int side);
 void	set_ceiling_floor_colors(t_global *global, int *ceiling, int *floor);
 void	set_stripe(t_stripe *stripe, t_rat *ray, int x);
