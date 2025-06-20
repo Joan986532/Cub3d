@@ -1,5 +1,4 @@
 #include "cub3d.h"
-#include <math.h>
 
 void	init_ray(t_rat *ray, int x, t_global *global)
 {
@@ -79,15 +78,6 @@ void	set_wall_color(t_rat *ray, t_global *global)
 {
 	double	wall_x;
 
-	// Vérifier si les textures sont chargées
-	if (global->north_texture == NULL || global->south_texture == NULL ||
-		global->east_texture == NULL || global->west_texture == NULL)
-	{
-		ray->color = 0xFF0000; // Rouge en cas d'erreur de texture
-		ray->texture = NULL;
-		return;
-	}
-
 	if (ray->side == -1)
 	{
 		ray->color = 0x808080;
@@ -116,24 +106,7 @@ void	set_wall_color(t_rat *ray, t_global *global)
 			
 			wall_x = global->player->pos.x + ray->perpWallDist * ray->rayDirX;
 		}
-		
-		// Protection contre les valeurs NaN ou inf
-		if (isnan(wall_x) || isinf(wall_x))
-		{
-			ray->color = 0x000000;
-			ray->texture = NULL;
-			return;
-		}
-		
 		wall_x -= floor(wall_x);
-		
-		// Vérifier à nouveau que la texture est valide
-		if (ray->texture == NULL)
-		{
-			ray->color = 0x000000;
-			return;
-		}
-		
 		int tex_width = ray->texture->width;
 		ray->tex_x = (int)(wall_x * tex_width);
 		if ((ray->side == 0 && ray->rayDirX > 0) || (ray->side == 1 && ray->rayDirY < 0))
