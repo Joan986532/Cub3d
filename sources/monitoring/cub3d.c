@@ -26,7 +26,7 @@ void	init_struct(t_datamap *map, t_global *global,
 	map->west_t = NULL;
 	map->floor = -1;
 	map->ceiling = -1;
-	map->size = 50;
+	map->size = 10;
 	map->error = 0;
 	map->player = player;
 	player->pos = (t_vector3D){0, 0, 0};
@@ -66,6 +66,7 @@ int	main(int argc, char **argv)
 	mlx_hook(data.win, KeyPress, KeyPressMask, &key_press, &global);
 	mlx_hook(data.win, KeyRelease, KeyReleaseMask, &key_release, &global);
 	mlx_hook(data.win, MotionNotify, PointerMotionMask, &mouse_moove, &global);
+	mlx_mouse_hide(data.mlx, data.win);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &close_window, &global);
 	mlx_loop_hook(data.mlx, render_frame, &global);
 	mlx_loop(data.mlx);

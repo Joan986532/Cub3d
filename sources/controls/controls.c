@@ -49,12 +49,12 @@ int	key_press(int keysym, t_global *global)
 int	mouse_moove(int x, int y, t_global *global)
 {
 	static int	old_x;
-
 	(void)y;
+	mlx_mouse_move(global->data->mlx, global->data->win, WIDTH / 2, HEIGHT / 2);
 	if (old_x > x)
-		rotate_antitrigo(global->player);
+		rotate_trigo(global->player, x);
 	else if (old_x < x)
-		rotate_trigo(global->player);
+		rotate_antitrigo(global->player, x);
 	old_x = x;
 	return (0);
 }
