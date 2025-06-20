@@ -241,8 +241,8 @@ int		get_texture_color(t_texture *texture, int x, int y);
 int		key_press(int keysym, t_global *global);
 int		key_release(int keysym, t_global *global);
 int		mouse_moove(int x, int y, t_global *global);
-void	rotate_antitrigo(t_player *player);
-void	rotate_trigo(t_player *player);
+void	rotate_antitrigo(t_player *player, float angle);
+void	rotate_trigo(t_player *player, float angle);
 int		close_window(void *data);
 
 /*	PLAYER	*/
