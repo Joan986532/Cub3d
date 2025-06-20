@@ -18,6 +18,7 @@ SOURCES = $(SRC_DIR)/monitoring/cub3d.c \
 		  $(SRC_DIR)/utils/texture_utils.c \
 		  $(SRC_DIR)/utils/stripe_utils.c \
 		  $(SRC_DIR)/utils/wall_utils.c \
+		  $(SRC_DIR)/utils/parsing_utils.c \
 		  $(SRC_DIR)/parsing/map_parsing.c \
 		  $(SRC_DIR)/parsing/map_validation.c \
 		  $(SRC_DIR)/parsing/parsing_color.c \

@@ -202,6 +202,8 @@ int		parse_map(char *str, t_datamap *map, int fd);
 void	free_arr(char **arr);
 int		is_valid_map(char **map);
 int		is_spawn(char c);
+int		parsing_extension(char *str, t_datamap *map);
+int		verify_struct(t_datamap *map);
 
 /*	RENDER	*/
 int		render_frame(void *info);
@@ -211,6 +213,8 @@ int		draw_minimap(t_global *global);
 int		draw_view(t_mlx_data *data, t_global *global);
 int		draw_overlay(t_mlx_data *data, t_global *global);
 int		draw_sprite(t_mlx_data *data, t_global *global);
+
+
 
 /*	RAYCAST	*/
 void	init_ray(t_rat *ray, int x, t_global *global);
