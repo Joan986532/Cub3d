@@ -176,8 +176,8 @@ void	bresenham(t_point *point, t_mlx_img *img);
 int		key_press(int keysym, t_global *global);
 int		key_release(int keysym, t_global *global);
 int		mouse_moove(int x, int y, t_global *global);
-void	rotate_antitrigo(t_player *player, int x);
-void	rotate_trigo(t_player *player, int x);
+void	rotate_antitrigo(t_player *player);
+void	rotate_trigo(t_player *player);
 int		close_window(void *data);
 
 /*	PLAYER	*/

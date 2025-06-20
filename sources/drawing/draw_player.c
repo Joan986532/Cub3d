@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	rotate_antitrigo(t_player *player, int factor)
+void	rotate_antitrigo(t_player *player)
 {
 	float	x;
 
@@ -16,7 +16,7 @@ void	rotate_antitrigo(t_player *player, int factor)
 		+ player->plane.y * cosf(player->angle);
 }
 
-void	rotate_trigo(t_player *player, int factor)
+void	rotate_trigo(t_player *player)
 {
 	float	x;
 
