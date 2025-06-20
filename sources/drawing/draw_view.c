@@ -109,7 +109,7 @@ int	draw_view(t_mlx_data *data, t_global *global)
 		stripe.tex_x = ray.tex_x;
 		stripe.wall_x = ray.wall_x;
 		stripe.side = ray.side;
-		stripe.perpWallDist = ray.perpWallDist; // Ajout de la distance perpendiculaire
+		stripe.perpWallDist = ray.perpWallDist;
 		draw_stripe(stripe, data, global);
 		x++;
 	}
