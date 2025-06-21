@@ -7,7 +7,6 @@ static void	draw_wall_pixel(t_mlx_data *data, t_stripe *s, int y, double *pos)
 
 	tex_y = (int)*pos & (s->texture->height - 1);
 	color = get_texture_color(s->texture, s->tex_x, tex_y);
-	color = get_shaded_color(color, s->side);
 	my_pixel_put(&data->view, s->x, y, color);
 }
 

@@ -14,22 +14,6 @@ void	calculate_texture_params(t_stripe *stripe,
 	*step = (double)stripe->texture->height / virtual_height;
 }
 
-int	get_shaded_color(int color, int side)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	if (side == 1)
-	{
-		r = ((color >> 16) & 0xFF) / 2;
-		g = ((color >> 8) & 0xFF) / 2;
-		b = (color & 0xFF) / 2;
-		color = (r << 16) | (g << 8) | b;
-	}
-	return (color);
-}
-
 void	set_ceiling_floor_colors(t_global *global, int *ceiling, int *floor)
 {
 	int	posx;
