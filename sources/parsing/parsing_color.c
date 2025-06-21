@@ -60,7 +60,6 @@ int	iscolor_valid(char *str, t_datamap *map)
 	return (0);
 }
 
-//identifier
 int	iscolor(char *str, t_datamap *map)
 {
 	unsigned char	r;
