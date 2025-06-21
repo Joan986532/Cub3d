@@ -1,4 +1,5 @@
 SRC_DIR = sources
+SRC_DIR_BONUS = sources_bonus
 GNL_DIR = get_next_line
 HEAD_DIR = headers
 LIBFT_PATH = libft
@@ -25,15 +26,38 @@ SOURCES = $(SRC_DIR)/monitoring/cub3d.c \
 		  $(SRC_DIR)/parsing/parsing_global.c \
 		  $(SRC_DIR)/parsing/parsing_texture.c \
 		  $(SRC_DIR)/render/render_frame.c \
-		  $(SRC_DIR)/drawing/draw_minimap.c \
-		  $(SRC_DIR)/drawing/draw_overlay.c \
 		  $(SRC_DIR)/drawing/draw_view.c \
-		  $(SRC_DIR)/drawing/draw_sprite.c \
 		  $(SRC_DIR)/drawing/draw_player.c \
-		  $(GNL_DIR)/get_next_line.c \
+		  $(GNL_DIR)/get_next_line.c
 
+SOURCES_BONUS = $(SRC_DIR_BONUS)/monitoring/cub3d_bonus.c \
+				$(SRC_DIR_BONUS)/controls/controls_bonus.c \
+				$(SRC_DIR_BONUS)/utils/cub3d_utils_bonus.c \
+				$(SRC_DIR_BONUS)/drawing/drawing_bonus.c \
+				$(SRC_DIR_BONUS)/utils/errors_bonus.c \
+				$(SRC_DIR_BONUS)/utils/image_utils_bonus.c \
+				$(SRC_DIR_BONUS)/utils/raycast_utils_bonus.c \
+				$(SRC_DIR_BONUS)/utils/texture_utils_bonus.c \
+				$(SRC_DIR_BONUS)/utils/stripe_utils_bonus.c \
+				$(SRC_DIR_BONUS)/utils/wall_utils_bonus.c \
+				$(SRC_DIR_BONUS)/utils/parsing_utils_bonus.c \
+				$(SRC_DIR_BONUS)/parsing/map_parsing_bonus.c \
+				$(SRC_DIR_BONUS)/parsing/map_validation_bonus.c \
+				$(SRC_DIR_BONUS)/parsing/parsing_color_bonus.c \
+				$(SRC_DIR_BONUS)/parsing/parsing_global_bonus.c \
+				$(SRC_DIR_BONUS)/parsing/parsing_texture_bonus.c \
+				$(SRC_DIR_BONUS)/render/render_frame_bonus.c \
+				$(SRC_DIR_BONUS)/drawing/draw_minimap_bonus.c \
+				$(SRC_DIR_BONUS)/drawing/draw_overlay_bonus.c \
+				$(SRC_DIR_BONUS)/drawing/draw_view_bonus.c \
+				$(SRC_DIR_BONUS)/drawing/draw_sprite_bonus.c \
+				$(SRC_DIR_BONUS)/drawing/draw_player_bonus.c \
+				$(GNL_DIR_BONUS)/get_next_line_bonus.c
 
 OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(filter $(SRC_DIR)/%,$(SOURCES))) \
+		$(patsubst $(GNL_DIR)/%.c,$(OBJ_DIR)/%.o,$(filter $(GNL_DIR)/%,$(SOURCES)))
+
+OBJECTS_BONUS = $(patsubst $(SRC_DIR_BONUS)/%.c,$(OBJ_DIR)/%.o,$(filter $(SRC_DIR_BONUS)/%,$(SOURCES_BONUS))) \
 		$(patsubst $(GNL_DIR)/%.c,$(OBJ_DIR)/%.o,$(filter $(GNL_DIR)/%,$(SOURCES)))
 
 INCLUDE = -lm -lXext -lX11
@@ -50,7 +74,12 @@ $(NAME): $(OBJECTS)
 	@make -C $(MINILIBX_PATH)
 	cc $(CFLAGS) $(OBJECTS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+bonus: &(OBJECTS_BONUS)
+	@make -C $(LIBFT_PATH)
+	@make -C $(MINILIBX_PATH)
+	cc $(CFLAGS) $(OBJECTS_BONUS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(SRC_DIR_BONUS)/%.c | $(OBJ_DIR)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
