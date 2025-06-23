@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	print_tile(t_global *global, int x, int y, int color)
 {

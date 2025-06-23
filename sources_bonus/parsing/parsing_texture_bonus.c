@@ -1,4 +1,27 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
+
+int	is_texture_ok(char c1, char c2, char *str, t_datamap *map)
+{
+	if (c1 == 'E' && c2 == 'A' && map->east_t == NULL)
+	{
+		map->east_t = ft_strjoin(NULL, str);
+		if (!map->east_t)
+			return (parsing_error(MALLOC, map));
+	}
+	else if (c1 == 'W' && c2 == 'E' && map->west_t == NULL)
+	{
+		map->west_t = ft_strjoin(NULL, str);
+		if (!map->west_t)
+			return (parsing_error(MALLOC, map));
+	}
+	else if (c1 == 'G' && c2 == 'U' && map->gun == NULL)
+	{
+		map->gun = ft_strjoin(NULL, str);
+		if (!map->gun)
+			return (parsing_error(MALLOC, map));
+	}
+	return (0);
+}
 
 int	choose_texture_surface(char c1, char c2, char *str, t_datamap *map)
 {
@@ -14,18 +37,8 @@ int	choose_texture_surface(char c1, char c2, char *str, t_datamap *map)
 		if (!map->south_t)
 			return (parsing_error(MALLOC, map));
 	}
-	else if (c1 == 'E' && c2 == 'A' && map->east_t == NULL)
-	{
-		map->east_t = ft_strjoin(NULL, str);
-		if (!map->east_t)
-			return (parsing_error(MALLOC, map));
-	}
-	else if (c1 == 'W' && c2 == 'E' && map->west_t == NULL)
-	{
-		map->west_t = ft_strjoin(NULL, str);
-		if (!map->west_t)
-			return (parsing_error(MALLOC, map));
-	}
+	else if (is_texture_ok(c1, c2, str, map) == -1)
+		return (-1);
 	return (0);
 }
 

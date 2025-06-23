@@ -54,33 +54,8 @@ void	choose_direction(t_player *player)
 		player->pos.x += player->plane.x * 0.1;
 		player->pos.y += player->plane.y * 0.1;
 	}
-}
-
-void	pov_player(t_mlx_data *data, t_player *player)
-{
-	t_point		point;
-
-	choose_direction(player);
-	point.x1 = player->pos.x;
-	point.y1 = player->pos.y;
-	printf("pos_x: %f\n", player->pos.x);
-	printf("pos_y: %f\n", player->pos.y);
-	point.x2 = point.x1 + player->fwd.x * 10 + player->plane.x * 10;
-	point.y2 = point.y1 + player->fwd.y * 10 + player->plane.y * 10;
-	bresenham(&point, &data->view);
-	point.x1 = point.x2;
-	point.y1 = point.y2;
-	point.x2 = point.x1 + player->fwd.x * 20 - player->plane.x * 10;
-	point.y2 = point.y1 + player->fwd.y * 20 - player->plane.y * 10;
-	bresenham(&point, &data->view);
-	point.x1 = player->pos.x;
-	point.y1 = player->pos.y;
-	point.x2 = point.x1 + player->fwd.x * 10 - player->plane.x * 10;
-	point.y2 = point.y1 + player->fwd.y * 10 - player->plane.y * 10;
-	bresenham(&point, &data->view);
-	point.x1 = point.x2;
-	point.y1 = point.y2;
-	point.x2 = point.x1 + player->fwd.x * 20 + player->plane.x * 10;
-	point.y2 = point.y1 + player->fwd.y * 20 + player->plane.y * 10;
-	bresenham(&point, &data->view);
+	if (player->trnleft)
+		rotate_trigo(player, player->angle);
+	if (player->trnright)
+		rotate_antitrigo(player, player->angle);
 }

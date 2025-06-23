@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	calculate_texture_params(t_stripe *stripe,
 		double *tex_pos, double *step)

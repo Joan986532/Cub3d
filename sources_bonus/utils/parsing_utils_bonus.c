@@ -1,6 +1,6 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
-int	verify_struct(t_datamap *map)
+int	verify_struct_bonus(t_datamap *map)
 {
 	if (map->ceiling == -1 || map->floor == -1)
 	{
@@ -8,7 +8,8 @@ int	verify_struct(t_datamap *map)
 		return (parsing_error(WRONGCOLOR, map));
 	}
 	if (map->north_t == NULL || map->south_t == NULL
-		|| map->east_t == NULL || map->west_t == NULL)
+		|| map->east_t == NULL || map->west_t == NULL
+		|| map->gun == NULL)
 	{
 		clear_textures(map);
 		return (parsing_error(WRONGTEXTURE, map));

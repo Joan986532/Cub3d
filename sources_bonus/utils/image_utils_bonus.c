@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color)
 {

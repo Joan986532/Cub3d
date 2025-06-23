@@ -9,6 +9,7 @@
 # include <limits.h>
 # include "mlx_int.h"
 # include <math.h>
+# include <time.h>
 
 # define S_LIMITCOLOR "Color limit is 255\n"
 # define S_WRONGCOLOR "Color is uninitialized\n"
@@ -24,7 +25,7 @@
 # define S_IMAGE "mlx new image fail\n"
 
 # define WIDTH	1920
-# define HEIGHT	1080
+# define HEIGHT	963
 
 # ifndef BUFFER_SIZE
 # 	define BUFFER_SIZE 10
@@ -158,6 +159,7 @@ typedef struct s_player
 	int			right;
 	int			trnleft;
 	int			trnright;
+	int			shoot;
 }		t_player;
 
 typedef struct s_datamap
@@ -169,9 +171,7 @@ typedef struct s_datamap
 	char		*south_t;
 	char		*east_t;
 	char		*west_t;
-	char		*fire1;
-	char		*fire2;
-	char		*fire3;
+	char		*gun;
 	int			floor;
 	int			ceiling;
 	int			size;
@@ -197,6 +197,7 @@ typedef struct s_global
 	t_texture	*south_texture;
 	t_texture	*east_texture;
 	t_texture	*west_texture;
+	t_texture	*pov_gun;
 }		t_global;
 
 /*	PARSING	*/
@@ -222,8 +223,10 @@ void	set_map_dimensions(t_list *linked_map, t_datamap *map);
 int		render_frame(void *info);
 
 /*	DRAWING	*/
+int		draw_minimap(t_global *global);
 int		draw_view(t_mlx_data *data, t_global *global);
 int		draw_overlay(t_mlx_data *data, t_global *global);
+int		draw_sprite(t_mlx_data *data, t_global *global);
 
 /*	RAYCAST	*/
 void	init_ray(t_rat *ray, int x, t_global *global);
@@ -265,6 +268,8 @@ void	rotate_trigo(t_player *player, float angle);
 int		close_window(void *data);
 
 /*	PLAYER	*/
-void	choose_direction(t_player *player);
+void	pov_player(t_mlx_data *data, t_player *player);
+int		draw_shooting_gun(t_player *player, t_mlx_data *data, t_global *global);
+int		shoot_gun(int button, int x, int y, t_global *global);
 
 #endif

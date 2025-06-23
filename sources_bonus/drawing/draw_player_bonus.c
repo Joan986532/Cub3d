@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	rotate_antitrigo(t_player *player, float angle)
 {

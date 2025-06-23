@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	init_mlx(t_mlx_data *data)
 {
@@ -29,6 +29,7 @@ void	init_player(t_player *player)
 	player->right = 0;
 	player->trnleft = 0;
 	player->trnright = 0;
+	player->shoot = 0;
 }
 
 void	init_struct(t_datamap *map, t_global *global,
@@ -41,6 +42,7 @@ void	init_struct(t_datamap *map, t_global *global,
 	map->south_t = NULL;
 	map->east_t = NULL;
 	map->west_t = NULL;
+	map->gun = NULL;
 	map->floor = -1;
 	map->ceiling = -1;
 	map->size = 10;
@@ -59,6 +61,7 @@ void	setup_hooks(void *win, void *mlx, t_global *global)
 	mlx_hook(win, KeyPress, KeyPressMask, &key_press, global);
 	mlx_hook(win, KeyRelease, KeyReleaseMask, &key_release, global);
 	mlx_hook(win, MotionNotify, PointerMotionMask, &mouse_moove, global);
+	mlx_hook(win, ButtonPress, ButtonPressMask, &shoot_gun, global);
 	mlx_mouse_hide(mlx, win);
 	mlx_hook(win, DestroyNotify, StructureNotifyMask, &close_window, global);
 	mlx_loop_hook(mlx, render_frame, global);

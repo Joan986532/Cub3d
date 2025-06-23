@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	map_identifier(char *str, t_datamap *map)
 {
@@ -75,7 +75,7 @@ int	parsing(char **argv, int argc, t_datamap *map)
 		return (parsing_error(OPEN, map));
 	if (parser_line(fd, map) == -1)
 		return (-1);
-	if (verify_struct(map) == -1)
+	if (verify_struct_bonus(map) == -1)
 		return (-1);
 	return (0);
 }

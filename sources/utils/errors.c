@@ -19,6 +19,8 @@ int	parsing_error(int code, t_datamap *map)
 		ft_putstr_fd(S_WRONGARGS, 2);
 	if (code == ACCESS)
 		ft_putstr_fd(S_ACCESS, 2);
+	if (code == TEXTURE)
+		ft_putstr_fd(S_TEXTURE, 2);
 	if (code == MALLOC)
 		ft_putstr_fd(S_MALLOC, 2);
 	if (code == WRONGTEXTURE)

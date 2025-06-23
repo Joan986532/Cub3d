@@ -58,7 +58,6 @@ void	setup_hooks(void *win, void *mlx, t_global *global)
 {
 	mlx_hook(win, KeyPress, KeyPressMask, &key_press, global);
 	mlx_hook(win, KeyRelease, KeyReleaseMask, &key_release, global);
-	mlx_hook(win, MotionNotify, PointerMotionMask, &mouse_moove, global);
 	mlx_mouse_hide(mlx, win);
 	mlx_hook(win, DestroyNotify, StructureNotifyMask, &close_window, global);
 	mlx_loop_hook(mlx, render_frame, global);

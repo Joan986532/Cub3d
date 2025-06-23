@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	init_ray(t_rat *ray, int x, t_global *global)
 {

@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	close_window(void *data)
 {
@@ -67,5 +67,14 @@ int	mouse_moove(int x, int y, t_global *global)
 		rotate_antitrigo(global->player, diff_x);
 	mlx_mouse_move(global->data->mlx, global->data->win, WIDTH / 2, HEIGHT / 2);
 	old_x = x;
+	return (0);
+}
+
+int	shoot_gun(int	button, int x, int y, t_global *global)
+{
+	(void)button;
+	(void)x;
+	(void)y;
+	global->player->shoot = 128;
 	return (0);
 }

@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	draw_wall_pixel(t_mlx_data *data, t_stripe *s, int y, double *pos)
 {
