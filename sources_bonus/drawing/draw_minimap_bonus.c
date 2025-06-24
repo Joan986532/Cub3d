@@ -1,74 +1,44 @@
 #include "cub3d.h"
-// 
-// void	print_tile(t_mlx_data *data, int x, int y, int color)
-// {
-	// int	i;
-	// int	j;
-	// int	size;
-// 
-	// size = 10;
-	// j = 0;
-	// while (j < size)
-	// {
-		// i = 0;
-		// while (i < size)
-		// {
-			// my_pixel_put(&data->view, x * size + j,
-				// y * size + i, color);
-			// i++;
-		// }
-		// j++;
-	// }
-// }
-// 
-// int	draw_minimap(t_player *player, t_datamap *map, t_mlx_data *data)
-// {
-	// int		x;
-	// int		y;
-// 
-	// x = 0;
-	// y = 0;
-	// (void)player;
-	// while (map->map[y])
-	// {
-		// x = 0;
-		// while (x < (int)ft_strlen(map->map[y]))
-		// {
-			// if (map->map[y][x] == '1')
-				// print_tile(global, x, y, 7237230);
-			// else
-				// print_tile(global, x, y, 16777215);
-			// x++;
-		// }
-		// y++;
-	// }
-	// return (0);
-// }
 
-int	draw_minimap(t_datamap *map, t_mlx_data *data)
+void	choose_color_tile(t_datamap *map, t_mlx_data *data,
+		t_vector2D point, t_vector2D corner)
 {
 	float	x;
 	float	y;
-	float	scale;
-	int		size;
 
-	y = 0;
-	scale = 0.1000001;
-	size = ft_strlen(map->map[(int)y]);
-	while (map->map[(int)y])
+	x = point.x / 10 + corner.x;
+	y = point.y / 10 + corner.y;
+	if (x >= 0 && x < map->map_width && y >= 0 && y < map->map_height)
 	{
-		x = 0;
-		while (x < size)
+		if (map->map[(int)y][(int)x] == '0')
+			my_pixel_put(&data->view, point.x, point.y, 0xFFFFFF);
+		else if (map->map[(int)y][(int)x] == '1')
+			my_pixel_put(&data->view, point.x, point.y, 0x000000);
+		else
+			my_pixel_put(&data->view, point.x, point.y, map->floor);
+	}
+	else
+		my_pixel_put(&data->view, point.x, point.y, map->floor);
+}
+
+int	draw_minimap(t_datamap *map, t_player *player, t_mlx_data *data)
+{
+	t_vector2D	point;
+	t_vector2D	corner;
+
+	point.x = 0;
+	point.y = 0;
+	corner.x = player->pos.x - 10;
+	corner.y = player->pos.y - 10;
+	while (point.y < 200)
+	{
+		point.x = 0;
+		while (point.x < 200)
 		{
-			if (map->map[(int)y][(int)x] == '1')
-				my_pixel_put(&data->view, x * 10, y * 10, 0x000000);
-			else if (map->map[(int)y][(int)x] == '0')
-				my_pixel_put(&data->view, x * 10, y * 10, 0xFFFFFF);
-			x += scale;
+			choose_color_tile(map, data, point, corner);
+			point.x++;
 		}
-		y += scale;
+		point.y++;
 	}
 	return (0);
 }
-
-

@@ -61,8 +61,8 @@ void	pov_player(t_mlx_data *data, t_player *player)
 	t_point		point;
 
 	choose_direction(player);
-	point.x1 = player->pos.x * 10;
-	point.y1 = player->pos.y * 10;
+	point.x1 = 100;
+	point.y1 = 100;
 	point.x2 = point.x1 + 5 * (player->fwd.x + player->plane.x);
 	point.y2 = point.y1 + 5 * (player->fwd.y + player->plane.y);
 	bresenham(&point, &data->view);
@@ -71,8 +71,8 @@ void	pov_player(t_mlx_data *data, t_player *player)
 	point.x2 = point.x1 + 5 * (2 * player->fwd.x - player->plane.x);
 	point.y2 = point.y1 + 5 * (2 * player->fwd.y - player->plane.y);
 	bresenham(&point, &data->view);
-	point.x1 = player->pos.x * 10;
-	point.y1 = player->pos.y * 10;
+	point.x1 = 100;
+	point.y1 = 100;
 	point.x2 = point.x1 + 5 * (player->fwd.x - player->plane.x);
 	point.y2 = point.y1 + 5 * (player->fwd.y - player->plane.y);
 	bresenham(&point, &data->view);

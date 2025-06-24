@@ -224,7 +224,7 @@ void	set_map_dimensions(t_list *linked_map, t_datamap *map);
 int		render_frame(void *info);
 
 /*	DRAWING	*/
-int		draw_minimap(t_datamap *map, t_mlx_data *data);
+int		draw_minimap(t_datamap *map, t_player *player, t_mlx_data *data);
 int		draw_view(t_mlx_data *data, t_global *global);
 int		draw_overlay(t_mlx_data *data, t_global *global);
 int		draw_sprite(t_mlx_data *data, t_global *global);
@@ -247,7 +247,6 @@ int		parsing_error(int code, t_datamap *map);
 int		img_error(int code, t_mlx_img *img);
 
 /*	MINIMAP	*/
-int		minimap(t_mlx_data *data, t_global *global);
 int		drawing(t_global *global);
 
 /*	IMAGE	*/
