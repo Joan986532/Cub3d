@@ -14,24 +14,6 @@ void	calculate_texture_params(t_stripe *stripe,
 	*step = (double)stripe->texture->height / virtual_height;
 }
 
-void	set_ceiling_floor_colors(t_global *global, int *ceiling, int *floor)
-{
-	int	posx;
-	int	posy;
-
-	posx = (int)global->player->pos.x;
-	posy = (int)global->player->pos.y;
-	*ceiling = global->map->ceiling;
-	*floor = global->map->floor;
-	if (posx < 0 || posx >= global->map->map_width
-		|| posy < 0 || posy >= global->map->map_height
-		|| global->map->map[posy][posx] == ' ')
-	{
-		*ceiling = 0x000000;
-		*floor = 0x000000;
-	}
-}
-
 void	set_stripe(t_stripe *stripe, t_rat *ray, int x)
 {
 	stripe->x = x;

@@ -239,7 +239,6 @@ void	perform_dda(t_rat *ray, t_global *global);
 /*	STRIPE	*/
 void	calculate_texture_params(t_stripe *stripe, double *tex_pos,
 			double *step);
-void	set_ceiling_floor_colors(t_global *global, int *ceiling, int *floor);
 void	set_stripe(t_stripe *stripe, t_rat *ray, int x);
 
 /*	ERROR	*/
@@ -268,8 +267,10 @@ void	rotate_trigo(t_player *player, float angle);
 int		close_window(void *data);
 
 /*	PLAYER	*/
-void	pov_player(t_mlx_data *data, t_player *player);
+void	pov_player(t_mlx_data *data, t_player *player, t_datamap *map);
 int		draw_shooting_gun(t_player *player, t_mlx_data *data, t_global *global);
 int		shoot_gun(int button, int x, int y, t_global *global);
+void	set_new_player_position(t_datamap *map, float *x, float *y, float step);
+
 
 #endif

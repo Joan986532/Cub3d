@@ -57,7 +57,8 @@ static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
 	int	ceiling;
 	int	floor;
 
-	set_ceiling_floor_colors(global, &ceiling, &floor);
+	ceiling = global->map->ceiling;
+	floor = global->map->floor;
 	if (stripe.x < 0 || stripe.x >= WIDTH || stripe.y0 > stripe.y1)
 		return ;
 	if (stripe.y0 < 0)
