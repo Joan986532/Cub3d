@@ -55,3 +55,30 @@ void	clear_textures(t_datamap *map)
 	if (map->west_t)
 		free(map->west_t);
 }
+
+void	set_new_player_position(t_datamap *map, float *x, float *y, float step)
+{
+	t_player	*player;
+	
+	player = map->player;
+	if (player->forwd == 1)
+	{
+		*x = player->pos.x + player->fwd.x * step;
+		*y = player->pos.y + player->fwd.y * step;
+	}
+	if (player->bckwd == 1)
+	{
+		*x = player->pos.x - player->fwd.x * step;
+		*y = player->pos.y - player->fwd.y * step;
+	}
+	if (player->left)
+	{
+		*x = player->pos.x - player->plane.x * step;
+		*y = player->pos.y - player->plane.y * step;
+	}
+	if (player->right)
+	{
+		*x = player->pos.x + player->plane.x * step;
+		*y = player->pos.y + player->plane.y * step;
+	}
+}
