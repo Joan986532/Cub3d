@@ -20,7 +20,7 @@ void	bresenham(t_point *point, t_mlx_img *img)
 	ft_init_bresenham(point);
 	while (1)
 	{
-		my_pixel_put(img, point->x1, point->y1, 0x0000FF);
+		my_pixel_put(img, point->x1, point->y1, 0xFF00FF);
 		if (point->x1 == point->x2 && point->y1 == point->y2)
 			break ;
 		point->error2 = 2 * point->error;

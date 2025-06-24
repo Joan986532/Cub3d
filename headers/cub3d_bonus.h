@@ -26,6 +26,7 @@
 
 # define WIDTH	1920
 # define HEIGHT	963
+# define MAPSIZE 100
 
 # ifndef BUFFER_SIZE
 # 	define BUFFER_SIZE 10
@@ -223,7 +224,7 @@ void	set_map_dimensions(t_list *linked_map, t_datamap *map);
 int		render_frame(void *info);
 
 /*	DRAWING	*/
-int		draw_minimap(t_global *global);
+int		draw_minimap(t_datamap *map, t_mlx_data *data);
 int		draw_view(t_mlx_data *data, t_global *global);
 int		draw_overlay(t_mlx_data *data, t_global *global);
 int		draw_sprite(t_mlx_data *data, t_global *global);

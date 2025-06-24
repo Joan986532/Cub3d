@@ -46,13 +46,13 @@ void	choose_direction(t_player *player)
 	}
 	if (player->left)
 	{
-		player->pos.x -= player->plane.x * 0.1;
-		player->pos.y -= player->plane.y * 0.1;
+		player->pos.x -= player->plane.x * 0.08;
+		player->pos.y -= player->plane.y * 0.08;
 	}
 	if (player->right)
 	{
-		player->pos.x += player->plane.x * 0.1;
-		player->pos.y += player->plane.y * 0.1;
+		player->pos.x += player->plane.x * 0.08;
+		player->pos.y += player->plane.y * 0.08;
 	}
 }
 
@@ -61,26 +61,24 @@ void	pov_player(t_mlx_data *data, t_player *player)
 	t_point		point;
 
 	choose_direction(player);
-	point.x1 = player->pos.x;
-	point.y1 = player->pos.y;
-	printf("pos_x: %f\n", player->pos.x);
-	printf("pos_y: %f\n", player->pos.y);
-	point.x2 = point.x1 + player->fwd.x * 10 + player->plane.x * 10;
-	point.y2 = point.y1 + player->fwd.y * 10 + player->plane.y * 10;
+	point.x1 = player->pos.x * 10;
+	point.y1 = player->pos.y * 10;
+	point.x2 = point.x1 + 5 * (player->fwd.x + player->plane.x);
+	point.y2 = point.y1 + 5 * (player->fwd.y + player->plane.y);
 	bresenham(&point, &data->view);
 	point.x1 = point.x2;
 	point.y1 = point.y2;
-	point.x2 = point.x1 + player->fwd.x * 20 - player->plane.x * 10;
-	point.y2 = point.y1 + player->fwd.y * 20 - player->plane.y * 10;
+	point.x2 = point.x1 + 5 * (2 * player->fwd.x - player->plane.x);
+	point.y2 = point.y1 + 5 * (2 * player->fwd.y - player->plane.y);
 	bresenham(&point, &data->view);
-	point.x1 = player->pos.x;
-	point.y1 = player->pos.y;
-	point.x2 = point.x1 + player->fwd.x * 10 - player->plane.x * 10;
-	point.y2 = point.y1 + player->fwd.y * 10 - player->plane.y * 10;
+	point.x1 = player->pos.x * 10;
+	point.y1 = player->pos.y * 10;
+	point.x2 = point.x1 + 5 * (player->fwd.x - player->plane.x);
+	point.y2 = point.y1 + 5 * (player->fwd.y - player->plane.y);
 	bresenham(&point, &data->view);
 	point.x1 = point.x2;
 	point.y1 = point.y2;
-	point.x2 = point.x1 + player->fwd.x * 20 + player->plane.x * 10;
-	point.y2 = point.y1 + player->fwd.y * 20 + player->plane.y * 10;
+	point.x2 = point.x1 + 5 * (2 * player->fwd.x + player->plane.x);
+	point.y2 = point.y1 + 5 * (2 * player->fwd.y + player->plane.y);
 	bresenham(&point, &data->view);
 }

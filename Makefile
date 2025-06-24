@@ -58,7 +58,7 @@ OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES)) \
 OBJECTS_BONUS = $(patsubst $(SRC_DIR_BONUS)/%.c,$(OBJ_DIR)/%.o,$(SOURCES_BONUS)) \
 
 INCLUDE = -lm -lXext -lX11
-CFLAGS = -g -Wall -Wextra -Werror -I$(HEAD_DIR) -I$(LIBFT_PATH) -I$(MINILIBX_PATH)
+CFLAGS = -O0 -g -Wall -Wextra -Werror -I$(HEAD_DIR) -I$(LIBFT_PATH) -I$(MINILIBX_PATH)
 
 NAME = cub3D
 

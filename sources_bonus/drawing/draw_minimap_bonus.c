@@ -1,45 +1,74 @@
-#include "cub3d_bonus.h"
+#include "cub3d.h"
+// 
+// void	print_tile(t_mlx_data *data, int x, int y, int color)
+// {
+	// int	i;
+	// int	j;
+	// int	size;
+// 
+	// size = 10;
+	// j = 0;
+	// while (j < size)
+	// {
+		// i = 0;
+		// while (i < size)
+		// {
+			// my_pixel_put(&data->view, x * size + j,
+				// y * size + i, color);
+			// i++;
+		// }
+		// j++;
+	// }
+// }
+// 
+// int	draw_minimap(t_player *player, t_datamap *map, t_mlx_data *data)
+// {
+	// int		x;
+	// int		y;
+// 
+	// x = 0;
+	// y = 0;
+	// (void)player;
+	// while (map->map[y])
+	// {
+		// x = 0;
+		// while (x < (int)ft_strlen(map->map[y]))
+		// {
+			// if (map->map[y][x] == '1')
+				// print_tile(global, x, y, 7237230);
+			// else
+				// print_tile(global, x, y, 16777215);
+			// x++;
+		// }
+		// y++;
+	// }
+	// return (0);
+// }
 
-void	print_tile(t_global *global, int x, int y, int color)
+int	draw_minimap(t_datamap *map, t_mlx_data *data)
 {
-	int	i;
-	int	j;
-	int	size;
+	float	x;
+	float	y;
+	float	scale;
+	int		size;
 
-	j = 0;
-	size = global->map->size;
-	while (j < size)
-	{
-		i = 0;
-		while (i < size)
-		{
-			my_pixel_put(&global->data->view, x * size + j,
-				y * size + i, color);
-			i++;
-		}
-		j++;
-	}
-}
-
-int	draw_minimap(t_global *global)
-{
-	int		x;
-	int		y;
-
-	x = 0;
 	y = 0;
-	while (global->map->map[y])
+	scale = 0.1000001;
+	size = ft_strlen(map->map[(int)y]);
+	while (map->map[(int)y])
 	{
 		x = 0;
-		while (x < (int)ft_strlen(global->map->map[y]))
+		while (x < size)
 		{
-			if (global->map->map[y][x] == '1')
-				print_tile(global, x, y, 7237230);
-			else
-				print_tile(global, x, y, 16777215);
-			x++;
+			if (map->map[(int)y][(int)x] == '1')
+				my_pixel_put(&data->view, x * 10, y * 10, 0x000000);
+			else if (map->map[(int)y][(int)x] == '0')
+				my_pixel_put(&data->view, x * 10, y * 10, 0xFFFFFF);
+			x += scale;
 		}
-		y++;
+		y += scale;
 	}
 	return (0);
 }
+
+

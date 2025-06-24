@@ -90,6 +90,6 @@ void	free_textures(t_global *global)
 	{
 		if (global->pov_gun->img)
 			mlx_destroy_image(global->data->mlx, global->pov_gun->img);
-		free(global->west_texture);
+		free(global->pov_gun);
 	}
 }
