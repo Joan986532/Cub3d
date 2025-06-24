@@ -268,7 +268,7 @@ void	rotate_trigo(t_player *player, float angle);
 int		close_window(void *data);
 
 /*	PLAYER	*/
-void	pov_player(t_mlx_data *data, t_player *player);
+void	pov_player(t_mlx_data *data, t_player *player, t_datamap *map);
 int		draw_shooting_gun(t_player *player, t_mlx_data *data, t_global *global);
 int		shoot_gun(int button, int x, int y, t_global *global);
 
