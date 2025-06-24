@@ -239,7 +239,6 @@ void	perform_dda(t_rat *ray, t_global *global);
 /*	STRIPE	*/
 void	calculate_texture_params(t_stripe *stripe, double *tex_pos,
 			double *step);
-void	set_ceiling_floor_colors(t_global *global, int *ceiling, int *floor);
 void	set_stripe(t_stripe *stripe, t_rat *ray, int x);
 
 /*	ERROR	*/
