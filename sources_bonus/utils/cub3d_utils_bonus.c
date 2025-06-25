@@ -71,12 +71,12 @@ void	set_new_player_position(t_datamap *map, float *x, float *y, float step)
 		*x = player->pos.x - player->fwd.x * step;
 		*y = player->pos.y - player->fwd.y * step;
 	}
-	if (player->left)
+	if (player->left == 1)
 	{
 		*x = player->pos.x - player->plane.x * step;
 		*y = player->pos.y - player->plane.y * step;
 	}
-	if (player->right)
+	if (player->right == 1)
 	{
 		*x = player->pos.x + player->plane.x * step;
 		*y = player->pos.y + player->plane.y * step;

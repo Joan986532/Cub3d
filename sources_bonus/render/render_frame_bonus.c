@@ -15,6 +15,7 @@ int	render_frame(void *info)
 		return (-1);
 	if (draw_minimap(global->map, global->player, global->data) == -1)
 		return (-1);
+	printf("pos_x: %f, pos_y: %f\n", global->player->pos.x, global->player->pos.y);
 	pov_player(global->data, global->player, global->map);
 	mlx_put_image_to_window(data->mlx, data->win, data->view.mlx_img, 0, 0);
 	return (0);

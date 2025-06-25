@@ -71,7 +71,7 @@ int	mouse_moove(int x, int y, t_global *global)
 	return (0);
 }
 
-int	shoot_gun(int	button, int x, int y, t_global *global)
+int	shoot_gun(int button, int x, int y, t_global *global)
 {
 	(void)button;
 	(void)x;

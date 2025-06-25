@@ -32,7 +32,7 @@ void	rotate_trigo(t_player *player, float angle)
 		+ player->plane.y * cosf(-angle);
 }
 
-int		is_available_space(float x, float y, t_datamap *map)
+int	is_available_space(float x, float y, t_datamap *map)
 {
 	int		posx;
 	int		posy;
@@ -49,8 +49,10 @@ void	choose_direction(t_player *player, t_datamap *map)
 	float	step;
 	float	new_x;
 	float	new_y;
-	
+
 	step = 0.08;
+	new_x = 0.0f;
+	new_y = 0.0f;
 	set_new_player_position(map, &new_x, &new_y, step);
 	if (is_available_space(new_x, player->pos.y, map))
 		player->pos.x = new_x;
