@@ -29,7 +29,7 @@
 # define MAPSIZE 100
 
 # ifndef BUFFER_SIZE
-# 	define BUFFER_SIZE 10
+#  define BUFFER_SIZE 10
 # endif
 
 typedef struct s_global	t_global;
@@ -185,6 +185,7 @@ typedef struct s_mlx_data
 	void		*win;
 	void		*mlx;
 	t_mlx_img	view;
+	t_mlx_img	minimap;
 }			t_mlx_data;
 
 typedef struct s_global
@@ -246,7 +247,7 @@ int		parsing_error(int code, t_datamap *map);
 int		img_error(int code, t_mlx_img *img);
 
 /*	MINIMAP	*/
-int		drawing(t_global *global);
+int		init_minimap(t_global *global, t_mlx_data *data, t_datamap *map);
 
 /*	IMAGE	*/
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
@@ -271,6 +272,5 @@ void	pov_player(t_mlx_data *data, t_player *player, t_datamap *map);
 int		draw_shooting_gun(t_player *player, t_mlx_data *data, t_global *global);
 int		shoot_gun(int button, int x, int y, t_global *global);
 void	set_new_player_position(t_datamap *map, float *x, float *y, float step);
-
 
 #endif

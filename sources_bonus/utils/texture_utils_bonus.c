@@ -47,9 +47,9 @@ int	load_textures(t_global *global)
 	global->east_texture = malloc(sizeof(t_texture));
 	global->west_texture = malloc(sizeof(t_texture));
 	global->pov_gun = malloc(sizeof(t_texture));
-	if (!global->north_texture || !global->south_texture
-		|| !global->east_texture || !global->west_texture
-		|| !global->pov_gun || init_txt(global->north_texture, global->data->mlx, n_path)
+	if (!global->north_texture ||!global->south_texture ||!global->east_texture
+		|| !global->west_texture ||!global->pov_gun
+		|| init_txt(global->north_texture, global->data->mlx, n_path)
 		|| init_txt(global->south_texture, global->data->mlx, s_path)
 		|| init_txt(global->east_texture, global->data->mlx, e_path)
 		|| init_txt(global->west_texture, global->data->mlx, w_path)

@@ -79,6 +79,8 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_mlx(&data))
 		return (1);
+	if (init_minimap(&global, &data, &map))
+		return (1);
 	if (init_image(&data.view, data.mlx) == -1)
 		return (1);
 	if (load_textures(&global) == -1)

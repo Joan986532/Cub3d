@@ -50,16 +50,33 @@ void	draw_idle(t_player *player, t_mlx_data *data, t_global *global)
 		}
 		x += scale;
 	}
-	global->player->shoot -= 1;
-	if (global->player->shoot == -25)
-		global->player->shoot = 0;
 }
 
 int	draw_sprite(t_mlx_data *data, t_global *global)
 {
+	static int	flag;
+
 	if (global->player->shoot > 0)
+	{
 		draw_shooting_gun(global->player, data, global);
+		flag = 0;
+	}
 	else
-		draw_idle(global->player, data, global);
+	{
+		if (flag == 0)
+		{
+			draw_idle(global->player, data, global);
+			global->player->shoot--;
+		}
+		else if (flag == 1)
+		{
+			draw_idle(global->player, data, global);
+			global->player->shoot++;
+		}
+		if (global->player->shoot == -25)
+			flag = 1;
+		else if (global->player->shoot == 0)
+			flag = 0;
+	}
 	return (0);
 }
