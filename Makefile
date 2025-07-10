@@ -1,12 +1,14 @@
 SRC_DIR = sources
 SRC_DIR_BONUS = sources_bonus
-HEAD_DIR = headers
 LIBFT_PATH = libft
 MINILIBX_PATH = minilibx-linux
 OBJ_DIR = objects
+OBJ_DIR_BONUS = objects_bonus
 
 LIBFT = $(LIBFT_PATH)/libft.a
 MINILIBX = $(MINILIBX_PATH)/libmlx_Linux.a
+
+HEAD_DIR = $(SRC_DIR)/header
 
 SOURCES = $(SRC_DIR)/monitoring/cub3d.c \
 		  $(SRC_DIR)/controls/controls.c \
@@ -28,6 +30,8 @@ SOURCES = $(SRC_DIR)/monitoring/cub3d.c \
 		  $(SRC_DIR)/render/render_frame.c \
 		  $(SRC_DIR)/drawing/draw_view.c \
 		  $(SRC_DIR)/drawing/draw_player.c \
+
+HEAD_DIR_BONUS = $(SRC_DIR_BONUS)/header
 
 SOURCES_BONUS = $(SRC_DIR_BONUS)/monitoring/cub3d_bonus.c \
 				$(SRC_DIR_BONUS)/controls/controls_bonus.c \
@@ -55,10 +59,10 @@ SOURCES_BONUS = $(SRC_DIR_BONUS)/monitoring/cub3d_bonus.c \
 
 OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES)) \
 
-OBJECTS_BONUS = $(patsubst $(SRC_DIR_BONUS)/%.c,$(OBJ_DIR)/%.o,$(SOURCES_BONUS)) \
+OBJECTS_BONUS = $(patsubst $(SRC_DIR_BONUS)/%.c,$(OBJ_DIR_BONUS)/%.o,$(SOURCES_BONUS)) \
 
 INCLUDE = -lm -lXext -lX11
-CFLAGS = -O0 -g -Wall -Wextra -Werror -I$(HEAD_DIR) -I$(LIBFT_PATH) -I$(MINILIBX_PATH)
+CFLAGS = -g -O3 -Wall -Wextra -Werror -I$(LIBFT_PATH) -I$(MINILIBX_PATH)
 
 NAME = cub3D
 
@@ -69,28 +73,31 @@ all: $(NAME)
 $(NAME): $(OBJECTS)
 	@make -C $(LIBFT_PATH)
 	@make -C $(MINILIBX_PATH)
-	cc $(CFLAGS) $(OBJECTS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)
+	cc -I$(HEAD_DIR) $(CFLAGS) $(OBJECTS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)
 
 bonus: $(OBJECTS_BONUS)
 	@make -C $(LIBFT_PATH)
 	@make -C $(MINILIBX_PATH)
-	cc $(CFLAGS) $(OBJECTS_BONUS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)_bonus
+	cc -I$(HEAD_DIR_BONUS) $(CFLAGS) $(OBJECTS_BONUS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)_bonus
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(HEAD_DIR) -c $< -o $@
 
-$(OBJ_DIR)/%.o: $(SRC_DIR_BONUS)/%.c | $(OBJ_DIR)
+$(OBJ_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(OBJ_DIR_BONUS)
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(HEAD_DIR_BONUS) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
+$(OBJ_DIR_BONUS):
+	mkdir -p $(OBJ_DIR_BONUS)
+
 clean:
 	@$(MAKE) -C $(MINILIBX_PATH) clean
 	@$(MAKE) -C $(LIBFT_PATH) clean
-	@rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR) $(OBJ_DIR_BONUS)
 
 fclean: clean
 	@$(MAKE) -C $(LIBFT_PATH) fclean

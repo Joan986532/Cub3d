@@ -9,7 +9,7 @@
 # include <limits.h>
 # include "mlx_int.h"
 # include <math.h>
-# include <time.h>
+# include <sys/time.h>
 
 # define S_LIMITCOLOR "Color limit is 255\n"
 # define S_WRONGCOLOR "Color is uninitialized\n"
@@ -25,7 +25,7 @@
 # define S_IMAGE "mlx new image fail\n"
 
 # define WIDTH	1920
-# define HEIGHT	963
+# define HEIGHT	1080
 # define MAPSIZE 100
 
 # ifndef BUFFER_SIZE
@@ -190,16 +190,17 @@ typedef struct s_mlx_data
 
 typedef struct s_global
 {
-	int			error;
-	int			press;
-	t_player	*player;
-	t_datamap	*map;
-	t_mlx_data	*data;
-	t_texture	*north_texture;
-	t_texture	*south_texture;
-	t_texture	*east_texture;
-	t_texture	*west_texture;
-	t_texture	*pov_gun;
+	int				error;
+	int				press;
+	t_player		*player;
+	t_datamap		*map;
+	t_mlx_data		*data;
+	t_texture		*north_texture;
+	t_texture		*south_texture;
+	t_texture		*east_texture;
+	t_texture		*west_texture;
+	t_texture		*pov_gun;
+	unsigned long	timeofday;
 }		t_global;
 
 /*	PARSING	*/
@@ -260,12 +261,13 @@ void	free_textures(t_global *global);
 int		get_texture_color(t_texture *texture, int x, int y);
 
 /*	CONTROLS	*/
-int		key_press(int keysym, t_global *global);
-int		key_release(int keysym, t_global *global);
-int		mouse_moove(int x, int y, t_global *global);
-void	rotate_antitrigo(t_player *player, float angle);
-void	rotate_trigo(t_player *player, float angle);
-int		close_window(void *data);
+int				key_press(int keysym, t_global *global);
+int				key_release(int keysym, t_global *global);
+int				mouse_moove(int x, int y, t_global *global);
+void			rotate_antitrigo(t_player *player, float angle);
+void			rotate_trigo(t_player *player, float angle);
+int				close_window(void *data);
+unsigned long	gettime_ms();
 
 /*	PLAYER	*/
 void	pov_player(t_mlx_data *data, t_player *player, t_datamap *map);

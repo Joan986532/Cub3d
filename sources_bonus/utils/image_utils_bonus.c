@@ -1,5 +1,15 @@
 #include "cub3d_bonus.h"
 
+unsigned long	gettime_ms(void)
+{
+	struct timeval	time;
+	unsigned long	time_ms;
+
+	gettimeofday(&time, NULL);
+	time_ms = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (time_ms);
+}
+
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color)
 {
 	char	*dst;

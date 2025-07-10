@@ -20,8 +20,6 @@ void	init_player(t_player *player)
 	player->fwd = (t_vector3D){1, 0, 0};
 	player->spawn = (t_vector3D){0, 0, 0};
 	player->spawn_fwd = (t_vector3D){1, 0, 0};
-	player->minimap_width = 100;
-	player->minimap_height = 100;
 	player->max_render_distance = 100;
 	player->bckwd = 0;
 	player->forwd = 0;
@@ -58,7 +56,6 @@ void	setup_hooks(void *win, void *mlx, t_global *global)
 {
 	mlx_hook(win, KeyPress, KeyPressMask, &key_press, global);
 	mlx_hook(win, KeyRelease, KeyReleaseMask, &key_release, global);
-	mlx_mouse_hide(mlx, win);
 	mlx_hook(win, DestroyNotify, StructureNotifyMask, &close_window, global);
 	mlx_loop_hook(mlx, render_frame, global);
 }

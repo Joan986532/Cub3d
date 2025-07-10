@@ -44,12 +44,12 @@ void	choose_direction(t_player *player)
 		player->pos.x -= player->fwd.x * 0.08;
 		player->pos.y -= player->fwd.y * 0.08;
 	}
-	if (player->left)
+	if (player->left == 1)
 	{
 		player->pos.x -= player->plane.x * 0.1;
 		player->pos.y -= player->plane.y * 0.1;
 	}
-	if (player->right)
+	if (player->right == 1)
 	{
 		player->pos.x += player->plane.x * 0.1;
 		player->pos.y += player->plane.y * 0.1;

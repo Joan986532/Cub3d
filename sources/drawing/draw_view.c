@@ -8,6 +8,7 @@ static void	draw_wall_pixel(t_mlx_data *data, t_stripe *s, int y, double *pos)
 	tex_y = (int)*pos & (s->texture->height - 1);
 	color = get_texture_color(s->texture, s->tex_x, tex_y);
 	my_pixel_put(&data->view, s->x, y, color);
+	my_pixel_put(&data->view, s->x + 1, y, color);
 }
 
 static void	draw_untextured_stripe(t_stripe stripe, t_mlx_data *data,
@@ -19,11 +20,20 @@ static void	draw_untextured_stripe(t_stripe stripe, t_mlx_data *data,
 	while (i < HEIGHT)
 	{
 		if (i < stripe.y0)
+		{
 			my_pixel_put(&data->view, stripe.x, i, ceiling);
+			my_pixel_put(&data->view, stripe.x + 1, i, ceiling);
+		}
 		else if (i >= stripe.y0 && i <= stripe.y1)
+		{
 			my_pixel_put(&data->view, stripe.x, i, stripe.color);
+			my_pixel_put(&data->view, stripe.x + 1, i, stripe.color);
+		}
 		else
+		{
 			my_pixel_put(&data->view, stripe.x, i, floor);
+			my_pixel_put(&data->view, stripe.x + 1, i, floor);
+		}
 		i++;
 	}
 }
@@ -37,17 +47,23 @@ static void	draw_textured_stripe(t_stripe stripe, t_mlx_data *data,
 
 	calculate_texture_params(&stripe, &tex_pos, &step);
 	y = 0;
-	while (y < HEIGHT)
+	while (++y < HEIGHT)
 	{
 		if (y < stripe.y0)
+		{
 			my_pixel_put(&data->view, stripe.x, y, ceiling);
+			my_pixel_put(&data->view, stripe.x + 1, y, ceiling);
+		}
 		else if (y >= stripe.y0 && y <= stripe.y1)
 		{
 			draw_wall_pixel(data, &stripe, y, &tex_pos);
 			tex_pos += step;
 		}
 		else
+		{
 			my_pixel_put(&data->view, stripe.x, y, floor);
+			my_pixel_put(&data->view, stripe.x + 1, y, floor);
+		}
 		y++;
 	}
 }
@@ -87,7 +103,7 @@ int	draw_view(t_mlx_data *data, t_global *global)
 		set_wall_texture(&ray, global);
 		set_stripe(&stripe, &ray, x);
 		draw_stripe(stripe, data, global);
-		x++;
+		x += 2;
 	}
 	return (0);
 }

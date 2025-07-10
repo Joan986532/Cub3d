@@ -149,8 +149,6 @@ typedef struct s_player
 	t_vector3D	spawn_fwd;
 	t_vector3D	plane;
 	int			max_render_distance;
-	int			minimap_width;
-	int			minimap_height;
 	float		angle;
 	int			forwd;
 	int			bckwd;
@@ -242,7 +240,6 @@ int		parsing_error(int code, t_datamap *map);
 int		img_error(int code, t_mlx_img *img);
 
 /*	MINIMAP	*/
-int		minimap(t_mlx_data *data, t_global *global);
 int		drawing(t_global *global);
 
 /*	IMAGE	*/

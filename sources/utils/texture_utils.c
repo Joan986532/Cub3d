@@ -35,13 +35,11 @@ int	load_textures(t_global *global)
 	char	*s_path;
 	char	*e_path;
 	char	*w_path;
-	char	*gun_path;
 
 	n_path = global->map->north_t;
 	s_path = global->map->south_t;
 	e_path = global->map->east_t;
 	w_path = global->map->west_t;
-	gun_path = global->map->gun;
 	global->north_texture = malloc(sizeof(t_texture));
 	global->south_texture = malloc(sizeof(t_texture));
 	global->east_texture = malloc(sizeof(t_texture));

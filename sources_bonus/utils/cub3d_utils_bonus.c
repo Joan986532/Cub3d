@@ -81,4 +81,8 @@ void	set_new_player_position(t_datamap *map, float *x, float *y, float step)
 		*x = player->pos.x + player->plane.x * step;
 		*y = player->pos.y + player->plane.y * step;
 	}
+	if (player->trnleft == 1)
+		rotate_trigo(player, player->angle);
+	if (player->trnright == 1)
+		rotate_antitrigo(player, player->angle);
 }
