@@ -9,7 +9,11 @@ int	is_spawn(char c)
 
 static int	is_whitlisted_char(char c)
 {
-	if (is_spawn(c) || c == '0' || c == '1' || c == ' ')
+	if (c == '0' || c == '1' || c == ' ')
+		return (1);
+	if (c == 'O' || c == 'C')
+		return (1);
+	if (is_spawn(c))
 		return (1);
 	return (0);
 }
