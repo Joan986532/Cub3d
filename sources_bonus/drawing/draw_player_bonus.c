@@ -41,7 +41,7 @@ int	is_available_space(float x, float y, t_datamap *map)
 	posy = (int)y;
 	if (posx < 0 || posx >= map->map_width || posy < 0 || posy >= map->map_height)
 		return (0);
-	return (map->map[posy][posx] == '0');
+	return (map->map[posy][posx] == '0' || map->map[posy][posx] == 'O');
 }
 
 void	choose_direction(t_player *player, t_datamap *map)
