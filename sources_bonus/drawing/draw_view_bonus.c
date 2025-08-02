@@ -69,7 +69,7 @@ static void	draw_textured_stripe(t_stripe stripe, t_mlx_data *data,
 }
 
 static void	draw_stripe(t_stripe stripe, t_mlx_data *data, t_global *global)
-{
+{	
 	int	ceiling;
 	int	floor;
 

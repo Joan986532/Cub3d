@@ -80,7 +80,8 @@ void	perform_dda(t_rat *ray, t_global *global)
 		}
 		if (is_out_of_map_bound(ray, global, 0))
 			continue ;
-		if (global->map->map[ray->map_y][ray->map_x] == '1')
+		if (global->map->map[ray->map_y][ray->map_x] == '1'
+			|| global->map->map[ray->map_y][ray->map_x] == 'C')
 			ray->hit = 1;
 	}
 }
