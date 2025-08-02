@@ -28,6 +28,8 @@
 # define HEIGHT	1080
 # define MAPSIZE 100
 
+# define T_DOOR "textures/door_clean.xpm"
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
@@ -199,6 +201,7 @@ typedef struct s_global
 	t_texture		*south_texture;
 	t_texture		*east_texture;
 	t_texture		*west_texture;
+	t_texture		*door_texture;
 	t_texture		*pov_gun;
 	unsigned long	timeofday;
 }		t_global;
