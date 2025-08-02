@@ -22,7 +22,9 @@ static void	set_texture_for_hit(t_rat *ray, t_global *global,
 {
 	if (is_horizontal)
 	{
-		if (ray->step_x > 0)
+		if (global->map->map[ray->map_y][ray->map_x] == 'C')
+			ray->texture = global->door_texture;
+		else if (ray->step_x > 0)
 			ray->texture = global->east_texture;
 		else
 			ray->texture = global->west_texture;
@@ -30,7 +32,9 @@ static void	set_texture_for_hit(t_rat *ray, t_global *global,
 	}
 	else
 	{
-		if (ray->step_y > 0)
+		if (global->map->map[ray->map_y][ray->map_x] == 'C')
+			ray->texture = global->door_texture;
+		else if (ray->step_y > 0)
 			ray->texture = global->south_texture;
 		else
 			ray->texture = global->north_texture;
@@ -64,7 +68,8 @@ void	set_wall_texture(t_rat *ray, t_global *global)
 		&& ray->map_x < global->map->map_width)
 	{
 		set_texture_for_hit(ray, global, &wall_x, !ray->side);
-		calculate_texture_x(ray, wall_x);
+		if (ray->texture)
+			calculate_texture_x(ray, wall_x);
 		ray->color = 0xFFFF00;
 	}
 	else
