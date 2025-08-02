@@ -52,6 +52,8 @@ int	key_press(int keysym, t_global *global)
 		global->player->trnleft = 1;
 	if (keysym == XK_Right)
 		global->player->trnright = 1;
+	if (keysym == KEY_E)
+		handle_door_interact(global);
 	if (keysym == XK_Escape)
 		close_window(global);
 	return (0);

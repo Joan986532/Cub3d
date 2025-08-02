@@ -30,6 +30,8 @@
 
 # define T_DOOR "textures/door_clean.xpm"
 
+# define KEY_E 101 
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
@@ -163,6 +165,7 @@ typedef struct s_player
 	int			trnleft;
 	int			trnright;
 	int			shoot;
+	int			interactive_cell[2];
 }		t_player;
 
 typedef struct s_datamap
@@ -271,6 +274,9 @@ void			rotate_antitrigo(t_player *player, float angle);
 void			rotate_trigo(t_player *player, float angle);
 int				close_window(void *data);
 unsigned long	gettime_ms();
+
+/* DOOR */
+void	handle_door_interact(t_global *global);
 
 /*	PLAYER	*/
 void	pov_player(t_mlx_data *data, t_player *player, t_datamap *map);

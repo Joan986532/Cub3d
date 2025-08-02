@@ -45,6 +45,7 @@ SOURCES_BONUS = $(SRC_DIR_BONUS)/monitoring/cub3d_bonus.c \
 				$(SRC_DIR_BONUS)/utils/stripe_utils_bonus.c \
 				$(SRC_DIR_BONUS)/utils/wall_utils_bonus.c \
 				$(SRC_DIR_BONUS)/utils/parsing_utils_bonus.c \
+				$(SRC_DIR_BONUS)/utils/door_utils_bonus.c \
 				$(SRC_DIR_BONUS)/parsing/map_parsing_bonus.c \
 				$(SRC_DIR_BONUS)/parsing/map_validation_bonus.c \
 				$(SRC_DIR_BONUS)/parsing/parsing_color_bonus.c \
