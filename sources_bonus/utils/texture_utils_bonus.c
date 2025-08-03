@@ -31,17 +31,13 @@ static int	init_txt(t_texture *texture, void *mlx, char *path)
 
 int	load_textures(t_global *global)
 {
-	char	*n_path;
-	char	*s_path;
-	char	*e_path;
-	char	*w_path;
-	char	*gun_path;
+	char	*paths[5];
 
-	n_path = global->map->north_t;
-	s_path = global->map->south_t;
-	e_path = global->map->east_t;
-	w_path = global->map->west_t;
-	gun_path = global->map->gun;
+	paths[0] = global->map->north_t;
+	paths[1] = global->map->south_t;
+	paths[2] = global->map->east_t;
+	paths[3] = global->map->west_t;
+	paths[4] = global->map->gun;
 	global->north_texture = malloc(sizeof(t_texture));
 	global->south_texture = malloc(sizeof(t_texture));
 	global->east_texture = malloc(sizeof(t_texture));
@@ -50,12 +46,12 @@ int	load_textures(t_global *global)
 	global->pov_gun = malloc(sizeof(t_texture));
 	if (!global->north_texture ||!global->south_texture ||!global->east_texture
 		|| !global->west_texture ||!global->pov_gun
-		|| init_txt(global->north_texture, global->data->mlx, n_path)
-		|| init_txt(global->south_texture, global->data->mlx, s_path)
-		|| init_txt(global->east_texture, global->data->mlx, e_path)
-		|| init_txt(global->west_texture, global->data->mlx, w_path)
+		|| init_txt(global->north_texture, global->data->mlx, paths[0])
+		|| init_txt(global->south_texture, global->data->mlx, paths[1])
+		|| init_txt(global->east_texture, global->data->mlx, paths[2])
+		|| init_txt(global->west_texture, global->data->mlx, paths[3])
 		|| init_txt(global->door_texture, global->data->mlx, T_DOOR)
-		|| init_txt(global->pov_gun, global->data->mlx, gun_path))
+		|| init_txt(global->pov_gun, global->data->mlx, paths[4]))
 		return (-1);
 	return (0);
 }

@@ -73,7 +73,8 @@ int	mouse_moove(int x, int y, t_global *global)
 			rotate_trigo(global->player, diff_x);
 		else if (x > WIDTH / 2)
 			rotate_antitrigo(global->player, diff_x);
-		mlx_mouse_move(global->data->mlx, global->data->win, WIDTH / 2, HEIGHT / 2);
+		mlx_mouse_move(global->data->mlx, global->data->win,
+			WIDTH / 2, HEIGHT / 2);
 		old_x = x;
 	}
 	return (0);
@@ -84,7 +85,6 @@ int	shoot_gun(int button, int x, int y, t_global *global)
 	(void)button;
 	(void)x;
 	(void)y;
-
 	global->player->shoot = 128;
 	global->timeofday = gettime_ms();
 	return (0);

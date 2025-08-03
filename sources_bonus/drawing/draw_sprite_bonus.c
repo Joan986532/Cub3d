@@ -1,6 +1,6 @@
 #include "cub3d_bonus.h"
 
-void draw_crosshair(t_mlx_data *data)
+void	draw_crosshair(t_mlx_data *data)
 {
 	int	x;
 	int	y;
@@ -26,7 +26,7 @@ void draw_crosshair(t_mlx_data *data)
 int	init_shooting_gun(t_player *player, t_mlx_data *data, t_global *global)
 {
 	unsigned long	actualtime;
-	
+
 	actualtime = gettime_ms();
 	if (actualtime > global->timeofday + 50 && player->shoot == 128)
 		player->shoot += 128;
@@ -102,16 +102,12 @@ int	draw_sprite(t_mlx_data *data, t_global *global)
 	}
 	else
 	{
+		if (flag == 0 || flag == 1)
+			draw_idle(global->player, data, global);
 		if (flag == 0)
-		{
-			draw_idle(global->player, data, global);
 			global->player->shoot--;
-		}
 		else if (flag == 1)
-		{
-			draw_idle(global->player, data, global);
 			global->player->shoot++;
-		}
 		if (global->player->shoot == -25)
 			flag = 1;
 		else if (global->player->shoot == 0)

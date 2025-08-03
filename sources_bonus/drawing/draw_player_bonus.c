@@ -39,7 +39,8 @@ int	is_available_space(float x, float y, t_datamap *map)
 
 	posx = (int)x;
 	posy = (int)y;
-	if (posx < 0 || posx >= map->map_width || posy < 0 || posy >= map->map_height)
+	if (posx < 0 || posx >= map->map_width
+		|| posy < 0 || posy >= map->map_height)
 		return (0);
 	return (map->map[posy][posx] == '0' || map->map[posy][posx] == 'O');
 }

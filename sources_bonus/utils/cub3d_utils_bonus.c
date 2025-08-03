@@ -59,28 +59,16 @@ void	clear_textures(t_datamap *map)
 void	set_new_player_position(t_datamap *map, float *x, float *y, float step)
 {
 	t_player	*player;
-	
+
 	player = map->player;
-	if (player->forwd == 1)
-	{
-		*x = player->pos.x + player->fwd.x * step;
-		*y = player->pos.y + player->fwd.y * step;
-	}
-	if (player->bckwd == 1)
-	{
-		*x = player->pos.x - player->fwd.x * step;
-		*y = player->pos.y - player->fwd.y * step;
-	}
-	if (player->left == 1)
-	{
-		*x = player->pos.x - player->plane.x * step;
-		*y = player->pos.y - player->plane.y * step;
-	}
-	if (player->right == 1)
-	{
-		*x = player->pos.x + player->plane.x * step;
-		*y = player->pos.y + player->plane.y * step;
-	}
+	if (player->forwd != player->bckwd && player->right != player->left)
+		step *= 0.70710678;
+	*x = player->pos.x;
+	*y = player->pos.y;
+	*x = *x + (player->forwd - player->bckwd) * player->fwd.x * step;
+	*y = *y + (player->forwd - player->bckwd) * player->fwd.y * step;
+	*x = *x + (player->right - player->left) * player->plane.x * step;
+	*y = *y + (player->right - player->left) * player->plane.y * step;
 	if (player->trnleft == 1)
 		rotate_trigo(player, player->angle);
 	if (player->trnright == 1)
