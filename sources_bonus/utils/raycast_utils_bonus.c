@@ -10,6 +10,7 @@ void	init_ray(t_rat *ray, int x, t_global *global)
 	ray->ray_dir_y = player->fwd.y + player->plane.y * ray->camera_x;
 	ray->map_x = (int)player->pos.x;
 	ray->map_y = (int)player->pos.y;
+	ray->door_hit = 0;
 	if (ray->ray_dir_x != 0)
 		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 	else
@@ -83,5 +84,12 @@ void	perform_dda(t_rat *ray, t_global *global)
 		if (global->map->map[ray->map_y][ray->map_x] == '1'
 			|| global->map->map[ray->map_y][ray->map_x] == 'C')
 			ray->hit = 1;
+		if (global->map->map[ray->map_y][ray->map_x] == 'C'
+			|| global->map->map[ray->map_y][ray->map_x] == 'O')
+		{
+			ray->door_hit_location[0] = ray->map_x;
+			ray->door_hit_location[1] = ray->map_y;
+			ray->door_hit = 1;
+		}
 	}
 }

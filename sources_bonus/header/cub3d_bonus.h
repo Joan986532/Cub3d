@@ -137,6 +137,8 @@ typedef struct s_rat
 	int			step_x;
 	int			step_y;
 	int			hit;
+	int			door_hit;
+	int			door_hit_location[2];
 	int			side;
 	int			line_height;
 	int			draw_start;
@@ -277,6 +279,8 @@ unsigned long	gettime_ms();
 
 /* DOOR */
 void	handle_door_interact(t_global *global);
+void	update_interactive_cell(t_rat *ray, t_global *global);
+void    reset_interactive_cell(t_global *global);
 
 /*	PLAYER	*/
 void	pov_player(t_mlx_data *data, t_player *player, t_datamap *map);

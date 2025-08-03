@@ -92,13 +92,18 @@ int	draw_view(t_mlx_data *data, t_global *global)
 	t_rat		ray;
 	t_stripe	stripe;
 	int			x;
+	int			foi;
 
+	reset_interactive_cell(global);
+	foi = 15;
 	x = 0;
 	while (x < WIDTH)
 	{
 		init_ray(&ray, x, global);
 		calculate_step(&ray, global->player);
 		perform_dda(&ray, global);
+		if (x > WIDTH / 2 - 30 && x < WIDTH / 2 + 30)
+			update_interactive_cell(&ray, global);
 		calculate_wall_height(&ray);
 		set_wall_texture(&ray, global);
 		set_stripe(&stripe, &ray, x);
