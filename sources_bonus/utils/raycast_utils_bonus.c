@@ -87,9 +87,17 @@ void	perform_dda(t_rat *ray, t_global *global)
 		if (global->map->map[ray->map_y][ray->map_x] == 'C'
 			|| global->map->map[ray->map_y][ray->map_x] == 'O')
 		{
-			ray->door_hit_location[0] = ray->map_x;
-			ray->door_hit_location[1] = ray->map_y;
-			ray->door_hit = 1;
+			double	dist;
+			if (ray->side == 0)
+				dist = (ray->side_dist_x - ray->delta_dist_x);
+			else
+				dist = (ray->side_dist_y - ray->delta_dist_y);
+			if (dist <= 2)
+			{
+				ray->door_hit_location[0] = ray->map_x;
+				ray->door_hit_location[1] = ray->map_y;
+				ray->door_hit = 1;
+			}
 		}
 	}
 }
