@@ -2,9 +2,9 @@
 
 void	handle_door_interact(t_global *global)
 {
-    t_player    *player;
-    int         x;
-    int         y;
+    t_player	*player;
+    int			x;
+    int			y;
 
     player = global->player;
     x = player->interactive_cell[0];

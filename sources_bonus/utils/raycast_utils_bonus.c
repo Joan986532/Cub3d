@@ -59,6 +59,26 @@ int	is_out_of_map_bound(t_rat *ray, t_global *global, int limit)
 		|| ray->map_y >= global->map->map_height + limit);
 }
 
+static void	check_door(t_rat *ray, t_global *global)
+{
+	double	dist;
+
+	if (global->map->map[ray->map_y][ray->map_x] == 'C'
+		|| global->map->map[ray->map_y][ray->map_x] == 'O')
+	{
+		if (ray->side == 0)
+			dist = (ray->side_dist_x - ray->delta_dist_x);
+		else
+			dist = (ray->side_dist_y - ray->delta_dist_y);
+		if (dist <= 2)
+		{
+			ray->door_hit_location[0] = ray->map_x;
+			ray->door_hit_location[1] = ray->map_y;
+			ray->door_hit = 1;
+		}
+	}
+}
+
 void	perform_dda(t_rat *ray, t_global *global)
 {
 	while (ray->hit == 0)
@@ -84,20 +104,6 @@ void	perform_dda(t_rat *ray, t_global *global)
 		if (global->map->map[ray->map_y][ray->map_x] == '1'
 			|| global->map->map[ray->map_y][ray->map_x] == 'C')
 			ray->hit = 1;
-		if (global->map->map[ray->map_y][ray->map_x] == 'C'
-			|| global->map->map[ray->map_y][ray->map_x] == 'O')
-		{
-			double	dist;
-			if (ray->side == 0)
-				dist = (ray->side_dist_x - ray->delta_dist_x);
-			else
-				dist = (ray->side_dist_y - ray->delta_dist_y);
-			if (dist <= 2)
-			{
-				ray->door_hit_location[0] = ray->map_x;
-				ray->door_hit_location[1] = ray->map_y;
-				ray->door_hit = 1;
-			}
-		}
+		check_door(ray, global);
 	}
 }
