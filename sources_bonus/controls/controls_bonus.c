@@ -61,7 +61,6 @@ int	key_press(int keysym, t_global *global)
 
 int	mouse_moove(int x, int y, t_global *global)
 {
-	static int	old_x;
 	float		diff_x;
 
 	(void)y;
@@ -75,7 +74,6 @@ int	mouse_moove(int x, int y, t_global *global)
 			rotate_antitrigo(global->player, diff_x);
 		mlx_mouse_move(global->data->mlx, global->data->win,
 			WIDTH / 2, HEIGHT / 2);
-		old_x = x;
 	}
 	return (0);
 }

@@ -92,10 +92,8 @@ int	draw_view(t_mlx_data *data, t_global *global)
 	t_rat		ray;
 	t_stripe	stripe;
 	int			x;
-	int			foi;
 
 	reset_interactive_cell(global);
-	foi = 15;
 	x = 0;
 	while (x < WIDTH)
 	{
