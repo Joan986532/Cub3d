@@ -11,6 +11,8 @@ void	init_ray(t_rat *ray, int x, t_global *global)
 	ray->map_x = (int)player->pos.x;
 	ray->map_y = (int)player->pos.y;
 	ray->door_hit = 0;
+	ray->door_hit_location[0] = 0;
+	ray->door_hit_location[1] = 0;
 	if (ray->ray_dir_x != 0)
 		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 	else

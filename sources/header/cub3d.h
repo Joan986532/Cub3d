@@ -27,7 +27,7 @@
 # define HEIGHT	1080
 
 # ifndef BUFFER_SIZE
-# 	define BUFFER_SIZE 10
+#  define BUFFER_SIZE 10
 # endif
 
 typedef struct s_global	t_global;
