@@ -16,6 +16,7 @@ int	verify_struct(t_datamap *map)
 	if (is_valid_map(map->map) == -1)
 	{
 		clear_textures(map);
+		free_arr(map->map);
 		return (parsing_error(SYNTAX, map));
 	}
 	return (0);
