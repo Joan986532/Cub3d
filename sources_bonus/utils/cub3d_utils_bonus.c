@@ -54,6 +54,8 @@ void	clear_textures(t_datamap *map)
 		free(map->east_t);
 	if (map->west_t)
 		free(map->west_t);
+	if (map->gun)
+		free(map->gun);
 }
 
 void	set_new_player_position(t_datamap *map, float *x, float *y, float step)
