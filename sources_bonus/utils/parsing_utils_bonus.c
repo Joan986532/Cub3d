@@ -5,6 +5,7 @@ int	verify_struct_bonus(t_datamap *map)
 	if (map->ceiling == -1 || map->floor == -1)
 	{
 		clear_textures(map);
+		free_arr(map->map);
 		return (parsing_error(WRONGCOLOR, map));
 	}
 	if (map->north_t == NULL || map->south_t == NULL
@@ -12,6 +13,7 @@ int	verify_struct_bonus(t_datamap *map)
 		|| map->gun == NULL)
 	{
 		clear_textures(map);
+		free_arr(map->map);
 		return (parsing_error(WRONGTEXTURE, map));
 	}
 	if (is_valid_map(map->map) == -1)
