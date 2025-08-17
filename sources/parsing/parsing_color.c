@@ -84,6 +84,7 @@ int	iscolor(char *str, t_datamap *map)
 	if (iscolor_valid(&str[i], map) == -1)
 		return (-1);
 	nb = rgb_to_color(r, g, b);
-	choose_color_surface(nb, str[0], map);
+	if (choose_color_surface(nb, str[0], map) == -1)
+		return (-1);
 	return (0);
 }
