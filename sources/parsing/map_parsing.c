@@ -14,10 +14,14 @@ t_list	*get_linked_map(int fd, char *str)
 	{
 		str = get_next_line_no_nl(fd);
 		if (!str || str[0] == '\0' || str[0] == '\n')
+		{
+			free(str);
 			break ;
+		}
 		new = ft_lstnew(str);
 		if (!new)
 		{
+			free(str);
 			ft_lstclear(&root, free);
 			return (NULL);
 		}
