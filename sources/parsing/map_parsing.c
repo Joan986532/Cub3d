@@ -76,13 +76,13 @@ int	parse_map(char *str, t_datamap *map, int fd)
 	t_list	*linked_map;
 	int		i;
 
+	if (map->map)
+		return (parsing_error(SYNTAX, map));
 	str = ft_strdup(str);
 	i = 0;
 	while (str[i] != '\n' && str[i] != '\0')
 		i++;
 	str[i] = '\0';
-	if (map->map)
-		return (parsing_error(SYNTAX, map));
 	linked_map = get_linked_map(fd, str);
 	if (!linked_map)
 		return (-1);
