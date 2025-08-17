@@ -1,5 +1,14 @@
 #include "cub3d_bonus.h"
 
+int	check_new(t_list *new, char *str, t_list *root)
+{
+	if (new)
+		return (0);
+	free(str);
+	ft_lstclear(&root, free);
+	return (-1);
+}
+
 t_list	*get_linked_map(int fd, char *str)
 {
 	t_list	*root;
@@ -14,13 +23,13 @@ t_list	*get_linked_map(int fd, char *str)
 	{
 		str = get_next_line_no_nl(fd);
 		if (!str || str[0] == '\0' || str[0] == '\n')
-			break ;
-		new = ft_lstnew(str);
-		if (!new)
 		{
-			ft_lstclear(&root, free);
-			return (NULL);
+			free(str);
+			break ;
 		}
+		new = ft_lstnew(str);
+		if (check_new(new, str, root) != 0)
+			return (NULL);
 		ft_lstadd_back(&current, new);
 		current = new;
 	}
@@ -76,13 +85,13 @@ int	parse_map(char *str, t_datamap *map, int fd)
 	t_list	*linked_map;
 	int		i;
 
+	if (map->map)
+		return (parsing_error(SYNTAX, map));
 	str = ft_strdup(str);
 	i = 0;
 	while (str[i] != '\n' && str[i] != '\0')
 		i++;
 	str[i] = '\0';
-	if (map->map)
-		return (parsing_error(SYNTAX, map));
 	linked_map = get_linked_map(fd, str);
 	if (!linked_map)
 		return (-1);
