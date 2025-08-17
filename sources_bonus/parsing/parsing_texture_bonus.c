@@ -20,6 +20,8 @@ int	is_texture_ok(char c1, char c2, char *str, t_datamap *map)
 		if (!map->gun)
 			return (parsing_error(MALLOC, map));
 	}
+	else
+		return (parsing_error(TEXTURE, map));
 	return (0);
 }
 
