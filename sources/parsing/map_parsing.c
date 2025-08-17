@@ -1,5 +1,14 @@
 #include "cub3d.h"
 
+int	check_new(t_list *new, char *str, t_list *root)
+{
+	if (new)
+		return (0);
+	free(str);
+	ft_lstclear(&root, free);
+	return (-1);
+}
+
 t_list	*get_linked_map(int fd, char *str)
 {
 	t_list	*root;
@@ -19,12 +28,8 @@ t_list	*get_linked_map(int fd, char *str)
 			break ;
 		}
 		new = ft_lstnew(str);
-		if (!new)
-		{
-			free(str);
-			ft_lstclear(&root, free);
+		if (check_new(new, str, root) != 0)
 			return (NULL);
-		}
 		ft_lstadd_back(&current, new);
 		current = new;
 	}
