@@ -8,8 +8,8 @@ void	init_ray(t_rat *ray, int x, t_global *global)
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
 	ray->ray_dir_x = player->fwd.x + player->plane.x * ray->camera_x;
 	ray->ray_dir_y = player->fwd.y + player->plane.y * ray->camera_x;
-	ray->map_x = (int)player->pos.x;
-	ray->map_y = (int)player->pos.y;
+	ray->map_x = floor(player->pos.x);
+	ray->map_y = floor(player->pos.y);
 	if (ray->ray_dir_x != 0)
 		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 	else
@@ -73,7 +73,8 @@ void	perform_dda(t_rat *ray, t_global *global)
 			ray->side_dist_y += ray->delta_dist_y;
 			ray->map_y += ray->step_y;
 		}
-		if (is_out_of_map_bound(ray, global, 100))
+		if ((ray->side == 0 && ray->side_dist_x - ray->delta_dist_x >= 100)
+			|| (ray->side == 1 && ray->side_dist_y - ray->delta_dist_y >= 100))
 		{
 			ray->hit = 1;
 			break ;
