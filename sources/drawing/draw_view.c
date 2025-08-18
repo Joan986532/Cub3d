@@ -47,7 +47,7 @@ static void	draw_textured_stripe(t_stripe stripe, t_mlx_data *data,
 
 	calculate_texture_params(&stripe, &tex_pos, &step);
 	y = 0;
-	while (++y < HEIGHT)
+	while (y < HEIGHT)
 	{
 		if (y < stripe.y0)
 		{
