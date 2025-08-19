@@ -15,9 +15,6 @@ int		free_levels(int level, t_global *global)
 		if (global->data->mlx)
 			mlx_destroy_display(global->data->mlx);
 		free(global->data->mlx);
-	}
-	if (level >= 1)
-	{
 		clear_textures(global->map);
 		free_arr(global->map->map);
 	}

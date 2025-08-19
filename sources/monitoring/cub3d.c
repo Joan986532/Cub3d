@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 
 	init_struct(&map, &global, &player, &data);
 	if (parsing(argv, argc, &map) == -1)
-		return (free_levels(1, &global));
+		return (1);
 	if (init_mlx(&data))
 		return (free_levels(2, &global));
 	if (init_image(&data.view, data.mlx) == -1)

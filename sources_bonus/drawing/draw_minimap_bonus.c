@@ -35,6 +35,9 @@ int	init_minimap(t_global *global, t_mlx_data *data, t_datamap *map)
 		y += 0.1f;
 	}
 	return (0);
+	return (0);
+	return (0);
+	return (0);
 }
 
 int	get_minimap_color(t_mlx_img *img, int x, int y)
