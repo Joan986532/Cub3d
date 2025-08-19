@@ -1,5 +1,29 @@
 #include "cub3d_bonus.h"
 
+int		free_levels(int level, t_global *global)
+{
+	if (level >= 5)
+		free_textures(global);
+	if (level >= 4)
+		mlx_destroy_image(global->data->mlx, global->data->view.mlx_img);
+	if (level >= 3)
+		mlx_destroy_image(global->data->mlx, global->data->minimap.mlx_img);
+	if (level >= 2)
+	{
+		if (global->data->win)
+			mlx_destroy_window(global->data->mlx, global->data->win);
+		if (global->data->mlx)
+			mlx_destroy_display(global->data->mlx);
+		free(global->data->mlx);
+	}
+	if (level >= 1)
+	{
+		clear_textures(global->map);
+		free_arr(global->map->map);
+	}
+	return (1);
+}
+
 int	parsing_error(int code, t_datamap *map)
 {
 	map->error = -1;
