@@ -57,6 +57,7 @@ int	parser_line(int fd, t_datamap *map)
 	if (map->error == -1)
 	{
 		clear_textures(map);
+		free_arr(map->map);
 		return (-1);
 	}
 	return (0);

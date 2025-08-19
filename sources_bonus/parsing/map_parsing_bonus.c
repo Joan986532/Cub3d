@@ -22,7 +22,7 @@ t_list	*get_linked_map(int fd, char *str)
 	while (1)
 	{
 		str = get_next_line_no_nl(fd);
-		if (!str || str[0] == '\0' || str[0] == '\n')
+		if (!str)
 		{
 			free(str);
 			break ;
