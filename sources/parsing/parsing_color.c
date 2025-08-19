@@ -53,6 +53,8 @@ int	iscolor_valid(char *str, t_datamap *map)
 	i = 0;
 	if (map->error == -1)
 		return (-1);
+	if (!ft_isdigit(str[i - 1]))
+		return (parsing_error(SYNTAX, map));
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	if (str[i] != '\n' && str[i] != '\0')
