@@ -29,6 +29,30 @@ static int	init_txt(t_texture *texture, void *mlx, char *path)
 	return (0);
 }
 
+void	set_texture_null(t_global *global)
+{
+	if (global->north_texture)
+	{
+		global->north_texture->img = NULL;
+		global->north_texture->addr = NULL;
+	}
+	if (global->south_texture)
+	{
+		global->south_texture->img = NULL;
+		global->south_texture->addr = NULL;
+	}
+	if (global->east_texture)
+	{
+		global->east_texture->img = NULL;
+		global->east_texture->addr = NULL;
+	}
+	if (global->west_texture)
+	{
+		global->west_texture->img = NULL;
+		global->west_texture->addr = NULL;
+	}
+}
+
 int	load_textures(t_global *global)
 {
 	char	*n_path;
@@ -44,6 +68,7 @@ int	load_textures(t_global *global)
 	global->south_texture = malloc(sizeof(t_texture));
 	global->east_texture = malloc(sizeof(t_texture));
 	global->west_texture = malloc(sizeof(t_texture));
+	set_texture_null(global);
 	if (!global->north_texture || !global->south_texture
 		|| !global->east_texture || !global->west_texture)
 		return (-1);

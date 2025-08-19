@@ -5,7 +5,8 @@ int	free_levels(int level, t_global *global)
 	if (level >= 4)
 		free_textures(global);
 	if (level >= 3)
-		mlx_destroy_image(global->data->mlx, global->data->view.mlx_img);
+		if (global->data->view.mlx_img)
+			mlx_destroy_image(global->data->mlx, global->data->view.mlx_img);
 	if (level >= 2)
 	{
 		if (global->data->win)

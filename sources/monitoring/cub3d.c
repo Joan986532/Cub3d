@@ -9,10 +9,7 @@ int	init_mlx(t_mlx_data *data)
 		return (1);
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (data->win == NULL)
-	{
-		free(data->mlx);
 		return (1);
-	}
 	return (0);
 }
 
