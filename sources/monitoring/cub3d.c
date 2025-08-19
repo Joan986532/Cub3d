@@ -2,6 +2,8 @@
 
 int	init_mlx(t_mlx_data *data)
 {
+	data->mlx = NULL;
+	data->win = NULL;
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		return (1);
@@ -69,16 +71,13 @@ int	main(int argc, char **argv)
 
 	init_struct(&map, &global, &player, &data);
 	if (parsing(argv, argc, &map) == -1)
-		return (1);
+		return (free_levels(1, &global));
 	if (init_mlx(&data))
-		return (1);
+		return (free_levels(2, &global));
 	if (init_image(&data.view, data.mlx) == -1)
-		return (1);
+		return (free_levels(3, &global));
 	if (load_textures(&global) == -1)
-	{
-		free_textures(&global);
-		return (1);
-	}
+		return (free_levels(4, &global));
 	setup_hooks(data.win, data.mlx, &global);
 	mlx_loop(global.data->mlx);
 	free_textures(&global);

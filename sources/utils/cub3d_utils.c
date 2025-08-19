@@ -1,5 +1,27 @@
 #include "cub3d.h"
 
+int		free_levels(int level, t_global *global)
+{
+	if (level >= 4)
+		free_textures(global);
+	if (level >= 3)
+		mlx_destroy_image(global->data->mlx, global->data->view.mlx_img);
+	if (level >= 2)
+	{
+		if (global->data->win)
+			mlx_destroy_window(global->data->mlx, global->data->win);
+		if (global->data->mlx)
+			mlx_destroy_display(global->data->mlx);
+		free(global->data->mlx);
+	}
+	if (level >= 1)
+	{
+		clear_textures(global->map);
+		free_arr(global->map->map);
+	}
+	return (1);
+}
+
 void	clear_gnl(char *str, int fd)
 {
 	while (str)

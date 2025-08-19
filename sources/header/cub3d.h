@@ -238,6 +238,7 @@ void	set_stripe(t_stripe *stripe, t_rat *ray, int x);
 /*	ERROR	*/
 int		parsing_error(int code, t_datamap *map);
 int		img_error(int code, t_mlx_img *img);
+int		free_levels(int level, t_global *global);
 
 /*	MINIMAP	*/
 int		drawing(t_global *global);
