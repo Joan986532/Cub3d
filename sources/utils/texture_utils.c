@@ -46,17 +46,10 @@ int	load_textures(t_global *global)
 	s_path = global->map->south_t;
 	e_path = global->map->east_t;
 	w_path = global->map->west_t;
-	// global->north_texture = malloc(sizeof(t_texture));
-	// global->south_texture = malloc(sizeof(t_texture));
-	// global->east_texture = malloc(sizeof(t_texture));
-	// global->west_texture = malloc(sizeof(t_texture));
 	set_texture_null(&global->north_texture);
 	set_texture_null(&global->south_texture);
 	set_texture_null(&global->east_texture);
 	set_texture_null(&global->west_texture);
-	// if (!global->north_texture || !global->south_texture
-		// || !global->east_texture || !global->west_texture)
-		// return (-1);
 	if (init_txt(&global->north_texture, global->data->mlx, n_path)
 		|| init_txt(&global->south_texture, global->data->mlx, s_path)
 		|| init_txt(&global->east_texture, global->data->mlx, e_path)
@@ -67,28 +60,12 @@ int	load_textures(t_global *global)
 
 void	free_textures(t_global *global)
 {
-	// if (global->north_texture)
-	// {
-		if (global->north_texture.img)
-			mlx_destroy_image(global->data->mlx, global->north_texture.img);
-		// free(global->north_texture);
-	// }
-	// if (global->south_texture)
-	// {
-		if (global->south_texture.img)
-			mlx_destroy_image(global->data->mlx, global->south_texture.img);
-		// free(global->south_texture);
-	// }
-	// if (global->east_texture)
-	// {
-		if (global->east_texture.img)
-			mlx_destroy_image(global->data->mlx, global->east_texture.img);
-		// free(global->east_texture);
-	// }
-	// if (global->west_texture)
-	// {
-		if (global->west_texture.img)
-			mlx_destroy_image(global->data->mlx, global->west_texture.img);
-		// free(global->west_texture);
-	// }
+	if (global->north_texture.img)
+		mlx_destroy_image(global->data->mlx, global->north_texture.img);
+	if (global->south_texture.img)
+		mlx_destroy_image(global->data->mlx, global->south_texture.img);
+	if (global->east_texture.img)
+		mlx_destroy_image(global->data->mlx, global->east_texture.img);
+	if (global->west_texture.img)
+		mlx_destroy_image(global->data->mlx, global->west_texture.img);
 }

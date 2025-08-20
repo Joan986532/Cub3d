@@ -44,20 +44,12 @@ int	load_textures(t_global *global)
 	paths[2] = global->map->east_t;
 	paths[3] = global->map->west_t;
 	paths[4] = global->map->gun;
-	// global->north_texture = malloc(sizeof(t_texture));
-	// global->south_texture = malloc(sizeof(t_texture));
-	// global->east_texture = malloc(sizeof(t_texture));
-	// global->west_texture = malloc(sizeof(t_texture));
-	// global->door_texture = malloc(sizeof(t_texture));
-	// global->pov_gun = malloc(sizeof(t_texture));
 	set_texture_null(&global->north_texture);
 	set_texture_null(&global->south_texture);
 	set_texture_null(&global->east_texture);
 	set_texture_null(&global->west_texture);
 	set_texture_null(&global->door_texture);
 	set_texture_null(&global->pov_gun);
-	// if (!global->north_texture ||!global->south_texture ||!global->east_texture
-		// || !global->west_texture ||!global->pov_gun)
 	if (init_txt(&global->north_texture, global->data->mlx, paths[0])
 		|| init_txt(&global->south_texture, global->data->mlx, paths[1])
 		|| init_txt(&global->east_texture, global->data->mlx, paths[2])
@@ -70,11 +62,8 @@ int	load_textures(t_global *global)
 
 void	check_and_clean_texture(t_texture *texture, void *mlx)
 {
-	// if (!texture)
-		// return ;
 	if (texture->img)
 		mlx_destroy_image(mlx, texture->img);
-	// free(texture);
 }
 
 void	free_textures(t_global *global)
