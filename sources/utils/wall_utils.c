@@ -23,17 +23,17 @@ static void	set_texture_for_hit(t_rat *ray, t_global *global,
 	if (is_horizontal)
 	{
 		if (ray->step_x > 0)
-			ray->texture = global->east_texture;
+			ray->texture = &global->east_texture;
 		else
-			ray->texture = global->west_texture;
+			ray->texture = &global->west_texture;
 		*wall_x = global->player->pos.y + ray->perp_wall_dist * ray->ray_dir_y;
 	}
 	else
 	{
 		if (ray->step_y > 0)
-			ray->texture = global->south_texture;
+			ray->texture = &global->south_texture;
 		else
-			ray->texture = global->north_texture;
+			ray->texture = &global->north_texture;
 		*wall_x = global->player->pos.x + ray->perp_wall_dist * ray->ray_dir_x;
 	}
 }

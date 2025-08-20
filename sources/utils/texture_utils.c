@@ -29,28 +29,10 @@ static int	init_txt(t_texture *texture, void *mlx, char *path)
 	return (0);
 }
 
-void	set_texture_null(t_global *global)
+void	set_texture_null(t_texture *texture)
 {
-	if (global->north_texture)
-	{
-		global->north_texture->img = NULL;
-		global->north_texture->addr = NULL;
-	}
-	if (global->south_texture)
-	{
-		global->south_texture->img = NULL;
-		global->south_texture->addr = NULL;
-	}
-	if (global->east_texture)
-	{
-		global->east_texture->img = NULL;
-		global->east_texture->addr = NULL;
-	}
-	if (global->west_texture)
-	{
-		global->west_texture->img = NULL;
-		global->west_texture->addr = NULL;
-	}
+	texture->img = NULL;
+	texture->addr = NULL;
 }
 
 int	load_textures(t_global *global)
@@ -64,46 +46,49 @@ int	load_textures(t_global *global)
 	s_path = global->map->south_t;
 	e_path = global->map->east_t;
 	w_path = global->map->west_t;
-	global->north_texture = malloc(sizeof(t_texture));
-	global->south_texture = malloc(sizeof(t_texture));
-	global->east_texture = malloc(sizeof(t_texture));
-	global->west_texture = malloc(sizeof(t_texture));
-	set_texture_null(global);
-	if (!global->north_texture || !global->south_texture
-		|| !global->east_texture || !global->west_texture)
-		return (-1);
-	if (init_txt(global->north_texture, global->data->mlx, n_path)
-		|| init_txt(global->south_texture, global->data->mlx, s_path)
-		|| init_txt(global->east_texture, global->data->mlx, e_path)
-		|| init_txt(global->west_texture, global->data->mlx, w_path))
+	// global->north_texture = malloc(sizeof(t_texture));
+	// global->south_texture = malloc(sizeof(t_texture));
+	// global->east_texture = malloc(sizeof(t_texture));
+	// global->west_texture = malloc(sizeof(t_texture));
+	set_texture_null(&global->north_texture);
+	set_texture_null(&global->south_texture);
+	set_texture_null(&global->east_texture);
+	set_texture_null(&global->west_texture);
+	// if (!global->north_texture || !global->south_texture
+		// || !global->east_texture || !global->west_texture)
+		// return (-1);
+	if (init_txt(&global->north_texture, global->data->mlx, n_path)
+		|| init_txt(&global->south_texture, global->data->mlx, s_path)
+		|| init_txt(&global->east_texture, global->data->mlx, e_path)
+		|| init_txt(&global->west_texture, global->data->mlx, w_path))
 		return (-1);
 	return (0);
 }
 
 void	free_textures(t_global *global)
 {
-	if (global->north_texture)
-	{
-		if (global->north_texture->img)
-			mlx_destroy_image(global->data->mlx, global->north_texture->img);
-		free(global->north_texture);
-	}
-	if (global->south_texture)
-	{
-		if (global->south_texture->img)
-			mlx_destroy_image(global->data->mlx, global->south_texture->img);
-		free(global->south_texture);
-	}
-	if (global->east_texture)
-	{
-		if (global->east_texture->img)
-			mlx_destroy_image(global->data->mlx, global->east_texture->img);
-		free(global->east_texture);
-	}
-	if (global->west_texture)
-	{
-		if (global->west_texture->img)
-			mlx_destroy_image(global->data->mlx, global->west_texture->img);
-		free(global->west_texture);
-	}
+	// if (global->north_texture)
+	// {
+		if (global->north_texture.img)
+			mlx_destroy_image(global->data->mlx, global->north_texture.img);
+		// free(global->north_texture);
+	// }
+	// if (global->south_texture)
+	// {
+		if (global->south_texture.img)
+			mlx_destroy_image(global->data->mlx, global->south_texture.img);
+		// free(global->south_texture);
+	// }
+	// if (global->east_texture)
+	// {
+		if (global->east_texture.img)
+			mlx_destroy_image(global->data->mlx, global->east_texture.img);
+		// free(global->east_texture);
+	// }
+	// if (global->west_texture)
+	// {
+		if (global->west_texture.img)
+			mlx_destroy_image(global->data->mlx, global->west_texture.img);
+		// free(global->west_texture);
+	// }
 }

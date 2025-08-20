@@ -202,12 +202,12 @@ typedef struct s_global
 	t_player		*player;
 	t_datamap		*map;
 	t_mlx_data		*data;
-	t_texture		*north_texture;
-	t_texture		*south_texture;
-	t_texture		*east_texture;
-	t_texture		*west_texture;
-	t_texture		*door_texture;
-	t_texture		*pov_gun;
+	t_texture		north_texture;
+	t_texture		south_texture;
+	t_texture		east_texture;
+	t_texture		west_texture;
+	t_texture		door_texture;
+	t_texture		pov_gun;
 	unsigned long	timeofday;
 }		t_global;
 

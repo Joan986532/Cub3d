@@ -56,7 +56,7 @@ int	draw_shooting_gun(t_player *player, t_mlx_data *data, t_global *global)
 		y = 0;
 		while (y < 128)
 		{
-			color = get_texture_color(global->pov_gun, x + player->shoot, y);
+			color = get_texture_color(&global->pov_gun, x + player->shoot, y);
 			if (color >= 0)
 				my_pixel_put(&data->view, 1100 + (int)(x * 4),
 					HEIGHT - 575 + (int)(y * 4), color);
@@ -81,7 +81,7 @@ void	draw_idle(t_player *player, t_mlx_data *data, t_global *global)
 		y = 0;
 		while (y < 128)
 		{
-			color = get_texture_color(global->pov_gun, x, y);
+			color = get_texture_color(&global->pov_gun, x, y);
 			if (color >= 0)
 				my_pixel_put(&data->view, 1100 + (int)(x * 4),
 					HEIGHT - 575 + (int)(y * 4) - player->shoot, color);
