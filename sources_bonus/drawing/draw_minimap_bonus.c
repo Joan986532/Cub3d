@@ -6,6 +6,8 @@ void	fill_minimap(char **map, t_mlx_data *data, double x, double y)
 		my_pixel_put(&data->minimap, x * 10, y * 10, 0xFFFFFF);
 	else if (map[(int)y][(int)x] == '1')
 		my_pixel_put(&data->minimap, x * 10, y * 10, 0x000000);
+	else if (map[(int)y][(int)x] == 'C' || map[(int)y][(int)x] == 'O')
+		my_pixel_put(&data->minimap, x * 10, y * 10, 0x00FF00);
 	else
 		my_pixel_put(&data->minimap, x * 10, y * 10, 0x0F0F0F);
 }
