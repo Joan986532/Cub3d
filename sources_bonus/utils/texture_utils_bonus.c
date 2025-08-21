@@ -60,18 +60,18 @@ int	load_textures(t_global *global)
 	return (0);
 }
 
-void	check_and_clean_texture(t_texture *texture, void *mlx)
-{
-	if (texture->img)
-		mlx_destroy_image(mlx, texture->img);
-}
-
 void	free_textures(t_global *global)
 {
-	check_and_clean_texture(&global->north_texture, global->data->mlx);
-	check_and_clean_texture(&global->south_texture, global->data->mlx);
-	check_and_clean_texture(&global->east_texture, global->data->mlx);
-	check_and_clean_texture(&global->west_texture, global->data->mlx);
-	check_and_clean_texture(&global->door_texture, global->data->mlx);
-	check_and_clean_texture(&global->pov_gun, global->data->mlx);
+	if (global->north_texture.img)
+		mlx_destroy_image(global->data->mlx, global->north_texture.img);
+	if (global->south_texture.img)
+		mlx_destroy_image(global->data->mlx, global->south_texture.img);
+	if (global->east_texture.img)
+		mlx_destroy_image(global->data->mlx, global->east_texture.img);
+	if (global->west_texture.img)
+		mlx_destroy_image(global->data->mlx, global->west_texture.img);
+	if (global->door_texture.img)
+		mlx_destroy_image(global->data->mlx, global->door_texture.img);
+	if (global->pov_gun.img)
+		mlx_destroy_image(global->data->mlx, global->pov_gun.img);
 }

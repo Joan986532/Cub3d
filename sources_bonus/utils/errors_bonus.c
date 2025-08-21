@@ -1,6 +1,6 @@
 #include "cub3d_bonus.h"
 
-int		free_levels(int level, t_global *global)
+int	free_levels(int level, t_global *global)
 {
 	if (level >= 5)
 		free_textures(global);
