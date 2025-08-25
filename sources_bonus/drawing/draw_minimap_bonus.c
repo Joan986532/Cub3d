@@ -12,69 +12,27 @@
 
 #include "cub3d_bonus.h"
 
-void	fill_minimap(char **map, t_mlx_data *data, double x, double y)
+void	fill_minimap(char c, t_mlx_data *data, double x, double y)
 {
-	if (map[(int)y][(int)x] == '0')
-		my_pixel_put(&data->minimap, x * 10, y * 10, 0xFFFFFF);
-	else if (map[(int)y][(int)x] == '1')
-		my_pixel_put(&data->minimap, x * 10, y * 10, 0x000000);
-	else if (map[(int)y][(int)x] == 'C' || map[(int)y][(int)x] == 'O')
-		my_pixel_put(&data->minimap, x * 10, y * 10, 0x00FF00);
+	if (c == '0')
+		my_pixel_put(&data->view, x, y, 0xFFFFFF);
+	else if (c == '1')
+		my_pixel_put(&data->view, x, y, 0x000000);
+	else if (c == 'C' || c == 'O')
+		my_pixel_put(&data->view, x, y, 0x00FF00);
 	else
-		my_pixel_put(&data->minimap, x * 10, y * 10, 0x0F0F0F);
-}
-
-int	init_minimap(t_global *global, t_mlx_data *data, t_datamap *map)
-{
-	double	x;
-	double	y;
-	int		size;
-
-	y = 0;
-	size = ft_strlen(map->map[(int)y]);
-	if (init_image(&data->minimap, data->mlx,
-			map->map_width * 10, map->map_height * 10) == -1)
-	{
-		free_textures(global);
-		clear_textures(map);
-		return (1);
-	}
-	while (map->map[(int)y])
-	{
-		x = 0;
-		while (x < size)
-		{
-			fill_minimap(map->map, data, x, y);
-			x += 0.1f;
-		}
-		y += 0.1f;
-	}
-	return (0);
-}
-
-int	get_minimap_color(t_mlx_img *img, int x, int y)
-{
-	char	*dst;
-	int		color;
-
-	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	color = *(unsigned int *)dst;
-	return (color);
+		my_pixel_put(&data->view, x, y, 0x0F0F0F);
 }
 
 void	get_tile(t_vector2D p, t_vector2D c, t_datamap *map, t_mlx_data *data)
 {
 	double	x;
 	double	y;
-	int		color;
 
 	x = p.x / 10 + c.x;
 	y = p.y / 10 + c.y;
 	if (x >= 0 && x < map->map_width && y >= 0 && y < map->map_height)
-	{
-		color = get_minimap_color(&data->minimap, x * 10, y * 10);
-		my_pixel_put(&data->view, p.x, p.y, color);
-	}
+		fill_minimap(map->map[(int)y][(int)x], data, p.x, p.y);
 	else
 		my_pixel_put(&data->view, p.x, p.y, map->floor);
 }

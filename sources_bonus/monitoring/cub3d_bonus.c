@@ -16,7 +16,10 @@ int	init_mlx(t_mlx_data *data)
 {
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
+	{
+		data->win = NULL;
 		return (1);
+	}
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "Cub3D");
 	if (data->win == NULL)
 		return (1);
@@ -29,8 +32,6 @@ void	init_player(t_player *player)
 	player->fwd = (t_vector3D){1, 0, 0};
 	player->spawn = (t_vector3D){0, 0, 0};
 	player->spawn_fwd = (t_vector3D){1, 0, 0};
-	player->minimap_width = 100;
-	player->minimap_height = 100;
 	player->max_render_distance = 100;
 	player->bckwd = 0;
 	player->forwd = 0;
@@ -88,8 +89,8 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_mlx(&data))
 		return (free_levels(2, &global));
-	if (init_minimap(&global, &data, &map))
-		return (free_levels(3, &global));
+	// if (init_minimap(&global, &data, &map))
+		// return (free_levels(3, &global));
 	if (init_image(&data.view, data.mlx, WIDTH, HEIGHT) == -1)
 		return (free_levels(4, &global));
 	if (load_textures(&global) == -1)

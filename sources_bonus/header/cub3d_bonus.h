@@ -169,8 +169,6 @@ typedef struct s_player
 	t_vector3D	spawn_fwd;
 	t_vector3D	plane;
 	int			max_render_distance;
-	int			minimap_width;
-	int			minimap_height;
 	float		angle;
 	int			forwd;
 	int			bckwd;
@@ -204,7 +202,6 @@ typedef struct s_mlx_data
 	void		*win;
 	void		*mlx;
 	t_mlx_img	view;
-	t_mlx_img	minimap;
 }			t_mlx_data;
 
 typedef struct s_global
@@ -268,10 +265,6 @@ void			set_stripe(t_stripe *stripe, t_rat *ray, int x);
 int				parsing_error(int code, t_datamap *map);
 int				img_error(int code, t_mlx_img *img);
 int				free_levels(int level, t_global *global);
-
-/*	MINIMAP	*/
-int				init_minimap(t_global *global, t_mlx_data *data,
-					t_datamap *map);
 
 /*	IMAGE	*/
 void			my_pixel_put(t_mlx_img *img, int x, int y, int color);
