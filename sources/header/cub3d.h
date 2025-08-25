@@ -257,7 +257,7 @@ int		drawing(t_global *global);
 
 /*	IMAGE	*/
 void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
-int		init_image(t_mlx_img *img, void *mlx);
+int		init_image(t_mlx_img *img, void *mlx, int x, int y);
 void	bresenham(t_point *point, t_mlx_img *img);
 
 /*	TEXTURE	*/

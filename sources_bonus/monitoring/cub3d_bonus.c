@@ -90,7 +90,7 @@ int	main(int argc, char **argv)
 		return (free_levels(2, &global));
 	if (init_minimap(&global, &data, &map))
 		return (free_levels(3, &global));
-	if (init_image(&data.view, data.mlx) == -1)
+	if (init_image(&data.view, data.mlx, WIDTH, HEIGHT) == -1)
 		return (free_levels(4, &global));
 	if (load_textures(&global) == -1)
 		return (free_levels(5, &global));

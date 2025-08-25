@@ -23,9 +23,9 @@ void	my_pixel_put(t_mlx_img *img, int x, int y, int color)
 	}
 }
 
-int	init_image(t_mlx_img *img, void *mlx)
+int	init_image(t_mlx_img *img, void *mlx, int x, int y)
 {
-	img->mlx_img = mlx_new_image(mlx, 1920, 1080);
+	img->mlx_img = mlx_new_image(mlx, x, y);
 	if (img->mlx_img == NULL)
 	{
 		return (img_error(IMAGE, img));

@@ -32,7 +32,8 @@ int	init_minimap(t_global *global, t_mlx_data *data, t_datamap *map)
 
 	y = 0;
 	size = ft_strlen(map->map[(int)y]);
-	if (init_image(&data->minimap, data->mlx) == -1)
+	if (init_image(&data->minimap, data->mlx,
+			map->map_width * 10, map->map_height * 10) == -1)
 	{
 		free_textures(global);
 		clear_textures(map);

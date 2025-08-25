@@ -83,7 +83,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_mlx(&data))
 		return (free_levels(2, &global));
-	if (init_image(&data.view, data.mlx) == -1)
+	if (init_image(&data.view, data.mlx, WIDTH, HEIGHT) == -1)
 		return (free_levels(3, &global));
 	if (load_textures(&global) == -1)
 		return (free_levels(4, &global));
