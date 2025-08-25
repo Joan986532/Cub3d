@@ -12,9 +12,9 @@
 
 #include "cub3d_bonus.h"
 
-int	check_new(t_list *new, char *str, t_list *root)
+int	check_new(t_list *new, char *str, t_list *root, int i)
 {
-	if (new)
+	if (new && ft_strlen(str) <= 500 && i <= 500)
 		return (0);
 	free(str);
 	ft_lstclear(&root, free);
@@ -26,24 +26,22 @@ t_list	*get_linked_map(int fd, char *str)
 	t_list	*root;
 	t_list	*current;
 	t_list	*new;
+	int		i;
 
 	root = ft_lstnew(str);
-	if (!root)
-		return (NULL);
 	current = root;
-	while (1)
+	i = 1;
+	while (root && 1)
 	{
 		str = get_next_line_no_nl(fd);
 		if (!str)
-		{
-			free(str);
 			break ;
-		}
 		new = ft_lstnew(str);
-		if (check_new(new, str, root) != 0)
+		if (check_new(new, str, root, i) != 0)
 			return (NULL);
 		ft_lstadd_back(&current, new);
 		current = new;
+		++i;
 	}
 	return (root);
 }
