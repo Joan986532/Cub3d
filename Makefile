@@ -66,6 +66,7 @@ INCLUDE = -lm -lXext -lX11
 CFLAGS = -g -Wall -Wextra -Werror -I$(LIBFT_PATH) -I$(MINILIBX_PATH)
 
 NAME = cub3D
+NAME_BONUS = cub3D_bonus
 
 #------------------------------------------------------------------------------#
 
@@ -76,10 +77,12 @@ $(NAME): $(OBJECTS)
 	@make -C $(MINILIBX_PATH)
 	cc -I$(HEAD_DIR) $(CFLAGS) $(OBJECTS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)
 
-bonus: $(OBJECTS_BONUS)
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJECTS_BONUS)
 	@make -C $(LIBFT_PATH)
 	@make -C $(MINILIBX_PATH)
-	cc -I$(HEAD_DIR_BONUS) $(CFLAGS) $(OBJECTS_BONUS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME)_bonus
+	cc -I$(HEAD_DIR_BONUS) $(CFLAGS) $(OBJECTS_BONUS) $(MINILIBX) $(LIBFT) $(INCLUDE) -o $(NAME_BONUS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	mkdir -p $(dir $@)

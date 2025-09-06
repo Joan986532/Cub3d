@@ -38,19 +38,13 @@ int	verify_struct(t_datamap *map)
 
 int	parsing_extension(char *str, t_datamap *map)
 {
-	int		i;
-	char	*tmp;
+	int	length;
 
-	i = 0;
-	while (str[i] && str[i] != '.')
-		i++;
-	if (str[i])
+	length = ft_strlen(str);
+	if (length > 3)
 	{
-		tmp = &str[i];
-		tmp = ft_strnstr(tmp, ".cub", 4);
-		if (!tmp || tmp[4] != '\0')
-			return (parsing_error(EXTENSION, map));
-		else
+		if (str[length - 1] == 'b' && str[length - 2] == 'u'
+			&& str[length - 3] == 'c' && str[length - 4] == '.')
 			return (0);
 	}
 	return (parsing_error(EXTENSION, map));
